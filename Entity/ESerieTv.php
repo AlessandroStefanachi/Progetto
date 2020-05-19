@@ -5,10 +5,10 @@ class ESerieTv
 {
 private String $titolo;
 private String $trama;
-private array $genere;
+private  $genere=array();
 private int $valutazione;
 private String $regista;
-private array $stagioni;
+private $stagioni=array();
 
     /**
      * ESerieTv constructor.
@@ -139,4 +139,5 @@ private array $stagioni;
         $this->valutazione=$media;
 
     }
+
 }

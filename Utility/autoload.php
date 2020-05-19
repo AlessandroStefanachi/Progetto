@@ -15,7 +15,7 @@ function my_autoloader($className) {
         $firstLetter = $className[0];
         switch ($firstLetter) {
             case 'E':
-                include_once( 'Entity/'. $className . '.php' );
+                include_once( __DIR__.'/../Entity/'. $className . '.php' );
                 break;
 
 

@@ -6,7 +6,7 @@ class EWatchlist
     private String $nome;
     private String $descrizione;
     private Bool $pubblico;
-    private array $serie;
+    private  $serie=array();
 
     /**
      * EWatchlist constructor.

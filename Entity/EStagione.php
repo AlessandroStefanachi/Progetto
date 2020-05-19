@@ -3,9 +3,9 @@
 
 class EStagione
 {
-private array $lingue;
-private array $episodi;
-private array $attori;
+private  $lingue=array();
+private $episodi=array();
+private $attori=array();
 private int $valutazione;
 private DateTime $data;
 
@@ -16,7 +16,7 @@ private DateTime $data;
     {
         $this->lingue=$_lingue;
         $this->attori=$_attori;
-        $this->data=DateTime::createFromFormat('d-m-y H:i:s',$_date);
+        $this->data=DateTime::createFromFormat('d-m-Y H:i:s',$_date);
     }
 ///////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////
     /**
@@ -102,7 +102,7 @@ private DateTime $data;
 /////////////////////////////Metodo per aggiungere Episodi////////////////////////////
     public function aggiungiEpisodi(EEpisodio $episodio):void
     {
-        array_push($this->Episodi, $episodio);
+        array_push($this->episodi, $episodio);
 
     }
 //////////////////////////////Metodo per il calcolo della valutazione///////////////////
