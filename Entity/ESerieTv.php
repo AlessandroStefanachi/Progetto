@@ -139,5 +139,21 @@ private $stagioni=array();
         $this->valutazione=$media;
 
     }
+////////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
+    /**
+     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * @return String
+     */
+    private function ArrayToString ($array)
+    {
+        $str = null;
+        if (is_array($array))
+            foreach ($array as $valore) {
+                $str = $str."-".$valore;
+            }
+        else
+            $str = $array;
+        return $str;
+    }
 
 }

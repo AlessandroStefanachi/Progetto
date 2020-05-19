@@ -10,14 +10,12 @@ private  $commenti= array() ;
 private $valutazioni=array();
 private int $valutazione;
 
-public function __construct(String $_titolo,float $_durata, bool $_visto)
-{
-    $this->titolo=$_titolo;
-    $this->durata=$_durata;
-    $this->visto=$_visto;
-
-
-}
+    public function __construct(String $_titolo,float $_durata, bool $_visto)
+    {
+        $this->titolo=$_titolo;
+        $this->durata=$_durata;
+        $this->visto=$_visto;
+    }
 //GETTERS//////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * @return String
@@ -117,30 +115,44 @@ public function __construct(String $_titolo,float $_durata, bool $_visto)
     }
 ///////////////////////////////Metodo check///////////////////////////////////////////////
 ///
-public function check():void
-{
-    $this->visto=true;
-
-}
+    public function check():void
+    {
+        $this->visto=true;
+    }
 /////////////////////////////Metodo per aggiungere valutazioni////////////////////////////
-public function aggiungiValutazione(int $valutazione):void
-{
-    array_push($this->Valutazioni, $valutazione);
-    $this->calcolaValutazione();
-}
+    public function aggiungiValutazione(int $valutazione):void
+    {
+        array_push($this->Valutazioni, $valutazione);
+        $this->calcolaValutazione();
+    }
 ////////////////////////////Metodo per aggiungere Commenti/////////////////////////////////
-public function aggiungiCommento(ECommento $commento):void
-{
+    public function aggiungiCommento(ECommento $commento):void
+    {
         array_push($this->Commenti, $commento);
-}
+    }
 ////////////////////////////Metodo per il calcolo della valutazione media//////////////////
 ///
-private function calcolaValutazione():int
-{
+    private function calcolaValutazione():int
+    {
     ///////////////non va int $media /////////////////////////////////
-    $media=array_sum($this->valutazioni)/array_count($this->valutazioni);
-    $this->valutazione=$media;
+        $media=array_sum($this->valutazioni)/array_count($this->valutazioni);
+        $this->valutazione=$media;
 
-}
-
+    }
+///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
+    /**
+     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * @return String
+     */
+    private function ArrayToString ($array)
+    {
+        $str = null;
+        if (is_array($array))
+            foreach ($array as $valore) {
+                $str = $str."-".$valore;
+            }
+        else
+            $str = $array;
+        return $str;
+    }
 }
