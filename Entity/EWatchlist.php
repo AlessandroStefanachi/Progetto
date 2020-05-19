@@ -112,4 +112,12 @@ class EWatchlist
             $str = $array;
         return $str;
     }
+
+    public function __toString():String
+    {
+        // TODO: Implement __toString() method.
+        $str="Nome: ".$this->getNome()."\n"."Descrizione: ".$this->getDescrizione()."\n"."pubblico".$this->isPubblico()."\n"."Serie TV".$this->ArrayToString($this->getSerie())."\n";
+        return $str;
+
+    }
 }

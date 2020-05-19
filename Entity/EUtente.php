@@ -141,4 +141,13 @@ class EUtente
             $str = $array;
         return $str;
     }
+
+    public function __toString():String
+    {
+        // TODO: Implement __toString() method.
+        $str="username: ".$this->getUserName()."\n"."Password: ".$this->getPassword()."\n"."Email: ".$this->getEmail()."\n"."Watchlist: ".$this->ArrayToString($this->getWatchlist())
+            ."\n"."Serie tv Attese: ".$this->ArrayToString($this->getAttese());
+        return $str;
+
+    }
 }

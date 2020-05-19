@@ -68,7 +68,7 @@ class ECatalogo
      * Stampa tutti gli emelemnti di un array come un unica stringa
      * @return String
      */
-    private function ArrayToString ($array)
+    private function ArrayToString ($array):String
     {
         $str = null;
         if (is_array($array))
@@ -78,5 +78,12 @@ class ECatalogo
         else
             $str = $array;
         return $str;
+    }
+    public function __toString():String
+    {
+        // TODO: Implement __toString() method.
+        $str="Serie Tv: ".$this->ArrayToString($this->getSerieTv())."\n"."Prossime uscite: ".$this->ArrayToString($this->getProssimeUscite())."\n";
+        return $str;
+
     }
 }
