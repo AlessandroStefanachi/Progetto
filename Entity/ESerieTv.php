@@ -156,4 +156,10 @@ private $stagioni=array();
         return $str;
     }
 
+    private function __toString(): String
+    {
+        $str="Titolo: ".$this->getTitolo()."\n"."Trama: ".$this->getTrama()."\n"."Genere: ".$this->ArrayToString($this->getGenere())."\n"."Valutazione: ".$this->getValutazione()."\n"."Regista: ".$this->getRegista()."\n"."Stagioni: ".$this->ArrayToString($this->getStagioni())."\n";
+        return $str;
+    }
+
 }

@@ -3,7 +3,7 @@
 
 class EStagione
 {
-    private  $lingue=array();
+    private $lingue=array();
     private $episodi=array();
     private $attori=array();
     private int $valutazione;
@@ -99,14 +99,15 @@ class EStagione
         $this->data = $data;
     }
 
-/////////////////////////////Metodo per aggiungere Episodi////////////////////////////
+/////////////////////////////METODO PER AGGIUNGERE EPISODI////////////////////////////
+
     public function aggiungiEpisodi(EEpisodio $episodio):void
     {
         array_push($this->episodi, $episodio);
 
     }
-//////////////////////////////Metodo per il calcolo della valutazione///////////////////
-///
+//////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE///////////////////
+
     private function calcolaValutazione():int
     {
         ///////////////non va int $media /////////////////////////////////
@@ -128,6 +129,12 @@ class EStagione
             }
         else
             $str = $array;
+        return $str;
+    }
+
+    private function __toString(): String
+    {
+        $str="Lingue Disponibili: ".$this->ArrayToString($this->getLingue())."\n"."Episodi: ".$this->ArrayToString($this->getEpisodi())."\n"."Attori: ".$this->ArrayToString($this->getAttori())."\n"."Valutazione: ".$this->getValutazione()."\n"."Data Disponibilità: ".$this->getData()."\n";
         return $str;
     }
 }
