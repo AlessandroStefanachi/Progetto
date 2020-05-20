@@ -40,11 +40,14 @@ class EWatchlist
     }
 
     /**
-     * @return bool
+     * @return String
      */
-    public function isPubblico()
+    public function isPubblico(): String
     {
-        return $this->pubblico;
+        if($this->pubblico)
+            return "SI";
+        else
+            return "NO";
     }
 
     /**
@@ -98,7 +101,7 @@ class EWatchlist
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
-     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * Stampa tutti gli elementi di un array come un unica stringa
      * @return String
      */
     private function ArrayToString ($array)
@@ -116,7 +119,7 @@ class EWatchlist
     public function __toString():String
     {
         // TODO: Implement __toString() method.
-        $str="Nome: ".$this->getNome()."\n"."Descrizione: ".$this->getDescrizione()."\n"."pubblico".$this->isPubblico()."\n"."Serie TV".$this->ArrayToString($this->getSerie())."\n";
+        $str="Nome: ".$this->getNome()."\n"."Descrizione: ".$this->getDescrizione()."\n"."pubblico: ".$this->isPubblico()."\n"."Serie TV: ".$this->ArrayToString($this->getSerie())."\n";
         return $str;
 
     }

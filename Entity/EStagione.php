@@ -6,8 +6,9 @@ class EStagione
     private $lingue=array();
     private $episodi=array();
     private $attori=array();
-    private int $valutazione;
+    private int $valutazione=0;
     private DateTime $data;
+    private int $numero=0;
 
     /**
      * EStagione constructor.
@@ -16,7 +17,7 @@ class EStagione
     {
         $this->lingue=$_lingue;
         $this->attori=$_attori;
-        $this->data=DateTime::createFromFormat('d-m-Y H:i:s',$_date);
+        $this->data=DateTime::createFromFormat('d-m-Y',$_date);
     }
 ///////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////
     /**
@@ -47,7 +48,7 @@ class EStagione
      * @return int
      */
     public function getValutazione(): int
-    {
+    {   $this->calcolaValutazione();
         return $this->valutazione;
     }
 
@@ -58,6 +59,15 @@ class EStagione
     {
         return $this->data;
     }
+
+    /**
+     * @return int
+     */
+    public function getNumero(): int
+    {
+        return $this->numero;
+    }
+
 //////////////////////////////////////////////////////////////////////////////////////////////SETTERS////////////////////////////////////////////////////////////////////////////////////
     /**
      * @param array $lingue
@@ -99,32 +109,46 @@ class EStagione
         $this->data = $data;
     }
 
+    /**
+     * @param int $numero
+     */
+    public function setNumero(int $numero): void
+    {
+        $this->numero = $numero;
+    }
+
 /////////////////////////////METODO PER AGGIUNGERE EPISODI////////////////////////////
 
     public function aggiungiEpisodi(EEpisodio $episodio):void
     {
         array_push($this->episodi, $episodio);
 
+
     }
 //////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE///////////////////
 
-    private function calcolaValutazione():int
+    private function calcolaValutazione():void
     {
+        $media=0;
         ///////////////non va int $media /////////////////////////////////
-        $media=array_sum($this->episodi->valutazione)/array_count($this->episodi);
-        $this->valutazione=$media;
-
+        if(count($this->episodi)>0){
+        foreach ($this->getEpisodi() as $value)
+        {
+            $media=$media+$value->getValutazione();
+        }
+        $this->valutazione=$media/count($this->episodi);}
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
-     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * Stampa tutti gli elementi di un array come un unica stringa
      * @return String
      */
     private function ArrayToString ($array)
     {
         $str = null;
         if (is_array($array))
-            foreach ($array as $valore) {
+            foreach ($array as $valore)
+            {
                 $str = $str."-".$valore;
             }
         else
@@ -132,9 +156,9 @@ class EStagione
         return $str;
     }
 
-    private function __toString(): String
+    public function __toString(): String
     {
-        $str="Lingue Disponibili: ".$this->ArrayToString($this->getLingue())."\n"."Episodi: ".$this->ArrayToString($this->getEpisodi())."\n"."Attori: ".$this->ArrayToString($this->getAttori())."\n"."Valutazione: ".$this->getValutazione()."\n"."Data Disponibilità: ".$this->getData()."\n";
+        $str="Numero: ".$this->getNumero()."\n"."Lingue Disponibili: ".$this->ArrayToString($this->getLingue())."\n"."Episodi: ".$this->ArrayToString($this->getEpisodi())."\n"."Attori: ".$this->ArrayToString($this->getAttori())."\n"."Valutazione: ".$this->getValutazione()."\n"."Data Disponibilità: ".$this->getData()->format('d-m-Y')."\n";
         return $str;
     }
 }

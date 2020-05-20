@@ -6,8 +6,8 @@ class EUtente
     private String $userName;
     private String $email;
     private String $password;
-    private array $watchlist;
-    private array $attese;
+    private $watchlist=array();
+    private $attese=array();
 
     /**
      * EUtente constructor.
@@ -106,6 +106,11 @@ class EUtente
     {
         array_push($this->watchlist, $watchlist) ;
     }
+/////////////////////////////////////////////////////////////////////////////METODO PER RIMUOVERE UNA WATCHLIST AL PROFILO///////////////////////////////////////////////////////////
+    public function RimuoviWatchlist(EWatchlist $watchlist): void
+    {
+        unset($this->watchlist[array_search($watchlist,$this->watchlist)]);
+    }
 /////////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE UNA SERIE TV ALLA SERIE IN PROSSIMA USCITA////////////////////////////////////////
     public function AggiungiAttese(ESerieTv $serie): void
     {
@@ -119,33 +124,40 @@ class EUtente
 ///////////////////////////////////////////////////////////////////////////METODO PER SPOSTARE UNA SERIE TV DALLA LISTA ATTESA ALLA WATCHLIST SELEZIONATA//////////////////////////////
     public function Sposta(ESerieTv $serie, EWatchlist $watchlist): void
     {
+        $key=array_search($watchlist,$this->watchlist);
+        echo"\n"."chiave ".$key."\n";
         if(in_array($serie,$this->attese))
         {
-            unset($this->attese[array_search($serie,$this->attese)]);
-            array_push($this->watchlist[array_search($watchlist,$this->watchlist)],$serie);
+            echo "\n"."ci sono"."\n";
+           // unset($this->attese[array_search($serie,$this->attese)]);
+            //array_push($this->watchlist[$key]->getserie(),$serie);
+            $this->watchlist[$key]->getserie()->aggiungiSerie($serie);
         }
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
-     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * Stampa tutti gli elementi di un array come un unica stringa
      * @return String
      */
     private function ArrayToString ($array)
     {
         $str = null;
         if (is_array($array))
-            foreach ($array as $valore) {
+            foreach ($array as $valore)
+            {
                 $str = $str."-".$valore;
             }
         else
             $str = $array;
+        if($str==null)
+            $str="non presente";
         return $str;
     }
 
     public function __toString():String
     {
         // TODO: Implement __toString() method.
-        $str="username: ".$this->getUserName()."\n"."Password: ".$this->getPassword()."\n"."Email: ".$this->getEmail()."\n"."Watchlist: ".$this->ArrayToString($this->getWatchlist())
+        $str="username: ".$this->getUserName()."\n"."Email: ".$this->getEmail()."\n"."Password: ".$this->getPassword()."\n"."Watchlist: ".$this->ArrayToString($this->getWatchlist())
             ."\n"."Serie tv Attese: ".$this->ArrayToString($this->getAttese());
         return $str;
 

@@ -3,12 +3,12 @@
 
 class EEpisodio
 {
-private String $titolo;
-private float $durata;
-private bool $visto;
-private  $commenti= array() ;
-private $valutazioni=array();
-private int $valutazione;
+    private String $titolo;
+    private float $durata;
+    private bool $visto;
+    private  $commenti= array() ;
+    private $valutazioni=array();
+    private int $valutazione=0;
 
     public function __construct(String $_titolo,float $_durata,  bool $_visto)
     {
@@ -34,11 +34,14 @@ private int $valutazione;
     }
 
     /**
-     * @return bool
+     * @return String
      */
-    public function isVisto(): bool
+    public function isVisto(): String
     {
-        return $this->visto;
+        if($this->visto)
+            return "true";
+        else
+            return"false";
     }
 
     /**
@@ -123,7 +126,7 @@ private int $valutazione;
 
     public function aggiungiValutazione(int $valutazione):void
     {
-        array_push($this->Valutazioni, $valutazione);
+        array_push($this->valutazioni, $valutazione);
         $this->calcolaValutazione();
     }
 ////////////////////////////////////////////////////////////METODO PER AGGIUNGERE COMMENTI////////////////////////////////////////////////////////////////
@@ -134,17 +137,17 @@ private int $valutazione;
     }
 ///////////////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE MEDIA/////////////////////////////////////////////////
 
-    private function calcolaValutazione():int
+    private function calcolaValutazione():void
     {
     ///////////////non va int $media /////////////////////////////////
-        $media=array_sum($this->valutazioni)/array_count($this->valutazioni);
+        $media=array_sum($this->valutazioni)/count($this->valutazioni);
         $this->valutazione=$media;
 
     }
 
 ////////////////////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////////////////
     /**
-     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * Stampa tutti gli elementi di un array come un unica stringa
      * @return String
      */
     private function ArrayToString ($array)
@@ -159,7 +162,7 @@ private int $valutazione;
         return $str;
     }
 
-    private function __toString(): String
+    public function __toString(): String
     {
         $str="Titolo: ".$this->getTitolo()."\n"."Durata Episodio: ".$this->getDurata()."\n"."Visto: ".$this->isVisto()."\n"."Commenti: ".$this->ArrayToString($this->getCommenti())."\n"."Valutazioni: ".$this->ArrayToString($this->getValutazioni())."\n"."Valutazione: ".$this->getValutazione()."\n";
         return $str;

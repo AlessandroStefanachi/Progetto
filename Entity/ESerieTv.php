@@ -3,12 +3,12 @@
 
 class ESerieTv
 {
-private String $titolo;
-private String $trama;
-private  $genere=array();
-private int $valutazione;
-private String $regista;
-private $stagioni=array();
+    private String $titolo;
+    private String $trama;
+    private  $genere=array();
+    private int $valutazione=0;
+    private String $regista;
+    private $stagioni=array();
 
     /**
      * ESerieTv constructor.
@@ -24,10 +24,11 @@ private $stagioni=array();
         $this->trama = $_trama;
         $this->genere = $_genere;
         $this->regista = $_regista;
-        $this->stagioni = $_stagioni;
+        foreach ($_stagioni as &$value)
+            $this->aggiungiStagione($value);
     }
 ///////////////////////////////////////////////////////////////////////GETTERS/////////////////////////////////////////////////////////////////////////////////////////////////////
-///
+
     /**
      * @return String
      */
@@ -56,7 +57,7 @@ private $stagioni=array();
      * @return int
      */
     public function getValutazione(): int
-    {
+    {   $this->calcolaValutazione();
         return $this->valutazione;
     }
 
@@ -127,21 +128,27 @@ private $stagioni=array();
 
     public function aggiungiStagione(EStagione $stagione):void
     {
+        $stagione->setNumero(count($this->stagioni)+1);
         array_push($this->stagioni, $stagione);
 
     }
-//////////////////////////////Metodo per il calcolo della valutazione///////////////////
-///
-    private function calcolaValutazione():int
-    {
-        ///////////////non va int $media /////////////////////////////////
-        $media=array_sum($this->stagioni->valutazione)/array_count($this->stagioni);
-        $this->valutazione=$media;
+/////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE//////////////////////////////////////////////////////////////////////////////////////////////
 
+    private function calcolaValutazione():void
+    {
+        $media=0;
+        ///////////////non va int $media /////////////////////////////////
+        if(count($this->stagioni)>0){
+        foreach ($this->getStagioni() as $value)
+        {
+            $media=$media+$value->getValutazione();
+
+        }
+        $this->valutazione=$media/count($this->stagioni);}
     }
 ////////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
-     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * Stampa tutti gli elementi di un array come un unica stringa
      * @return String
      */
     private function ArrayToString ($array)
@@ -156,7 +163,7 @@ private $stagioni=array();
         return $str;
     }
 
-    private function __toString(): String
+    public function __toString(): String
     {
         $str="Titolo: ".$this->getTitolo()."\n"."Trama: ".$this->getTrama()."\n"."Genere: ".$this->ArrayToString($this->getGenere())."\n"."Valutazione: ".$this->getValutazione()."\n"."Regista: ".$this->getRegista()."\n"."Stagioni: ".$this->ArrayToString($this->getStagioni())."\n";
         return $str;

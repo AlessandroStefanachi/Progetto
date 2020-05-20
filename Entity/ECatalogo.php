@@ -3,8 +3,8 @@
 
 class ECatalogo
 {
-    private array $serieTv;
-    private array $prossimeUscite;
+    private $serieTv=array();
+    private $prossimeUscite=array();
 
     /**
      * ECatalogo constructor.
@@ -45,7 +45,7 @@ class ECatalogo
         $this->prossimeUscite = $prossimeUscite;
     }
 ////////////////////////////////////////////////////////////METODO AGGIUNTA SERIE TV/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function AggiungiSeritv(ESerieTv $serie): void
+    public function AggiungiSerieTv(ESerieTv $serie): void
     {
         array_push($this->serieTv,$serie);
     }
@@ -63,45 +63,53 @@ class ECatalogo
             array_push($this->serieTv,$serie);
         }
     }
-    ////////////////////////////////////////METODI DI ORDINAMENTO////////////////////////////////////////////////////////////////////////////////////
-    public function OrdinaNome():void{
-        function cmp(ESerieTv $a,ESerieTv $b)
-        {
-            if ($a->getTitolo() == $b->getTitolo()) {
-                return 0;
-            }
-            return ($a->getNome() < $b->getNome()) ? -1 : 1;
-        }
+//////////////////////////////////////////////////////////////////////////////////////METODI DI ORDINAMENTO////////////////////////////////////////////////////////////////////////////////////
+    public function OrdinaNome():void
+    {
+       if(!function_exists("cmp")) {
+           function cmp(ESerieTv $a, ESerieTv $b)
+           {
+               if ($a->getTitolo() == $b->getTitolo()) {
+                   return 0;
+               }
+               return ($a->getTitolo() < $b->getTitolo()) ? -1 : 1;
+           }
+       }
 
         usort($this->serieTv,"cmp");
     }
 
-    public function ordinaCrescente():void{
-        function cmp(ESerieTv $a,ESerieTv $b)
-        {
-            if ($a->getValutazione() == $b->getValutazione()) {
-                return 0;
-            }
-            return ($a->getValutazione() < $b->getValutazione()) ? -1 : 1;
-        }
-
-        usort($this->serieTv,"cmp");
+    public function ordinaCrescente():void
+    {
+      if(! function_exists("cmp2")) {
+          function cmp2(ESerieTv $a, ESerieTv $b)
+          {
+              if ($a->getValutazione() == $b->getValutazione()) {
+                  return 0;
+              }
+              return ($a->getValutazione() < $b->getValutazione()) ? -1 : 1;
+          }
+      }
+        usort($this->serieTv,"cmp2");
     }
 
-    public function ordinaDecrescente():void{
-        function cmp(ESerieTv $a,ESerieTv $b)
-        {
-            if ($a->getValutazione() == $b->getValutazione()) {
-                return 0;
-            }
-            return ($a->getValutazione() > $b->getValutazione()) ? -1 : 1;
-        }
+    public function ordinaDecrescente():void
+    {
+     if(! function_exists("cmp3")) {
+         function cmp3(ESerieTv $a, ESerieTv $b)
+         {
+             if ($a->getValutazione() == $b->getValutazione()) {
+                 return 0;
+             }
+             return ($a->getValutazione() > $b->getValutazione()) ? -1 : 1;
+         }
+     }
 
-        usort($this->serieTv,"cmp");
+        usort($this->serieTv,"cmp3");
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
-     * Stampa tutti gli emelemnti di un array come un unica stringa
+     * Stampa tutti gli elementi di un array come un unica stringa
      * @return String
      */
     private function ArrayToString ($array):String
@@ -113,6 +121,7 @@ class ECatalogo
             }
         else
             $str = $array;
+        if(is_null($str))$str= "non presente";
         return $str;
     }
     public function __toString():String
