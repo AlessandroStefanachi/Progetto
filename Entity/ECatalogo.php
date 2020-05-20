@@ -63,6 +63,42 @@ class ECatalogo
             array_push($this->serieTv,$serie);
         }
     }
+    ////////////////////////////////////////METODI DI ORDINAMENTO////////////////////////////////////////////////////////////////////////////////////
+    public function OrdinaNome():void{
+        function cmp(ESerieTv $a,ESerieTv $b)
+        {
+            if ($a->getTitolo() == $b->getTitolo()) {
+                return 0;
+            }
+            return ($a->getNome() < $b->getNome()) ? -1 : 1;
+        }
+
+        usort($this->serieTv,"cmp");
+    }
+
+    public function ordinaCrescente():void{
+        function cmp(ESerieTv $a,ESerieTv $b)
+        {
+            if ($a->getValutazione() == $b->getValutazione()) {
+                return 0;
+            }
+            return ($a->getValutazione() < $b->getValutazione()) ? -1 : 1;
+        }
+
+        usort($this->serieTv,"cmp");
+    }
+
+    public function ordinaDecrescente():void{
+        function cmp(ESerieTv $a,ESerieTv $b)
+        {
+            if ($a->getValutazione() == $b->getValutazione()) {
+                return 0;
+            }
+            return ($a->getValutazione() > $b->getValutazione()) ? -1 : 1;
+        }
+
+        usort($this->serieTv,"cmp");
+    }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
      * Stampa tutti gli emelemnti di un array come un unica stringa
