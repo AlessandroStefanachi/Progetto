@@ -126,12 +126,14 @@ class EUtente
     {
         $key=array_search($watchlist,$this->watchlist);
         echo"\n"."chiave ".$key."\n";
+        $arr=$this->watchlist[$key]->getserie();
         if(in_array($serie,$this->attese))
         {
             echo "\n"."ci sono"."\n";
-           // unset($this->attese[array_search($serie,$this->attese)]);
-            //array_push($this->watchlist[$key]->getserie(),$serie);
-            $this->watchlist[$key]->getserie()->aggiungiSerie($serie);
+            unset($this->attese[array_search($serie,$this->attese)]);
+            array_push($arr,$serie);
+            $this->watchlist[$key]->setserie($arr);
+                echo $this->watchlist[$key]->__toString();
         }
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////

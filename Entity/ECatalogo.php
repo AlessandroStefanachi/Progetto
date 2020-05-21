@@ -107,6 +107,46 @@ class ECatalogo
 
         usort($this->serieTv,"cmp3");
     }
+
+///////////////////////////////////////////////////////////METODO CHE RICERCA UNA SERIE TV DAL NOME/////////////////////////////////////////////////////////////
+    public function CercaPerNome(String $c): ECatalogo
+    {
+        $Sfiltrate=Array();
+        $Pfiltrate=Array();
+        foreach ($this->getSerieTv() as $value)
+        {
+            if (substr_compare($value->getTitolo(), $c, 0, strlen($value->getTitolo()))) ;
+            array_push($Sfiltrate, $value);
+        }
+        foreach ($this->getProssimeUscite() as $value)
+        {
+            if (substr_compare($value->getTitolo(), $c, 0, strlen($value->getTitolo()))) ;
+            array_push($Pfiltrate, $value);
+        }
+        $ret=new ECatalogo();
+        $ret->setSerieTv($Sfiltrate);
+        $ret->setProssimeUscite($Pfiltrate);
+        return $ret;
+
+    }
+/////////////////////////////////////////////////////////METODO PER FILTRARE IN BASE AL GENERE//////////////////////////////////////////////////////////////////////////////////////
+    public function Filtra(String $genere): ECatalogo
+    {
+        $Sfiltrate=Array();
+        $Pfiltrate=Array();
+        foreach ($this->getSerieTv() as $value)
+        {
+            if(in_array($genere,$value->getGenere()))array_push($Sfiltrate,$value);
+        }
+        foreach ($this->getProssimeUscite() as $value)
+        {
+            if(in_array($genere,$value->getGenere()))array_push($Pfiltrate,$value);
+        }
+        $ret=new ECatalogo();
+        $ret->setSerieTv($Sfiltrate);
+        $ret->setProssimeUscite($Pfiltrate);
+        return $ret;
+    }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
      * Stampa tutti gli elementi di un array come un unica stringa
@@ -116,7 +156,8 @@ class ECatalogo
     {
         $str = null;
         if (is_array($array))
-            foreach ($array as $valore) {
+            foreach ($array as $valore)
+            {
                 $str = $str."-".$valore;
             }
         else
