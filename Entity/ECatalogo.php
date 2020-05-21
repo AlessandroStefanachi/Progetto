@@ -115,12 +115,15 @@ class ECatalogo
         $Pfiltrate=Array();
         foreach ($this->getSerieTv() as $value)
         {
-            if (substr_compare($value->getTitolo(), $c, 0, strlen($value->getTitolo()))) ;
-            array_push($Sfiltrate, $value);
+
+            if (substr_compare($value->getTitolo(), $c, 1, strlen($value->getTitolo()))>=0){
+                echo($value->getTitolo()."CONTIENE ".$c."\n");
+            array_push($Sfiltrate, $value);}
         }
+
         foreach ($this->getProssimeUscite() as $value)
         {
-            if (substr_compare($value->getTitolo(), $c, 0, strlen($value->getTitolo()))) ;
+            if (substr_compare($value->getTitolo(), $c, 1, strlen($value->getTitolo()))>=0)
             array_push($Pfiltrate, $value);
         }
         $ret=new ECatalogo();
