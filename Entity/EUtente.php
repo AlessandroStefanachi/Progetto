@@ -6,6 +6,8 @@ class EUtente
     private String $userName;
     private String $email;
     private String $password;
+    private $seguit=array();
+    private $seguaci=array();
     private $watchlist=array();
     private $attese=array();
 
@@ -14,14 +16,25 @@ class EUtente
      * @param String $userName
      * @param String $email
      * @param String $password
+     * @param array $seguit
+     * @param array $seguaci
+     * @param array $watchlist
+     * @param array $attese
      */
-    public function __construct($_userName, $_email, $_password)
+    public function __construct(String $userName, String $email, String $password, array $seguit, array $seguaci, array $watchlist, array $attese)
     {
-        $this->userName = $_userName;
-        $this->email = $_email;
-        $this->password = $_password;
+        $this->userName = $userName;
+        $this->email = $email;
+        $this->password = $password;
+        $this->seguit = $seguit;
+        $this->seguaci = $seguaci;
+        $this->watchlist = $watchlist;
+        $this->attese = $attese;
     }
+
+
 //////////////////////////////////////////////////////////////////////////////////GETTERS////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * @return String
      */
@@ -60,6 +73,22 @@ class EUtente
     public function getAttese()
     {
         return $this->attese;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSeguit(): array
+    {
+        return $this->seguit;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSeguaci(): array
+    {
+        return $this->seguaci;
     }
 /////////////////////////////////////////////////////////////////////////////////////SETTERS//////////////////////////////////////////////////////////////////////////////////
     /**
@@ -100,6 +129,22 @@ class EUtente
     public function setAttese($attese)
     {
         $this->attese = $attese;
+    }
+
+    /**
+     * @param array $seguit
+     */
+    public function setSeguit(array $seguit): void
+    {
+        $this->seguit = $seguit;
+    }
+
+    /**
+     * @param array $seguaci
+     */
+    public function setSeguaci(array $seguaci): void
+    {
+        $this->seguaci = $seguaci;
     }
 //////////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERA UNA WATCHLIST AL PROFILO////////////////////////////////////////////////////////
     public function AggiungiWatchlist(EWatchlist $watchlist): void
