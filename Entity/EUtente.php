@@ -6,7 +6,7 @@ class EUtente
     private String $userName;
     private String $email;
     private String $password;
-    private $seguit=array();
+    private $seguiti=array();
     private $seguaci=array();
     private $watchlist=array();
     private $attese=array();
@@ -21,12 +21,12 @@ class EUtente
      * @param array $watchlist
      * @param array $attese
      */
-    public function __construct(String $userName, String $email, String $password, array $seguit, array $seguaci, array $watchlist, array $attese)
+    public function __construct(String $userName, String $email, String $password, array $seguiti, array $seguaci, array $watchlist, array $attese)
     {
         $this->userName = $userName;
         $this->email = $email;
         $this->password = $password;
-        $this->seguit = $seguit;
+        $this->seguiti = $seguiti;
         $this->seguaci = $seguaci;
         $this->watchlist = $watchlist;
         $this->attese = $attese;
@@ -78,9 +78,9 @@ class EUtente
     /**
      * @return array
      */
-    public function getSeguit(): array
+    public function getSeguiti(): array
     {
-        return $this->seguit;
+        return $this->seguiti;
     }
 
     /**
@@ -132,11 +132,11 @@ class EUtente
     }
 
     /**
-     * @param array $seguit
+     * @param array $seguiti
      */
-    public function setSeguit(array $seguit): void
+    public function setSeguiti(array $seguiti): void
     {
-        $this->seguit = $seguit;
+        $this->seguiti = $seguiti;
     }
 
     /**
@@ -180,6 +180,26 @@ class EUtente
             $this->watchlist[$key]->setserie($arr);
                 echo $this->watchlist[$key]->__toString();
         }
+    }
+/////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE SEGUITI AL PROFILO////////////////////////////////////////////////////////////////////
+    public function AggiungiSeguiti(EUtente $utente)
+    {
+        array_push($this->seguiti,$utente);
+    }
+/////////////////////////////////////////////////////////////////////////METODO PER RIMUOVERE SEGUITI AL PROFILO////////////////////////////////////////////////////////////////////
+    public function RimuoviSeguiti(EUtente $utente)
+    {
+        unset($this->seguiti[array_search($utente,$this->seguiti)]);
+    }
+/////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE SEGUACI AL PROFILO////////////////////////////////////////////////////////////////////
+    public function AggiungiSeguaci(EUtente $utente)
+    {
+        array_push($this->seguaci,$utente);
+    }
+/////////////////////////////////////////////////////////////////////////METODO PER RIMUOVERE SEGUACI AL PROFILO////////////////////////////////////////////////////////////////////
+    public function RimuoviSeguaci(EUtente $utente)
+    {
+        unset($this->seguaci[array_search($utente,$this->seguaci)]);
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**

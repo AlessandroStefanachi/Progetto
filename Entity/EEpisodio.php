@@ -10,7 +10,7 @@ class EEpisodio
     private $valutazioni=array();
     private int $valutazione=0;
 
-    public function __construct(String $_titolo,float $_durata,  bool $_visto)
+    public function __construct(String $_titolo, float $_durata, bool $_visto)
     {
         $this->titolo=$_titolo;
         $this->durata=$_durata;
