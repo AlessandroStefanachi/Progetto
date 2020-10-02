@@ -168,5 +168,9 @@ class EEpisodio
         return $str;
     }
 
-
+    public function __toString2(): String
+    {
+        $str="Titolo: ".$this->getTitolo()."\n"."Durata Episodio: ".$this->getDurata()."\n"."Visto: ".$this->isVisto()."\n"."Commenti: ".$this->ArrayToString($this->getCommenti())."\n"."Valutazioni: ".$this->ArrayToString($this->getValutazioni())."\n"."Valutazione: ".$this->getValutazione()."\n";
+        return $str;
+    }
 }
