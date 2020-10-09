@@ -10,18 +10,20 @@ class EUtente
     private $seguaci=array();
     private $watchlist=array();
     private $attese=array();
+    private String $ruolo;
 
     /**
      * EUtente constructor.
      * @param String $userName
      * @param String $email
      * @param String $password
-     * @param array $seguit
+     * @param array $seguiti
      * @param array $seguaci
      * @param array $watchlist
      * @param array $attese
+     * @param String $ruolo
      */
-    public function __construct(String $userName, String $email, String $password, array $seguiti, array $seguaci, array $watchlist, array $attese)
+    public function __construct(String $userName, String $email, String $password, array $seguiti, array $seguaci, array $watchlist, array $attese, String $ruolo)
     {
         $this->userName = $userName;
         $this->email = $email;
@@ -30,8 +32,8 @@ class EUtente
         $this->seguaci = $seguaci;
         $this->watchlist = $watchlist;
         $this->attese = $attese;
+        $this->ruolo = $ruolo;
     }
-
 
 //////////////////////////////////////////////////////////////////////////////////GETTERS////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -90,6 +92,14 @@ class EUtente
     {
         return $this->seguaci;
     }
+
+    /**
+     * @return String
+     */
+    public function getRuolo(): String
+    {
+        return $this->ruolo;
+    }
 /////////////////////////////////////////////////////////////////////////////////////SETTERS//////////////////////////////////////////////////////////////////////////////////
     /**
      * @param String $userName
@@ -145,6 +155,14 @@ class EUtente
     public function setSeguaci(array $seguaci): void
     {
         $this->seguaci = $seguaci;
+    }
+
+    /**
+     * @param String $ruolo
+     */
+    public function setRuolo(String $ruolo): void
+    {
+        $this->ruolo = $ruolo;
     }
 //////////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERA UNA WATCHLIST AL PROFILO////////////////////////////////////////////////////////
     public function AggiungiWatchlist(EWatchlist $watchlist): void
