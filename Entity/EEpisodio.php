@@ -140,8 +140,12 @@ class EEpisodio
     private function calcolaValutazione():void
     {
     ///////////////non va int $media /////////////////////////////////
-        $media=array_sum($this->valutazioni)/count($this->valutazioni);
-        $this->valutazione=$media;
+        $media=0;
+        $i=0;
+        foreach ($this->valutazioni as &$value)
+            $media=$value+$value->voto;
+        $i++;
+        $this->valutazione=$media/$i;
 
     }
 
