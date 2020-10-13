@@ -9,6 +9,7 @@ class ESerieTv
     private int $valutazione=0;
     private String $regista;
     private $stagioni=array();
+    private String $tipo;//solo disponibile o in uscita
 
     /**
      * ESerieTv constructor.
@@ -17,13 +18,15 @@ class ESerieTv
      * @param array $genere
      * @param String $regista
      * @param array $stagioni
+     * @param String $tipo
      */
-    public function __construct(String $_titolo, String $_trama, array $_genere, String $_regista, array $_stagioni)
+    public function __construct(String $_titolo, String $_trama, array $_genere, String $_regista, array $_stagioni, String $_tipo)
     {
         $this->titolo = $_titolo;
         $this->trama = $_trama;
         $this->genere = $_genere;
         $this->regista = $_regista;
+        $this->tipo = $_tipo;
         foreach ($_stagioni as &$value)
             $this->aggiungiStagione($value);
     }
@@ -76,6 +79,15 @@ class ESerieTv
     {
         return $this->stagioni;
     }
+
+    /**
+     * @return String
+     */
+    public function getTipo(): String
+    {
+        return $this->tipo;
+    }
+
 /////////////////////////////////////////////////////////////////////////SETTERS///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * @param String $titolo
@@ -124,15 +136,23 @@ class ESerieTv
     {
         $this->stagioni = $stagioni;
     }
+
+    /**
+     * @param String $tipo
+     */
+    public function setTipo(String $tipo): void
+    {
+        $this->tipo = $tipo;
+    }
+
 //////////////////////////////////////METODO PER AGGIUNGERE UNA STAGIONE////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function aggiungiStagione(EStagione $stagione):void
     {
         $stagione->setNumero(count($this->stagioni)+1);
         array_push($this->stagioni, $stagione);
-
     }
-/////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE//////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE//////////////////////////////////////////////////////////////////////////////////////////////
 
     private function calcolaValutazione():void
     {
@@ -146,7 +166,7 @@ class ESerieTv
         }
         $this->valutazione=$media/count($this->stagioni);}
     }
-////////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////METODI TO STRING///////////////////////////////////////////////////////////////////////
     /**
      * Stampa tutti gli elementi di un array come un unica stringa
      * @return String
