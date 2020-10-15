@@ -17,13 +17,12 @@ class FUtenteRegistrato {
      * @param PDOStatement $stmt
      * @param EUtente $utente che deve essere salvato sul db
      */
-    public static function bind($stmt, EUtente $utente) {
-
+    public static function bind($stmt, EUtente $utente)
+    {
         $stmt->bindValue(':username', $utente->getUsername(), PDO::PARAM_STR);
         $stmt->bindValue(':email', $utente->getEmail(), PDO::PARAM_STR);
         $stmt->bindValue(':password', $utente->getPassword(), PDO::PARAM_STR);
         $stmt->bindValue(':ruolo', $utente->getRuolo(), PDO::PARAM_STR);
-
     }
 
     /**
@@ -31,10 +30,9 @@ class FUtenteRegistrato {
      * portafoglio associato all'utente
      * @param EUtente $utente
      */
-    public static function store($utente) {
-
+    public static function store($utente)
+    {
         $con = FConnectionDB::getIstanza();
-
         $con->store($utente, FUtente::$nomeClasse);
     }
 
@@ -44,23 +42,28 @@ class FUtenteRegistrato {
      * @param $valoreCampo valore del campo
      * @return $utenti array di oggetti EUtenteRegistrato
      */
-    public static function load($campo, $valoreCampo) {
+    public static function load($campo, $valoreCampo)
+    {
 
         $con = FConnectionDB::getIstanza();
         $righe =  $con->load($campo, $valoreCampo, FUtente::$nomeTabella);
         $utenti = array();
 
-        if($righe == NULL) {
+        if($righe == NULL)
+        {
             $utenti = NULL;
-        }else {
+        }
+        else
+            {
             $numeroRighe = count($righe);
-            for($i = 0; $i < $numeroRighe; $i++) {
+            for($i = 0; $i < $numeroRighe; $i++)
+                {
                 $utenti[$i] = new EUtente(
                     $righe[$i]["username"],
                     $righe[$i]["email"],$righe[$i]["password"]);
                  $utenti[$i]->setStato($righe[$i]["stato"]);
+                }
             }
-        }
 
         return $utenti;
     }
@@ -69,21 +72,22 @@ class FUtenteRegistrato {
      * Questo metodo restituisce l'oggetto utente (EUtenteRegistrato) che ha il portafoglio EPortafoglio quando effettua il login se la query è andata a buon fine, altrimenti restituisce null
      * @param string $username
      */
-    public static function loadLoginPWHash($username, $pass) {
+    public static function loadLoginPWHash($username, $pass)
+    {
 
         $con = FConnectionDB::getIstanza();
         $riga = $con->loadVerificaAccessoPWHash($username, $pass);
         $utente = null;
 
-        if(isset($riga)) {
-
-            $utente = new EUtente(
-                $riga["username"],
-                $riga["email"],$riga["password"]);
+        if(isset($riga))
+            {
+                $utente = new EUtente(
+                    $riga["username"],
+                    $riga["email"],$riga["password"]);
 
             $utente->setStato($riga["stato"]);
             //var_dump($utente->getStato());
-        }
+            }
         return $utente;
     }
 
@@ -92,7 +96,8 @@ class FUtenteRegistrato {
      * @param $campo campo da aggiornare
      * @param $valoreCampo valore del campo
      */
-    public static function exist($campo, $valoreCampo) {
+    public static function exist($campo, $valoreCampo)
+    {
         $con = FConnectionDB::getIstanza();
         $ris = $con->exist($campo, $valoreCampo, static::$nomeTabella);
         return $ris;
@@ -106,7 +111,8 @@ class FUtenteRegistrato {
      * @param $id valore della chiave primaria
      * @return bool $verifica per vedere se l'update è andato a buon fine o no
      */
-    public static function update($campo, $nuovoValore, $chiave, $id) {
+    public static function update($campo, $nuovoValore, $chiave, $id)
+    {
         $con = FConnectionDB::getIstanza();
         $verifica = $con->update($campo, $nuovoValore, $chiave, $id, static::$nomeClasse);
         return $verifica;
@@ -116,7 +122,8 @@ class FUtenteRegistrato {
      * Questo metodo restituisce il nome della classe per la costruzione delle query
      * @return string $nomeClasse nome della classe
      */
-    public static function getNomeClasse() {
+    public static function getNomeClasse()
+    {
         return self::$nomeClasse;
     }
 
@@ -124,7 +131,8 @@ class FUtenteRegistrato {
      * Questo metodo restituisce il nome della tabella per la costruzione delle query
      * @return string $nomeTabella nome della tabella
      */
-    public static function getNomeTabella() {
+    public static function getNomeTabella()
+    {
         return self::$nomeTabella;
     }
 
@@ -132,7 +140,8 @@ class FUtenteRegistrato {
      * Questo metodo restituisce i campi della tabella per la costruzione delle query
      * @return string $campiTabella campi della tabella
      */
-    public static function getCampiTabella() {
+    public static function getCampiTabella()
+    {
         return self::$campiTabella;
     }
 
@@ -140,7 +149,8 @@ class FUtenteRegistrato {
      * Questo metodo restituisce i campi parametrici della tabella per la costruzione delle query
      * @return string $campiParametriciTabella campi parametrici della tabella
      */
-    public static function getCampiParametriciTabella() {
+    public static function getCampiParametriciTabella()
+    {
         return self::$campiParametriciTabella;
     }
 }
