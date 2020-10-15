@@ -40,6 +40,8 @@ class FPersistentManager {
 
     /** verifica è boolean e ci dice se la richiesta di update è andata a buon fine */
     public static function update($campo, $nuovoValore, $chiave, $id, $nomeClasse) {
+
+        ////////////////////////////DA MODIFICARE CON LE CLASSI DI TVTRACKER///////////////////////////////////////////////
         if($nomeClasse == "FPartita" || $nomeClasse == "FUtenteRegistrato" || $nomeClasse == "FPortafoglio"
             || $nomeClasse == "FScommessa" || $nomeClasse == "FSchedina") {
             $verifica = $nomeClasse::update($campo, $nuovoValore, $chiave, $id);
