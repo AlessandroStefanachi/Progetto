@@ -1,6 +1,6 @@
 <?php
 
-class FUtenteRegistrato {
+class FUtente {
 
     /*Nome della classe Foundation*/
     private static $nomeClasse = "FUtente";

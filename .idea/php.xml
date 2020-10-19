@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
+=======
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/../../bin" />
+      <path value="$PROJECT_DIR$/../../lib/php" />
+      <path value="$PROJECT_DIR$/../../php/man/man1" />
+    </include_path>
+  </component>
+>>>>>>> 34add47ec77333dba47714a19ee19432f9f76926
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
 </project>
