@@ -17,21 +17,13 @@ class EUtente
      * @param String $userName
      * @param String $email
      * @param String $password
-     * @param array $seguiti
-     * @param array $seguaci
-     * @param array $watchlist
-     * @param array $attese
      * @param String $ruolo
      */
-    public function __construct(String $userName, String $email, String $password, array $seguiti, array $seguaci, array $watchlist, array $attese, String $ruolo)
+    public function __construct(String $userName, String $email, String $password, String $ruolo)
     {
         $this->userName = $userName;
         $this->email = $email;
         $this->password = $password;
-        $this->seguiti = $seguiti;
-        $this->seguaci = $seguaci;
-        $this->watchlist = $watchlist;
-        $this->attese = $attese;
         $this->ruolo = $ruolo;
     }
 
