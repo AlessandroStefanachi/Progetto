@@ -187,6 +187,44 @@ class FConnectionDB {
         self::$istanza = null;
     }
 
+    public function loadTransazioni($idA) {
+        $stmt = $this->pdo->query("SELECT * from Follow where idA = ". $idA.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+    public function storeTransazione($idA,$idB) {
+
+        try {
+
+            $this->pdo->beginTransaction();
+            $sql = "INSERT INTO Follow (idA,idB)  VALUES (:idA,:idB)";
+            $stmt = $this->pdo->prepare($sql);
+            //print($sql);
+            $stmt->execute(array(':idA' => $idA,
+                ':idB' => $idB,
+                ));
+            $this->pdo->commit();
+            $this->closeDBConnection();
+
+        } catch (Exception $e) {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            return null;
+        }
+    }
+
+    /**   Metodo che permette di prelevare le transazioni tra schedina e portafoglio dal db di un determinato portafoglio*/
+    public function loadTransazioniSchedina($idPortafoglio) {
+        $stmt = $this->pdo->query("SELECT * from TransazioneSchedina where idPortafoglio = ". $idPortafoglio.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+
 }
 
 /*

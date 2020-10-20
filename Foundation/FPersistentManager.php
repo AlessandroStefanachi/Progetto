@@ -75,6 +75,16 @@ class FPersistentManager {
         $verifica = FCommento::deleteCommento($id);
         return $verifica;
     }
+
+    public static function loadFollower($idA){
+        $follower=FFollow::load($idA);
+        return $follower;
+
+    }
+    public static function storeFollower($idA,$idB){
+        FFollow::store($idA,$idB);
+
+    }
 }
 
 /**
