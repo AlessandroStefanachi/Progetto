@@ -3,20 +3,45 @@
 
 class EEpisodio
 {
+    private int $id;
     private String $titolo;
     private float $durata;
     private bool $visto;
-    private  $commenti= array() ;
+    private $commenti= array() ;
     private $valutazioni=array();
     private int $valutazione=0;
+    private int $id_stagione;
 
-    public function __construct(String $_titolo, float $_durata, bool $_visto)
+    /**
+     * EEpisodio constructor.
+     * @param String $titolo
+     * @param float $durata
+     * @param bool $visto
+     */
+    public function __construct($titolo, $durata, $visto)
     {
-        $this->titolo=$_titolo;
-        $this->durata=$_durata;
-        $this->visto=$_visto;
+        $this->titolo = $titolo;
+        $this->durata = $durata;
+        $this->visto = $visto;
     }
 /////////////////////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdStagione()
+    {
+        return $this->id_stagione;
+    }
+
     /**
      * @return String
      */
@@ -69,6 +94,23 @@ class EEpisodio
     }
 
 ///////////////////////////////////////////////////////// SETTERS/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param int $id_stagione
+     */
+    public function setIdStagione($id_stagione)
+    {
+        $this->id_stagione = $id_stagione;
+    }
+
     /**
      * @param String $titolo
      */
@@ -107,6 +149,7 @@ class EEpisodio
     public function setValutazioni(array $valutazioni): void
     {
         $this->valutazioni = $valutazioni;
+        $this->calcolaValutazione();
     }
 
     /**
