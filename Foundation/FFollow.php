@@ -3,10 +3,12 @@
 
 class FFollow
 {
-    public static function load($idA) {
+    public static function load($idA,int select) {
         $righe = null;
         $con = FConnectionDB::getIstanza();
-        $righe = $con->loadTransazioni($idA);
+        if(select==1)
+        $righe = $con->loadFollower($idA);
+        else $righe = $con->loadFollowed($idA);
         return $righe;
     }
 

@@ -187,14 +187,21 @@ class FConnectionDB {
         self::$istanza = null;
     }
 
-    public function loadTransazioni($idA) {
-        $stmt = $this->pdo->query("SELECT * from Follow where idA = ". $idA.";");
+    public function loadFollower($idA) {
+        $stmt = $this->pdo->query("SELECT idB from Follow where idA = ". $idA.";");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
         return $righe;
     }
-    public function storeTransazione($idA,$idB) {
+    public function loadFollowed($idA) {
+        $stmt = $this->pdo->query("SELECT idA from Follow where idB = ". $idA.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+    public function storeFollow($idA,$idB) {
 
         try {
 

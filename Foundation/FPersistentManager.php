@@ -81,6 +81,11 @@ class FPersistentManager {
         return $follower;
 
     }
+    public static function loadFollowed($idA,int $select){
+        $follower=FFollow::load($idA,$select);
+        return $follower;
+
+    }
     public static function storeFollower($idA,$idB){
         FFollow::store($idA,$idB);
 

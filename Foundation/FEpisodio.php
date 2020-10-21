@@ -90,7 +90,7 @@ class FEpisodio
                         $righe[$i]["durata"],
                         $righe[$i]["visto"]
                     );
-                $episodio->setId($righe[$i]);
+                $episodio[$i]->setId($righe[$i]["id"]);
                 $commenti= FPersistentManager::load('id_episodio',$righe[$i]['id'],FCommento::getNomeClasse());
                 $episodio[$i]->setCommenti($commenti);
                 $valutazioni= FPersistentManager::load('id_episodio',$righe[$i]['id'],FValutazione::getNomeClasse());
