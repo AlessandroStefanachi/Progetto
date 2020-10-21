@@ -30,10 +30,40 @@ class FUtente  {
      * portafoglio associato all'utente
      * @param EUtente $utente
      */
-    public static function store($utente)
+    public static function store(EUtente $utente)
     {
         $con = FConnectionDB::getIstanza();
         $con->store($utente, FUtente::$nomeClasse);
+        $seguaci=$utente->getSeguaci();
+        if($seguaci){
+            $n= count($seguaci);
+            for($i = 0; $i < $n; $i++)
+            {
+
+                FFollow::store($utente->getUserName(),$seguaci[$i]);
+
+            }}
+            $seguiti=$utente->getSeguiti();
+            if($seguiti){
+                $n= count($seguiti);
+                for($i = 0; $i < $n; $i++)
+                {
+
+                    FFollow::store($seguiti[$i],$utente->getUserName());
+
+                }}
+                $watchlist=$utente->getWatchlist();
+                if($watchlist){
+                    $n= count($watchlist);
+                    for($i = 0; $i < $n; $i++)
+                    {
+                        $watchlist[$i]->setPropietario($utente->getUserName());
+                        FWatchlist::store($watchlist[$i]);
+
+                    }
+
+        }
+
     }
 
     /**
@@ -65,6 +95,8 @@ class FUtente  {
                     $utenti[$i]->setSeguaci($seguaci);
                     $seguiti=FPersistentManager::loadFollower($utenti[$i]->getUsername(),0);
                     $utenti[$i]->setSeguiti($seguiti);
+                    $watchlist=FPersistentManager::load("propietario",$righe[$i]->getUsername(),Fwatchlist::getNomeCLasse());
+                    $utenti[$i]->setWatchlist($watchlist);
                 }
             }
 
