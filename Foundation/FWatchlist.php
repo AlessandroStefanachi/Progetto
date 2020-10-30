@@ -24,5 +24,29 @@ class FWatchlist
         $stmt->bindValue(':descrizione', $watchlist->getDescrizione(), PDO::PARAM_STR);
         $stmt->bindValue(':pubblico', $watchlist->getpubblico(), PDO::PARAM_BOOL);
         $stmt->bindValue(':propietario', $watchlist->getPropietario(), PDO::PARAM_STR);//DA METTERE IN ENTITY
-        $stmt->bindValue(':propietario', $watchlist->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
-    }}
+        $stmt->bindValue(':id', $id->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
+    }
+    public static function store(FWatchlist $watchlist)
+    {
+        $con = FConnectionDB::getIstanza();
+        $id = $con->store($watchlist, FWatchlist::$nomeClasse);
+        $watchlist->setId($id);
+        $serietv = $watchlist->getSerie();
+
+
+        if ($serietv)
+        {
+            $n= count($serietv);
+            for($i = 0; $i < $n; $i++)
+            {
+
+                FCorrispondenze::store($watchlist->getId(),$serietv->getid());
+
+            }
+        }
+
+
+        }
+
+    }
+}

@@ -90,6 +90,16 @@ class FPersistentManager {
         FFollow::store($idA,$idB);
 
     }
+
+    public static function loadCorrispondenze($id_watchlist){
+        $follower=FCorrispondenze::load($id_watchlist);
+        return $follower;
+
+    }
+    public static function storeCorrispondenze($id_watchlist,$id_stv){
+        FCorrispondenze::store($id_watchlist,$id_stv);
+
+    }
 }
 
 /**

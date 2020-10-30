@@ -222,6 +222,34 @@ class FConnectionDB {
         }
     }
 
+    public function loadCorr($id_Watchlist) {
+        $stmt = $this->pdo->query("SELECT * from Follow where id_watchlist= ". $id_watchlist.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+    public function storeCorr($id_watchlist,$id_stv) {
+
+        try {
+
+            $this->pdo->beginTransaction();
+            $sql = "INSERT INTO corrispondenze (id_watchlist,id_stv)  VALUES (:id_watchlist,:id_stv)";
+            $stmt = $this->pdo->prepare($sql);
+            //print($sql);
+            $stmt->execute(array(':id_watchlist' => $id_watchlist,
+                ':id_stv' => $id_stv,
+            ));
+            $this->pdo->commit();
+            $this->closeDBConnection();
+
+        } catch (Exception $e) {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            return null;
+        }
+    }
     /**   Metodo che permette di prelevare le transazioni tra schedina e portafoglio dal db di un determinato portafoglio*/
     public function loadTransazioniSchedina($idPortafoglio) {
         $stmt = $this->pdo->query("SELECT * from TransazioneSchedina where idPortafoglio = ". $idPortafoglio.";");
