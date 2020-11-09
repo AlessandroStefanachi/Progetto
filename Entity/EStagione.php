@@ -3,9 +3,10 @@
 
 class EStagione
 {
+    ///aggiungere numero
     private $lingue=array();
     private $episodi=array();
-    private $attori=array();
+
     private int $valutazione=0;
     private DateTime $data;
     private int $numero=0;
@@ -13,11 +14,11 @@ class EStagione
     /**
      * EStagione constructor.
      */
-    public function __construct(array $_lingue,array $_attori,String $_date)
+    public function __construct(String $_date, int $_numero)
     {
-        $this->lingue=$_lingue;
-        $this->attori=$_attori;
+
         $this->data=DateTime::createFromFormat('d-m-Y',$_date);
+        $this->numero=$_numero;
     }
 ///////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////
     /**

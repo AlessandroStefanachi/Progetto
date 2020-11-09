@@ -1,65 +1,55 @@
 <?php
 
 
-class FEpisodio
+class FStagione
 {
     /*Nome della classe Foundation*/
-    private static $nomeClasse = "FEpisodio";
+    private static $nomeClasse = "FStagione";
     /*Nome della tabella del db*/
-    private static $nomeTabella = "episodio";
+    private static $nomeTabella = "stagione";
     /*Campi della tabella del db*/
-    private static $campiTabella = "(titolo, durata, visto, id_stagione, id)";
+    private static $campiTabella = "(data,numero,id,id_serieTV)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
-    private static $campiParametriciTabella = "(:titolo, :durata, :visto, :id_stagione, :id)";
+    private static $campiParametriciTabella = "(:data,:numero,:id,:id_serieTV)";
 
     /**
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
      * dell'EEpisodio corrispondenti
      * @param PDOStatement $stmt
-     * @param EEpisodio $episodio che deve essere salvato sul db
+     * @param EStagione $stagione che deve essere salvato sul db
      */
-    public static function bind($stmt, EEpisodio $episodio)
+    public static function bind($stmt, EStagione $stagione)
     {
-        $stmt->bindValue(':titolo', $episodio->getTitolo(), PDO::PARAM_STR);
-        $stmt->bindValue(':durata', $episodio->getDurata(), PDO::PARAM_STR);
-        $stmt->bindValue(':visto', $episodio->isVisto(), PDO::PARAM_BOOL);
-        $stmt->bindValue(':id_stagione', $episodio->getIdStagione(), PDO::PARAM_INT);
-        $stmt->bindValue(':id', $episodio->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':data', $stagione->getData(), PDO::PARAM_STR);
+        $stmt->bindValue(':numero', $stagione->getNumero(), PDO::PARAM_INT);
+        $stmt->bindValue(':id', $stagione->getId(), PDO::PARAM_INT);//da aggiungere attributo e metodo
+        $stmt->bindValue(':id_serieTv', $stagione->getid_serieTv(), PDO::PARAM_INT);//da aggiungere attributo e metodo
+
     }
 
     /**
      * Metodo che permette di fare la store dell'episodio,
      * @param EEpisodio $episodio
      */
-    public static function store(EEpisodio $episodio)
+    public static function store(EStagione $stagione)
     {
         $con = FConnectionDB::getIstanza();
-        $id = $con->store($episodio, FEpisodio::$nomeClasse);
-        $episodio->setId($id);
-        $commenti = $episodio->getCommenti();
-        $valutazioni = $episodio->getValutazioni();
+        $id = $con->store($stagione, FStagione::$nomeClasse);
+        $stagione->setId($id);
+        $episodi = $stagione->getCommenti();
 
-        if ($commenti)
+
+        if ($episodi)
         {
-            $n= count($commenti);
+            $n= count($episodi);
             for($i = 0; $i < $n; $i++)
             {
-                $commenti[$i]->setId_episodio($id);
-                FCommento::store($commenti[$i]);
+                $episodi[$i]->setIdStagione($id);
+                FEpisodio::store($episodi[$i]);
 
             }
         }
 
-        if ($valutazioni)
-        {
-            $n= count($valutazioni);
-            for($i = 0; $i < $n; $i++)
-            {
-                $valutazioni[$i]->setId_episodio($id);
-                FValutazione::store($valutazioni[$i]);
-
-            }
-        }
 
     }
 
@@ -74,31 +64,39 @@ class FEpisodio
 
         $con = FConnectionDB::getIstanza();
         $righe =  $con->load($campo, $valoreCampo, FEpisodio::$nomeTabella);
-        $episodio = array();
+        $stagioni = array();
 
         if($righe == NULL)
         {
-            $episodio = NULL;
+            $stagioni = NULL;
         }
         else
         {
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                $episodio[$i] = new EEpisodio(
-                        $righe[$i]["titolo"],
-                        $righe[$i]["durata"],
-                        $righe[$i]["visto"]
-                    );
-                $episodio[$i]->setId($righe[$i]["id"]);
-                $commenti= FPersistentManager::load('id_episodio',$righe[$i]['id'],FCommento::getNomeClasse());
-                $episodio[$i]->setCommenti($commenti);
-                $valutazioni= FPersistentManager::load('id_episodio',$righe[$i]['id'],FValutazione::getNomeClasse());
-                $episodio[$i]->setValutazioni($valutazioni);
+                $stagioni[$i] = new EStagione(
+                    $righe[$i]["data"],
+                    $righe[$i]["numero"]
+
+                );
+                $stagioni[$i]->setId($righe[$i]["id"]);
+                $episodi= FPersistentManager::load('id_stagione',$righe[$i]['id'],FEpisodio::getNomeClasse());
+                $stagioni[$i]->setEpisodi($episodi);
+                $Clingue= FPersistentManager::load('id_stagione',$righe[$i]['id'],FSTGlingua::getNomeClasse());
+                ///////////////////
+                if($Clingue!=null){
+                    $lingue=array();
+                    $nr=count($Clingue);
+                    for($i=0;$i < $nr;$i++){
+                        $a=FPersistentManager::load('id',$Clingue[$i]['id_lingua'],FLingua::getNomeClasse());
+                        array_push($serie, $lingue);//inserisci la lingua
+                    }
+                    $stagioni[$i]->setLingue($lingue);
             }
         }
 
-        return $episodio;
+        return $stagioni;
     }
     /**
      * Questo metodo restituisce il nome della classe per la costruzione delle query
