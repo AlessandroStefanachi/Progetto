@@ -1,10 +1,11 @@
 <?php
 
-class FPersistentManager {
+class FPersistentManager
+{
 
     /**
      *Metodo che permette di salvare un oggetto sul db
-     *@param $oggetto oggetto da salvare
+     * @param $oggetto oggetto da salvare
      */
     public static function store($oggetto)
     {
@@ -47,7 +48,7 @@ class FPersistentManager {
     {
 
         ////////////////////////////DA MODIFICARE CON LE CLASSI DI TVTRACKER///////////////////////////////////////////////
-        if($nomeClasse == "FWatchlist" || $nomeClasse == "FUtente" || $nomeClasse == "FEpisodio"
+        if ($nomeClasse == "FWatchlist" || $nomeClasse == "FUtente" || $nomeClasse == "FEpisodio"
             || $nomeClasse == "FStagione" || $nomeClasse == "FSerieTv") {
             $verifica = $nomeClasse::update($campo, $nuovoValore, $chiave, $id);
             return $verifica;
@@ -64,7 +65,7 @@ class FPersistentManager {
     public static function exist($campo, $valoreCampo, $nomeClasse)
     {
         $risultato = null;
-        $risultato =  $nomeClasse::exist($campo, $valoreCampo);
+        $risultato = $nomeClasse::exist($campo, $valoreCampo);
         return $risultato;
     }
 
@@ -76,28 +77,59 @@ class FPersistentManager {
         return $verifica;
     }
 
-    public static function loadFollower($idA){
-        $follower=FFollow::load($idA);
+    public static function loadFollower($idA)
+    {
+        $follower = FFollow::load($idA);
         return $follower;
 
     }
-    public static function loadFollowed($idA,int $select){
-        $follower=FFollow::load($idA,$select);
+
+    public static function loadFollowed($idA, int $select)
+    {
+        $follower = FFollow::load($idA, $select);
         return $follower;
 
     }
-    public static function storeFollower($idA,$idB){
-        FFollow::store($idA,$idB);
 
+    public static function storeFollower($idA, $idB)
+    {
+        FFollow::store($idA, $idB);
     }
 
-    public static function loadCorrispondenze($id_watchlist){
-        $corrispondenze=FCorrispondenze::load($id_watchlist);
+    public static function loadCorrispondenze($id_watchlist)
+    {
+        $corrispondenze = FCorrispondenze::load($id_watchlist);
         return $corrispondenze;
 
     }
-    public static function storeCorrispondenze($id_watchlist,$id_stv){
-        FCorrispondenze::store($id_watchlist,$id_stv);
+
+    public static function storeCorrispondenze($id_watchlist, $id_stv)
+    {
+        FCorrispondenze::store($id_watchlist, $id_stv);
+
+    }
+
+    public static function loadGenere($id_genere)
+    {
+        $genere = FGenere::load($id_genere);
+        return $genere;
+    }
+
+    public static function storeGenere($genere, $id)
+    {
+        FGenere::store($genere, $id);
+
+    }
+
+    public static function loadLingua($id_lingua)
+    {
+        $lingua = FLingua::load($id_lingua);
+        return $lingua;
+    }
+
+    public static function storeLingua($lingua, $id)
+    {
+        FLingua::store($lingua, $id);
 
     }
 }

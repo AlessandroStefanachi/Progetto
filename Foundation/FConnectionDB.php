@@ -222,7 +222,8 @@ class FConnectionDB {
         }
     }
 
-    public function loadCorr($id_Watchlist) {
+    public function loadCorr($id_Watchlist)
+    {
         $stmt = $this->pdo->query("SELECT * from Follow where id_watchlist= ". $id_Watchlist.";");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
@@ -230,26 +231,82 @@ class FConnectionDB {
         return $righe;
     }
 
-    public function storeCorr($id_watchlist,$id_stv) {
-
+    public function storeCorr($id_watchlist,$id_stv)
+    {
         try {
 
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO corrispondenze (id_watchlist,id_stv)  VALUES (:id_watchlist,:id_stv)";
             $stmt = $this->pdo->prepare($sql);
             //print($sql);
-            $stmt->execute(array(':id_watchlist' => $id_watchlist,
-                ':id_stv' => $id_stv,
-            ));
+            $stmt->execute(array(':id_watchlist' => $id_watchlist, ':id_stv' => $id_stv,));
             $this->pdo->commit();
             $this->closeDBConnection();
 
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             echo "Errore: " . $e->getMessage();
             $this->pdo->rollBack();
             return null;
         }
     }
+
+    public function loadGenere($id_genere)
+    {
+        $stmt = $this->pdo->query("SELECT * from genere where id = ". $id_genere.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+    public function storeGenere($id,$genere)
+    {
+        try {
+
+            $this->pdo->beginTransaction();
+            $sql = "INSERT INTO genere (genere,id)  VALUES (:genere,:id)";
+            $stmt = $this->pdo->prepare($sql);
+            //print($sql);
+            $stmt->execute(array(':genere' => $genere, ':id' => $id,));
+            $this->pdo->commit();
+            $this->closeDBConnection();
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            return null;
+        }
+    }
+    public function loadLingua($id_lingua)
+    {
+        $stmt = $this->pdo->query("SELECT * from lingua where id = ". $id_lingua.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+    public function storeLingua($id,$lingua)
+    {
+        try {
+
+            $this->pdo->beginTransaction();
+            $sql = "INSERT INTO lingua (lingua,id)  VALUES (:lingua,:id)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(array(':lingua' => $lingua, ':id' => $id,));
+            $this->pdo->commit();
+            $this->closeDBConnection();
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            return null;
+        }
+    }
+
     /**   Metodo che permette di prelevare le transazioni tra schedina e portafoglio dal db di un determinato portafoglio*/
     public function loadTransazioniSchedina($idPortafoglio) {
         $stmt = $this->pdo->query("SELECT * from TransazioneSchedina where idPortafoglio = ". $idPortafoglio.";");

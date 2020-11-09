@@ -60,7 +60,7 @@ class FCommento
 
         return $commenti;
     }
-    
+
 
     /**
      * Questo metodo restituisce il nome della classe per la costruzione delle query
