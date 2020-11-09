@@ -22,7 +22,7 @@ class FWatchlist
     {
         $stmt->bindValue(':nome', $watchlist->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(':descrizione', $watchlist->getDescrizione(), PDO::PARAM_STR);
-        $stmt->bindValue(':pubblico', $watchlist->getpubblico(), PDO::PARAM_BOOL);
+        $stmt->bindValue(':pubblico', $watchlist->isPubblico()pubblico(), PDO::PARAM_BOOL);
         $stmt->bindValue(':propietario', $watchlist->getPropietario(), PDO::PARAM_STR);//DA METTERE IN ENTITY
         $stmt->bindValue(':id', $id->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
     }
@@ -48,5 +48,48 @@ class FWatchlist
 
         }
 
+
+    public static function load($campo, $valoreCampo)
+    {
+
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->load($campo, $valoreCampo, FWatchlist::$nomeTabella);
+        $watchlist = array();
+
+        if($righe == NULL)
+        {
+            $watchlist = NULL;
+        }
+        else
+        {
+            $numeroRighe = count($righe);
+            for($i = 0; $i < $numeroRighe; $i++)
+            {
+                $watchlist[$i] = new EWatchlist(
+                    $righe[$i]["nome"],
+                    $righe[$i]["descrizione"],
+                    $righe[$i]["pubblico"],
+                    $righe[$i]["propietario"]
+
+                );
+                $watchlist[$i]->setId($righe[$i]["id"]);//non nel costruttore perchè non puoi fornire un id alla prima generazione in quanto l'id è dato dal primo salvataggio nel DB
+                $corrispondenze= FPersistentManager::load('id_watchlist',$righe[$i]['id'],FCorrispondenze::getNomeClasse());
+                ///////////////////
+                if($corrispondenze!=null){
+                    $serie=array();
+                    $nr=count($corrispondenze);
+                    for($i=0;$i < $nr;$i++){
+                        $a=FPersistentManager::load('id',$corrispondenze[$i]['id_stv'],FSerieTv::getNomeClasse());
+                        array_push($serie, $a);//inserisci la serie tv
+                    }
+                   $watchlist[$i]->setSerie($a);
+                }
+
+            }
+        }
+
+        return $watchlist;
     }
-}
+
+    }
+

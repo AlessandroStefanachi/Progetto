@@ -92,8 +92,8 @@ class FPersistentManager {
     }
 
     public static function loadCorrispondenze($id_watchlist){
-        $follower=FCorrispondenze::load($id_watchlist);
-        return $follower;
+        $corrispondenze=FCorrispondenze::load($id_watchlist);
+        return $corrispondenze;
 
     }
     public static function storeCorrispondenze($id_watchlist,$id_stv){

@@ -15,12 +15,12 @@ class EWatchlist
      * @param bool $pubblico
      * @param array $serie
      */
-    public function __construct($_nome, $_descrizione, $_pubblico, array $_serie)
+    public function __construct($_nome, $_descrizione, $_pubblico)
     {
         $this->nome = $_nome;
         $this->descrizione = $_descrizione;
         $this->pubblico = $_pubblico;
-        $this->serie = $_serie;
+
     }
 /////////////////////////////////////////////////////////////////////////////////////GETTERS/////////////////////////////////////////////////////////////////////////////
     /**
@@ -44,10 +44,7 @@ class EWatchlist
      */
     public function isPubblico(): String
     {
-        if($this->pubblico)
-            return "SI";
-        else
-            return "NO";
+        return $this->pubblico;
     }
 
     /**

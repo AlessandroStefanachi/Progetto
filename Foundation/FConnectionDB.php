@@ -223,7 +223,7 @@ class FConnectionDB {
     }
 
     public function loadCorr($id_Watchlist) {
-        $stmt = $this->pdo->query("SELECT * from Follow where id_watchlist= ". $id_watchlist.";");
+        $stmt = $this->pdo->query("SELECT * from Follow where id_watchlist= ". $id_Watchlist.";");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
