@@ -11,15 +11,13 @@ class ECommento
 
     /**
      * ECommento constructor.
-     * @param int $id
      * @param String $testo
      * @param DateTime $data
      * @param DateTime $ora
      * @param EUtente $autore
      */
-    public function __construct(int $id, String $testo, DateTime $data, DateTime $ora, EUtente $autore)
+    public function __construct(String $testo, DateTime $data, DateTime $ora, EUtente $autore)
     {
-        $this->id = $id;
         $this->testo = $testo;
         $this->data = $data;
         $this->ora = $ora;

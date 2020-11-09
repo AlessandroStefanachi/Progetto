@@ -16,7 +16,7 @@ class FWatchlist
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
      * dell'EUtenteRegistrato corrispondenti
      * @param PDOStatement $stmt
-     * @param EUtente $utente che deve essere salvato sul db
+     * @param EWatchlist $watchlist che deve essere salvato sul db
      */
     public static function bind($stmt, EWatchlist $watchlist)
     {
@@ -26,6 +26,7 @@ class FWatchlist
         $stmt->bindValue(':propietario', $watchlist->getPropietario(), PDO::PARAM_STR);//DA METTERE IN ENTITY
         $stmt->bindValue(':id', $id->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
     }
+
     public static function store(FWatchlist $watchlist)
     {
         $con = FConnectionDB::getIstanza();
@@ -46,7 +47,7 @@ class FWatchlist
         }
 
 
-        }
+    }
 
 
     public static function load($campo, $valoreCampo)
@@ -90,6 +91,40 @@ class FWatchlist
 
         return $watchlist;
     }
-
+    /**
+     * Questo metodo restituisce il nome della classe per la costruzione delle query
+     * @return string $nomeClasse nome della classe
+     */
+    public static function getNomeClasse()
+    {
+        return self::$nomeClasse;
     }
+
+    /**
+     * Questo metodo restituisce il nome della tabella per la costruzione delle query
+     * @return string $nomeTabella nome della tabella
+     */
+    public static function getNomeTabella()
+    {
+        return self::$nomeTabella;
+    }
+
+    /**
+     * Questo metodo restituisce i campi della tabella per la costruzione delle query
+     * @return string $campiTabella campi della tabella
+     */
+    public static function getCampiTabella()
+    {
+        return self::$campiTabella;
+    }
+
+    /**
+     * Questo metodo restituisce i campi parametrici della tabella per la costruzione delle query
+     * @return string $campiParametriciTabella campi parametrici della tabella
+     */
+    public static function getCampiParametriciTabella()
+    {
+        return self::$campiParametriciTabella;
+    }
+}
 

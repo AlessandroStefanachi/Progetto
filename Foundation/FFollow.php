@@ -3,7 +3,8 @@
 
 class FFollow
 {
-    public static function load($idA,int $select) {
+    public static function load($idA,int $select)
+    {
         $righe = null;
         $con = FConnectionDB::getIstanza();
         if($select==1)
@@ -12,7 +13,8 @@ class FFollow
         return $righe;
     }
 
-    public static function store($idA,$idB) {
+    public static function store($idA,$idB)
+    {
         $con = FConnectionDB::getIstanza();
         $con->storeFollow($idA,$idB);
     }
