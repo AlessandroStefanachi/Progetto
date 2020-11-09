@@ -132,6 +132,30 @@ class FPersistentManager
         FLingua::store($lingua, $id);
 
     }
+
+    public static function loadSTGlingua($id_stg)
+    {
+        $STGlingua = FLingua::load($id_stg);
+        return $STGlingua;
+    }
+
+    public static function storeSTGlingua($id_lingua, $id_stg)
+    {
+        FLingua::store($id_lingua, $id_stg);
+
+    }
+
+    public static function loadTVgenere($id_tv)
+    {
+        $TVgenere = FLingua::load($id_tv);
+        return $TVgenere;
+    }
+
+    public static function storeTVgenere($id_genere, $id_serie)
+    {
+        FLingua::store($id_genere, $id_serie);
+
+    }
 }
 
 /**

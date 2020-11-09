@@ -317,6 +317,64 @@ class FConnectionDB {
     }
 
 
+    public function loadSTGlingua($id_stg)
+    {
+        $stmt = $this->pdo->query("SELECT * from STGLingua where id_stg= ". $id_stg.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+    public function storeSTGlingua($id_lingua,$id_stg)
+    {
+        try {
+
+            $this->pdo->beginTransaction();
+            $sql = "INSERT INTO STGLingua (id_lingua,id_stg)  VALUES (:id_lingua,:id_stg)";
+            $stmt = $this->pdo->prepare($sql);
+            //print($sql);
+            $stmt->execute(array(':id_lingua' => $id_lingua, ':id_stg' => $id_stg,));
+            $this->pdo->commit();
+            $this->closeDBConnection();
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            return null;
+        }
+    }
+
+    public function loadTVgenere($id_tv)
+    {
+        $stmt = $this->pdo->query("SELECT * from TVgenere where id_tv= ". $id_tv.";");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+    public function storeTVgenere($id_genere,$id_serie)
+    {
+        try {
+
+            $this->pdo->beginTransaction();
+            $sql = "INSERT INTO TVgenere (id_genere,id_serie)  VALUES (:id_genere,:id_serie)";
+            $stmt = $this->pdo->prepare($sql);
+            //print($sql);
+            $stmt->execute(array(':id_genere' => $id_genere, ':id_serie' => $id_serie,));
+            $this->pdo->commit();
+            $this->closeDBConnection();
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            return null;
+        }
+    }
+
 }
 
 /*
