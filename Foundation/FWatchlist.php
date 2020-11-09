@@ -24,7 +24,7 @@ class FWatchlist
         $stmt->bindValue(':descrizione', $watchlist->getDescrizione(), PDO::PARAM_STR);
         $stmt->bindValue(':pubblico', $watchlist->isPubblico()pubblico(), PDO::PARAM_BOOL);
         $stmt->bindValue(':propietario', $watchlist->getPropietario(), PDO::PARAM_STR);//DA METTERE IN ENTITY
-        $stmt->bindValue(':id', $id->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
+        $stmt->bindValue(':id', $watchlist->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
     }
 
     public static function store(FWatchlist $watchlist)

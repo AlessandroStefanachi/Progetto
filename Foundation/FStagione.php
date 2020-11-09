@@ -27,16 +27,12 @@ class FStagione
 
     }
 
-    /**
-     * Metodo che permette di fare la store dell'episodio,
-     * @param EEpisodio $episodio
-     */
     public static function store(EStagione $stagione)
     {
         $con = FConnectionDB::getIstanza();
         $id = $con->store($stagione, FStagione::$nomeClasse);
         $stagione->setId($id);
-        $episodi = $stagione->getCommenti();
+        $episodi = $stagione->getEpisodi();
 
 
         if ($episodi)
@@ -53,17 +49,11 @@ class FStagione
 
     }
 
-    /**
-     * Metodo che permette di fare la load dell' episodio/i dal database
-     * @param $campo campo da confrontare per trovare la riga
-     * @param $valoreCampo valore del campo
-     * @return $episodio array di oggetti EEpisodio
-     */
     public static function load($campo, $valoreCampo)
     {
 
         $con = FConnectionDB::getIstanza();
-        $righe =  $con->load($campo, $valoreCampo, FEpisodio::$nomeTabella);
+        $righe =  $con->load($campo, $valoreCampo, FStagione::$nomeTabella);
         $stagioni = array();
 
         if($righe == NULL)
@@ -85,14 +75,17 @@ class FStagione
                 $stagioni[$i]->setEpisodi($episodi);
                 $Clingue= FPersistentManager::load('id_stagione',$righe[$i]['id'],FSTGlingua::getNomeClasse());
                 ///////////////////
-                if($Clingue!=null){
+                if($Clingue!=null)
+                {
                     $lingue=array();
                     $nr=count($Clingue);
-                    for($i=0;$i < $nr;$i++){
+                    for($i=0;$i < $nr;$i++)
+                    {
                         $a=FPersistentManager::load('id',$Clingue[$i]['id_lingua'],FLingua::getNomeClasse());
                         array_push($serie, $lingue);//inserisci la lingua
                     }
                     $stagioni[$i]->setLingue($lingue);
+                }
             }
         }
 

@@ -20,15 +20,12 @@ class ESerieTv
      * @param array $stagioni
      * @param String $tipo
      */
-    public function __construct(String $_titolo, String $_trama, array $_genere, String $_regista, array $_stagioni, String $_tipo)
+    public function __construct(String $_titolo, String $_trama, String $_regista, String $_tipo)
     {
         $this->titolo = $_titolo;
         $this->trama = $_trama;
-        $this->genere = $_genere;
         $this->regista = $_regista;
         $this->tipo = $_tipo;
-        foreach ($_stagioni as &$value)
-            $this->aggiungiStagione($value);
     }
 ///////////////////////////////////////////////////////////////////////GETTERS/////////////////////////////////////////////////////////////////////////////////////////////////////
 
