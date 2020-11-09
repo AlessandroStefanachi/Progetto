@@ -1,16 +1,17 @@
 <?php
 
 
-class FCommento
+class FValutazione
+
 {
     /*Nome della classe Foundation*/
-    private static $nomeClasse = "FCommento";
+    private static $nomeClasse = "FValutazione";
     /*Nome della tabella del db*/
     private static $nomeTabella = "commento";
     /*Campi della tabella del db*/
-    private static $campiTabella = "(id,testo,data,ora,autore,id_episodio)";
+    private static $campiTabella = "(voto,autore,id_episodio)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
-    private static $campiParametriciTabella = "(:id, :testo, :data, :ora, :autore, :id_episodio)";
+    private static $campiParametriciTabella = "(:voto, :autore, :id_episodio)";
 
     /**
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
@@ -18,24 +19,21 @@ class FCommento
      * @param PDOStatement $stmt
      * @param ECommento $commento che deve essere salvato sul db
      */
-    public static function bind($stmt, ECommento $commento)
+    public static function bind($stmt, EValutazione $valutazione)
     {
-        $stmt->bindValue(':id', $commento->getId(), PDO::PARAM_INT);
-        $stmt->bindValue(':testo', $commento->getTesto(), PDO::PARAM_STR);
-        $stmt->bindValue(':data', $commento->getData(), PDO::PARAM_STR);
-        $stmt->bindValue(':ora', $commento->getOra(), PDO::PARAM_STR);
-        $stmt->bindValue(':autore', $commento->getAutore()->getUserName(), PDO::PARAM_STR);
-        $stmt->bindValue(':id_episodio', $commento->getIdEpisodio(), PDO::PARAM_INT);//aggiungere getIdEpisodio e l'attributo id_episodio
+        $stmt->bindValue(':voto', $valutazione->getVoto(), PDO::PARAM_INT);
+        $stmt->bindValue(':testo', $valutazione->getAutore()->getUserName(), PDO::PARAM_STR);
+        $stmt->bindValue(':id_episodio', $valutazione->getIdEpisodio(), PDO::PARAM_INT);//aggiungere getIdEpisodio e l'attributo id_episodio
     }
 
     /**
      * Metodo che permette di fare la store del commento
-     * @param ECommento $commento
+     * @param EValutazione $valutazione
      */
-    public static function store($commento)
+    public static function store($valutazione)
     {
         $con = FConnectionDB::getIstanza();
-        $con->store($commento, static::$nomeClasse);
+        $con->store($valutazione, static::$nomeClasse);
     }
 
     public static function load($campo, $valoreCampo)
@@ -43,7 +41,7 @@ class FCommento
 
         $con = FConnectionDB::getIstanza();
         $righe =  $con->load($campo, $valoreCampo, static::$nomeTabella);
-        $commenti = array();
+        $valutazioni = array();
         $utenti = array();
 
         if($righe == NULL) {
@@ -52,8 +50,8 @@ class FCommento
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++) {
                 $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
-                $commenti[$i] = new ECommento($righe[$i]["testo"], $righe[$i]["data"], $righe[$i]["ora"], $utenti[0], $righe[$i]["id_episodio"]);
-                $commenti[$i]->setId($righe[$i]["id"]);
+                $valutazioni[$i] = new ECommento($righe[$i]["voto"], $utenti[0]);
+
 
             }
         }
