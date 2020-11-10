@@ -7,22 +7,17 @@ class FValutazione
     /*Nome della classe Foundation*/
     private static $nomeClasse = "FValutazione";
     /*Nome della tabella del db*/
-    private static $nomeTabella = "commento";
+    private static $nomeTabella = "valutazione";
     /*Campi della tabella del db*/
     private static $campiTabella = "(voto,autore,id_episodio)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
     private static $campiParametriciTabella = "(:voto, :autore, :id_episodio)";
 
-    /**
-     * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
-     * dell'EEpisodio corrispondenti
-     * @param PDOStatement $stmt
-     * @param ECommento $commento che deve essere salvato sul db
-     */
+
     public static function bind($stmt, EValutazione $valutazione)
     {
         $stmt->bindValue(':voto', $valutazione->getVoto(), PDO::PARAM_INT);
-        $stmt->bindValue(':testo', $valutazione->getAutore()->getUserName(), PDO::PARAM_STR);
+        $stmt->bindValue(':autore', $valutazione->getAutore()->getUserName(), PDO::PARAM_STR);
         $stmt->bindValue(':id_episodio', $valutazione->getIdEpisodio(), PDO::PARAM_INT);//aggiungere getIdEpisodio e l'attributo id_episodio
     }
 
@@ -44,19 +39,21 @@ class FValutazione
         $valutazioni = array();
         $utenti = array();
 
-        if($righe == NULL) {
-            $commenti = NULL;
-        }else {
-            $numeroRighe = count($righe);
-            for($i = 0; $i < $numeroRighe; $i++) {
-                $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
-                $valutazioni[$i] = new ECommento($righe[$i]["voto"], $utenti[0]);
-
-
-            }
+        if($righe == NULL)
+        {
+            $valutazioni = NULL;
         }
+            else
+                {
+                    $numeroRighe = count($righe);
+                     for($i = 0; $i < $numeroRighe; $i++)
+                        {
+                            $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
+                            $valutazioni[$i] = new EValutazione($righe[$i]["voto"], $utenti[0], $righe[$i]["id_episodio"]);
+                        }
+                }
 
-        return $commenti;
+        return $valutazioni;
     }
 
 

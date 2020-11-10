@@ -40,12 +40,9 @@ class FWatchlist
             $n= count($serietv);
             for($i = 0; $i < $n; $i++)
             {
-
                 FCorrispondenze::store($watchlist->getId(),$serietv->getid());
-
             }
         }
-
 
     }
 

@@ -65,11 +65,7 @@ class FStagione
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                $stagioni[$i] = new EStagione(
-                    $righe[$i]["data"],
-                    $righe[$i]["numero"]
-
-                );
+                $stagioni[$i] = new EStagione($righe[$i]["data"], $righe[$i]["numero"],$righe[$i]["id_serieTv"]);
                 $stagioni[$i]->setId($righe[$i]["id"]);
                 $episodi= FPersistentManager::load('id_stagione',$righe[$i]['id'],FEpisodio::getNomeClasse());
                 $stagioni[$i]->setEpisodi($episodi);

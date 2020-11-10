@@ -3,22 +3,24 @@
 
 class EStagione
 {
-    ///aggiungere numero
+
     private $lingue=array();
     private $episodi=array();
-
     private int $valutazione=0;
     private DateTime $data;
     private int $numero=0;
+    private int $id;
+    private int $id_serieTv;
 
     /**
      * EStagione constructor.
      */
-    public function __construct(String $_date, int $_numero)
+    public function __construct(String $_date, int $_numero, int $id_serieTv)
     {
 
-        $this->data=DateTime::createFromFormat('d-m-Y',$_date);
-        $this->numero=$_numero;
+        $this->data = DateTime::createFromFormat('d-m-Y',$_date);
+        $this->numero = $_numero;
+        $this->id_serieTv = $id_serieTv;
     }
 ///////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////
     /**
@@ -27,6 +29,22 @@ class EStagione
     public function getLingue(): array
     {
         return $this->lingue;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdSerieTv()
+    {
+        return $this->id_serieTv;
     }
 
     /**
@@ -76,6 +94,22 @@ class EStagione
     public function setLingue(array $lingue): void
     {
         $this->lingue = $lingue;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param int $id_serieTv
+     */
+    public function setIdSerieTv($id_serieTv)
+    {
+        $this->id_serieTv = $id_serieTv;
     }
 
     /**

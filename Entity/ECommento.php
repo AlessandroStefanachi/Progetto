@@ -8,6 +8,7 @@ class ECommento
     private DateTime $data;
     private DateTime $ora;
     private EUtente $autore;
+    private int $id_episodio;
 
     /**
      * ECommento constructor.
@@ -15,13 +16,15 @@ class ECommento
      * @param DateTime $data
      * @param DateTime $ora
      * @param EUtente $autore
+     * @param Int $id_episodio
      */
-    public function __construct(String $testo, DateTime $data, DateTime $ora, EUtente $autore)
+    public function __construct(String $testo, DateTime $data, DateTime $ora, EUtente $autore, int $id_episodio)
     {
         $this->testo = $testo;
         $this->data = $data;
         $this->ora = $ora;
         $this->autore = $autore;
+        $this->id_episodio = $id_episodio;
     }
 
 /////////////////////////////////////////////////////////////////////////////////////GETTERS/////////////////////////////////////////////////////////////////////////////
@@ -65,6 +68,16 @@ class ECommento
         return $this->autore;
     }
 
+    /**
+     * @return int
+     */
+    public function getIdEpisodio()
+    {
+        return $this->id_episodio;
+    }
+
+
+
 ///////////////////////////////////////////////////////////////////////////SETTERS////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * @param int $id
@@ -106,7 +119,13 @@ class ECommento
         $this->autore = $autore;
     }
 
-
+    /**
+     * @param int $id_episodio
+     */
+    public function setIdEpisodio($id_episodio)
+    {
+        $this->id_episodio = $id_episodio;
+    }
 
 
 }

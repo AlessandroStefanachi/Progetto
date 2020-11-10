@@ -7,6 +7,8 @@ class EWatchlist
     private String $descrizione;
     private Bool $pubblico;
     private  $serie=array();
+    private int $id;
+    private EUtente $proprietario;
 
     /**
      * EWatchlist constructor.
@@ -15,12 +17,12 @@ class EWatchlist
      * @param bool $pubblico
      * @param array $serie
      */
-    public function __construct($_nome, $_descrizione, $_pubblico)
+    public function __construct(String $_nome, String $_descrizione, bool $_pubblico, EUtente $proprietario)
     {
         $this->nome = $_nome;
         $this->descrizione = $_descrizione;
         $this->pubblico = $_pubblico;
-
+        $this->proprietario = $proprietario;
     }
 /////////////////////////////////////////////////////////////////////////////////////GETTERS/////////////////////////////////////////////////////////////////////////////
     /**
@@ -29,6 +31,22 @@ class EWatchlist
     public function getNome()
     {
         return $this->nome;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return EUtente
+     */
+    public function getProprietario()
+    {
+        return $this->proprietario;
     }
 
     /**
@@ -61,6 +79,22 @@ class EWatchlist
     public function setNome($nome)
     {
         $this->nome = $nome;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param EUtente $proprietario
+     */
+    public function setProprietario($proprietario)
+    {
+        $this->proprietario = $proprietario;
     }
 
     /**

@@ -10,6 +10,7 @@ class ESerieTv
     private String $regista;
     private $stagioni=array();
     private String $tipo;//solo disponibile o in uscita
+    private int $id;
 
     /**
      * ESerieTv constructor.
@@ -35,6 +36,14 @@ class ESerieTv
     public function getTitolo(): String
     {
         return $this->titolo;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -92,6 +101,14 @@ class ESerieTv
     public function setTitolo(String $titolo): void
     {
         $this->titolo = $titolo;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
