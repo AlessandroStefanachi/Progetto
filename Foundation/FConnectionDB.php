@@ -23,17 +23,18 @@ class FConnectionDB {
 
     /**
      * Metodo che restituisce l'unica istanza dell'oggetto.
-     * @return FDataBase l'istanza dell'oggetto.
+     * @return FConnectionDB l'istanza dell'oggetto.
      */
     public static function getIstanza() {
         if(self::$istanza == null) self::$istanza = new FConnectionDB();
         return self::$istanza;
     }
 
-    /**
+    /*
      * Metodo che permette di salvare informazioni contenute in un oggetto Entity sul database.
      * @param $oggetto oggetto da salvare
      * @param $nomeClasse nome della classe che serve per ottenere il nome della tabella e i nomi dei campi per fare la query
+
      */
     public function store($oggetto, $nomeClasse) {
 

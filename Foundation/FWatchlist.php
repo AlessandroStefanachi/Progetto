@@ -22,12 +22,12 @@ class FWatchlist
     {
         $stmt->bindValue(':nome', $watchlist->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(':descrizione', $watchlist->getDescrizione(), PDO::PARAM_STR);
-        $stmt->bindValue(':pubblico', $watchlist->isPubblico()pubblico(), PDO::PARAM_BOOL);
-        $stmt->bindValue(':propietario', $watchlist->getPropietario(), PDO::PARAM_STR);//DA METTERE IN ENTITY
+        $stmt->bindValue(':pubblico', $watchlist->isPubblico(), PDO::PARAM_BOOL);
+        $stmt->bindValue(':propietario', $watchlist->getProprietario()->getUsername(), PDO::PARAM_STR);//DA METTERE IN ENTITY
         $stmt->bindValue(':id', $watchlist->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
     }
 
-    public static function store(FWatchlist $watchlist)
+    public static function store(EWatchlist $watchlist)
     {
         $con = FConnectionDB::getIstanza();
         $id = $con->store($watchlist, FWatchlist::$nomeClasse);
@@ -40,7 +40,7 @@ class FWatchlist
             $n= count($serietv);
             for($i = 0; $i < $n; $i++)
             {
-                FCorrispondenze::store($watchlist->getId(),$serietv->getid());
+                FCorrispondenze::store($watchlist->getId(),$serietv[$i]->getid());
             }
         }
 
@@ -63,11 +63,12 @@ class FWatchlist
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
+                $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
                 $watchlist[$i] = new EWatchlist(
                     $righe[$i]["nome"],
                     $righe[$i]["descrizione"],
                     $righe[$i]["pubblico"],
-                    $righe[$i]["propietario"]
+                    $utenti[0]
 
                 );
                 $watchlist[$i]->setId($righe[$i]["id"]);//non nel costruttore perchè non puoi fornire un id alla prima generazione in quanto l'id è dato dal primo salvataggio nel DB
