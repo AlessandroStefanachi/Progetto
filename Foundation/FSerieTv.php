@@ -71,7 +71,7 @@ class FSerieTv
                 $serie[$i]->setId($righe[$i]["id"]);
                 $stagione= FPersistentManager::load('id_serieTV',$righe[$i]['id'],FStagione::getNomeClasse());
                 $serie[$i]->setStagioni($stagione);
-                $CGenere= FPersistentManager::load('id_serie',$righe[$i]['id'],FTVgenere::getNomeClasse());
+                $CGenere= FPersistentManager::loadTVgenere($righe[$i]['id']);
                 ///////////////////
                 if($CGenere!=null)
                 {
@@ -79,7 +79,7 @@ class FSerieTv
                     $nr=count($CGenere);
                     for($i=0;$i < $nr;$i++)
                     {
-                        $a=FPersistentManager::load('id',$CGenere[$i]['id_genere'],FGenere::getNomeClasse());
+                        $a=FPersistentManager::loadGenere($CGenere[$i]['id_genere']);
                         array_push($serie, $generi);//inserisci la lingua
                     }
                     $serie[$i]->setGenere($generi);

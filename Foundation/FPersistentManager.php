@@ -79,14 +79,14 @@ class FPersistentManager
 
     public static function loadFollower($idA)
     {
-        $follower = FFollow::load($idA);
+        $follower = FFollow::load($idA,1);
         return $follower;
 
     }
 
-    public static function loadFollowed($idA, int $select)
+    public static function loadFollowed($idA)
     {
-        $follower = FFollow::load($idA, $select);
+        $follower = FFollow::load($idA, 0);
         return $follower;
 
     }

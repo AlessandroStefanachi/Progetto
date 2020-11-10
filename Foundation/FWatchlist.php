@@ -72,7 +72,7 @@ class FWatchlist
 
                 );
                 $watchlist[$i]->setId($righe[$i]["id"]);//non nel costruttore perchè non puoi fornire un id alla prima generazione in quanto l'id è dato dal primo salvataggio nel DB
-                $corrispondenze= FPersistentManager::load('id_watchlist',$righe[$i]['id'],FCorrispondenze::getNomeClasse());
+                $corrispondenze= FPersistentManager::loadCorrispondenze($righe[$i]['id']);
                 ///////////////////
                 if($corrispondenze!=null){
                     $serie=array();

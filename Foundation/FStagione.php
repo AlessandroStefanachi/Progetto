@@ -23,7 +23,7 @@ class FStagione
         $stmt->bindValue(':data', $stagione->getData(), PDO::PARAM_STR);
         $stmt->bindValue(':numero', $stagione->getNumero(), PDO::PARAM_INT);
         $stmt->bindValue(':id', $stagione->getId(), PDO::PARAM_INT);//da aggiungere attributo e metodo
-        $stmt->bindValue(':id_serieTv', $stagione->getid_serieTv(), PDO::PARAM_INT);//da aggiungere attributo e metodo
+        $stmt->bindValue(':id_serieTv', $stagione->getIdSerieTv(), PDO::PARAM_INT);//da aggiungere attributo e metodo
 
     }
 
@@ -69,7 +69,7 @@ class FStagione
                 $stagioni[$i]->setId($righe[$i]["id"]);
                 $episodi= FPersistentManager::load('id_stagione',$righe[$i]['id'],FEpisodio::getNomeClasse());
                 $stagioni[$i]->setEpisodi($episodi);
-                $Clingue= FPersistentManager::load('id_stagione',$righe[$i]['id'],FSTGlingua::getNomeClasse());
+                $Clingue= FPersistentManager::loadSTGlingua($righe[$i]['id']);
                 ///////////////////
                 if($Clingue!=null)
                 {
@@ -77,7 +77,7 @@ class FStagione
                     $nr=count($Clingue);
                     for($i=0;$i < $nr;$i++)
                     {
-                        $a=FPersistentManager::load('id',$Clingue[$i]['id_lingua'],FLingua::getNomeClasse());
+                        $a=FPersistentManager::loadLingua($Clingue[$i]['id_lingua']);
                         array_push($serie, $lingue);//inserisci la lingua
                     }
                     $stagioni[$i]->setLingue($lingue);

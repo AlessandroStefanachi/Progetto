@@ -13,7 +13,12 @@ class FValutazione
     /*Campi parametrici della tabella usati dalla query per il bind*/
     private static $campiParametriciTabella = "(:voto, :autore, :id_episodio)";
 
-
+    /**
+     * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
+     * dell'EUtenteRegistrato corrispondenti
+     * @param PDOStatement $stmt
+     * @param EValutazione $valutazione che deve essere salvato sul db
+     */
     public static function bind($stmt, EValutazione $valutazione)
     {
         $stmt->bindValue(':voto', $valutazione->getVoto(), PDO::PARAM_INT);
