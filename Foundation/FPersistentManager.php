@@ -3,7 +3,7 @@
 class FPersistentManager
 {
 
-    /**
+    /*
      *Metodo che permette di salvare un oggetto sul db
      * @param $oggetto oggetto da salvare
      */
@@ -14,7 +14,7 @@ class FPersistentManager
         $FClass::store($oggetto);
     }
 
-    /**
+    /*
      *Metodo che permette di prelevare uno o più oggetti dal db
      * @param $campo campo della tabella interessata
      * @param $valoreCampo il valore del campo
@@ -28,7 +28,7 @@ class FPersistentManager
     }
 
 
-    /**
+    /*
      *Metodo che permette di prelevare un utente registrato dal db
      *richiamando però il metodo che verifica la corrispondenza della password inserita(in chiaro)
      *tramite post e la password hashata nel db
@@ -55,7 +55,7 @@ class FPersistentManager
         } else return false;
     }
 
-    /**
+    /*
      * Metodo che accerta l'esistenza di un valore di un campo passato come parametro
      * @param $campo da testare
      * @param $vaoreCampo ,valore da cercare
@@ -158,7 +158,7 @@ class FPersistentManager
     }
 }
 
-/**
+/*
 Metodo che permette di prelevare un utente registrato dal db
 richiamando però il metodo che verifica la corrispondenza della password inserita(in chiaro)
 tramite post e la password in chiaro nel db

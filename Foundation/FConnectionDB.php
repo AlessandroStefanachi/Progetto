@@ -57,7 +57,7 @@ class FConnectionDB {
         }
     }
 
-    /**
+    /*
      * Metodo che permette di prelevare uno o più oggetti dal db
      * @param $campo nome del campo
      * @param $campo valore del campo
@@ -83,7 +83,7 @@ class FConnectionDB {
         }
     }
 
-    /**
+    /*
      * Metodo che permette di aggiornare il valore di un attributo passato come parametro
      * @param $campo campo da aggiornare
      * @param $nuovoValore nuovo valore da inserire
@@ -107,7 +107,7 @@ class FConnectionDB {
         }
     }
 
-    /**
+    /*
      * Metodo che verifica l'esistenza di un campo con un certo valore nella tabella $nomeTabella
      * @param $campo campo da aggiornare
      * @param $valoreCampo valore del campo
@@ -158,7 +158,7 @@ class FConnectionDB {
         }
     }
 
-    /**
+    /*
      * Metodo che permette di eliminare un commento nel db
      * @param id id usato per la cancellazione
      * @return $verifica bool se la cancellazione è andata a buon fine
@@ -183,7 +183,7 @@ class FConnectionDB {
         return $verifica;
     }
 
-    /** Chiude la connessione con il db */
+    /* Chiude la connessione con il db */
     public function closeDBConnection() {
         self::$istanza = null;
     }
@@ -308,7 +308,7 @@ class FConnectionDB {
         }
     }
 
-    /**   Metodo che permette di prelevare le transazioni tra schedina e portafoglio dal db di un determinato portafoglio*/
+
     public function loadTransazioniSchedina($idPortafoglio) {
         $stmt = $this->pdo->query("SELECT * from TransazioneSchedina where idPortafoglio = ". $idPortafoglio.";");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -383,7 +383,7 @@ NB: $stmt->fetch() ritorna un array di elementi e bisogna usare un indice per ac
     $stmt->fetchAll() ritorna un array di array e bisogna usare due indici
 */
 
-/**
+/*
  * Metodo che permette di verificare se l'utente è nel db e restituisce la riga (array) contenente l'utente
  * inoltre verifica l'accesso con prevenzione dall'sql injection
  * @param $username
