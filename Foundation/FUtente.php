@@ -91,11 +91,13 @@ class FUtente  {
                 $utenti[$i] = new EUtente(
                     $righe[$i]["username"],
                     $righe[$i]["email"],$righe[$i]["password"],$righe[$i]["ruolo"]);
-                    $seguaci=FPersistentManager::loadFollower($utenti[$i]->getUsername());
-                    $utenti[$i]->setSeguaci($seguaci);
-                    $seguiti=FPersistentManager::loadFollowed($utenti[$i]->getUsername());
-                    $utenti[$i]->setSeguiti($seguiti);
-                    $watchlist=FPersistentManager::load("propietario",$righe[$i]->getUsername(),Fwatchlist::getNomeCLasse());
+                   $seguaci=FPersistentManager::loadFollower($utenti[$i]->getUsername());
+                   if($seguaci){
+                   $utenti[$i]->setSeguaci($seguaci);}
+                   $seguiti=FPersistentManager::loadFollowed($utenti[$i]->getUsername());
+                   if($seguiti){
+                   $utenti[$i]->setSeguiti($seguiti);}
+                    $watchlist=FPersistentManager::load("proprietario",$utenti[$i]->getUsername(),FWatchlist::getNomeCLasse());
                     $utenti[$i]->setWatchlist($watchlist);
                 }
             }

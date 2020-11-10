@@ -189,14 +189,15 @@ class FConnectionDB {
     }
 
     public function loadFollower($idA) {
-        $stmt = $this->pdo->query("SELECT idB from Follow where idA = ". $idA.";");
+        echo("SELECT id_seguace from follow where id_seguito="." ".$idA.";");
+        $stmt = $this->pdo->query("SELECT id_seguace from follow where id_seguito='".$idA."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
         return $righe;
     }
     public function loadFollowed($idA) {
-        $stmt = $this->pdo->query("SELECT idA from Follow where idB = ". $idA.";");
+        $stmt = $this->pdo->query("SELECT id_seguito from follow where id_seguace='".$idA."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;

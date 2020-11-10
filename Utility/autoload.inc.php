@@ -21,7 +21,7 @@ function my_autoloader($className) {
 
 
             case 'F':
-                include_once( 'Foundation/'. $className . '.php' );
+                include_once( __DIR__.'/../Foundation/'. $className . '.php' );
                 break;
 
 

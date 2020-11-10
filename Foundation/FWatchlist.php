@@ -63,7 +63,7 @@ class FWatchlist
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
+                $utenti = FPersistentManager::load("username", $righe[$i]["propietario"], FUtente::getNomeClasse());
                 $watchlist[$i] = new EWatchlist(
                     $righe[$i]["nome"],
                     $righe[$i]["descrizione"],
