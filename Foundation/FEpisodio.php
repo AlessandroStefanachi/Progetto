@@ -92,9 +92,11 @@ class FEpisodio
                     );
                 $episodio[$i]->setId($righe[$i]["id"]);
                 $commenti= FPersistentManager::load('id_episodio',$righe[$i]['id'],FCommento::getNomeClasse());
-                $episodio[$i]->setCommenti($commenti);
+                if($commenti)
+                    $episodio[$i]->setCommenti($commenti);
                 $valutazioni= FPersistentManager::load('id_episodio',$righe[$i]['id'],FValutazione::getNomeClasse());
-                $episodio[$i]->setValutazioni($valutazioni);
+                if($commenti)
+                    $episodio[$i]->setValutazioni($valutazioni);
             }
         }
 

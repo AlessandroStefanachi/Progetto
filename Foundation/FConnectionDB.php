@@ -25,7 +25,8 @@ class FConnectionDB {
      * Metodo che restituisce l'unica istanza dell'oggetto.
      * @return FConnectionDB l'istanza dell'oggetto.
      */
-    public static function getIstanza() {
+    public static function getIstanza()
+    {
         if(self::$istanza == null) self::$istanza = new FConnectionDB();
         return self::$istanza;
     }
@@ -36,10 +37,11 @@ class FConnectionDB {
      * @param $nomeClasse nome della classe che serve per ottenere il nome della tabella e i nomi dei campi per fare la query
 
      */
-    public function store($oggetto, $nomeClasse) {
+    public function store($oggetto, $nomeClasse)
+    {
 
-        try {
-
+        try
+        {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO ". $nomeClasse::getNomeTabella() . $nomeClasse::getCampiTabella() . " VALUES " . $nomeClasse::getCampiParametriciTabella();
             $stmt = $this->pdo->prepare($sql);
@@ -50,11 +52,12 @@ class FConnectionDB {
             $this->closeDBConnection();
             return $id;
 
-        } catch (Exception $e) {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return null;
-        }
+        } catch (Exception $e)
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+                return null;
+            }
     }
 
     /*
@@ -63,24 +66,27 @@ class FConnectionDB {
      * @param $campo valore del campo
      * @param $nomeTabella nome della tabella su cui fare la query
      */
-    public function load($campo, $valoreCampo, $nomeTabella) {
-
-        try {
+    public function load($campo, $valoreCampo, $nomeTabella)
+    {
+        try
+        {
 
             $sql = "SELECT * FROM " . $nomeTabella . " WHERE " . $campo . " = '" . $valoreCampo . "';";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $numeroRighe = $stmt->rowCount();
-            if($numeroRighe == 0) {
-                $risultato = NULL;
-            }
+            if($numeroRighe == 0)
+                {
+                    $risultato = NULL;
+                }
             return $risultato;
 
-        } catch (Exception $e) {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-        }
+        } catch (Exception $e)
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+            }
     }
 
     /*
@@ -91,8 +97,10 @@ class FConnectionDB {
      * @param $id valore della chiave primaria
      * @param $nomeClasse nome della classe interessata
      */
-    public function update ($campo, $nuovoValore, $chiave, $id, $nomeClasse) {
-        try {
+    public function update ($campo, $nuovoValore, $chiave, $id, $nomeClasse)
+    {
+        try
+        {
             $this->pdo->beginTransaction();
             $sql = "UPDATE " . $nomeClasse::getNomeTabella() . " SET " . $campo . "='" . $nuovoValore . "' WHERE " . $chiave . "='" . $id . "';";
             $stmt = $this->pdo->prepare($sql);
@@ -100,11 +108,12 @@ class FConnectionDB {
             $this->pdo->commit();
             $this->closeDbConnection();
             return true;
-        } catch (PDOException $e) {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return false;
-        }
+        } catch (PDOException $e)
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+                return false;
+            }
     }
 
     /*
@@ -113,29 +122,33 @@ class FConnectionDB {
      * @param $valoreCampo valore del campo
      * @param $nomeTabella nome della tabella interessata
      */
-    public function exist($campo, $valoreCampo, $nomeTabella) {
-        try {
-
+    public function exist($campo, $valoreCampo, $nomeTabella)
+    {
+        try
+        {
             $sql = "SELECT * FROM " . $nomeTabella . " WHERE " . $campo . " = '" . $valoreCampo . "';";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $numeroRighe = $stmt->rowCount();
-            if($numeroRighe == 0) {
+            if($numeroRighe == 0)
+            {
                 $risultato = NULL;
             }
             return $risultato;
 
-        } catch (Exception $e) {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-        }
+        } catch (Exception $e)
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+            }
     }
 
 
     public function loadVerificaAccessoPWHash ($username, $pass) {
 
-        try {
+        try
+        {
             $sql = null;
             $class = "FUtenteRegistrato";
             $sql = "SELECT * FROM " . $class::getNomeTabella() . " WHERE username = :us";
@@ -144,18 +157,21 @@ class FConnectionDB {
             // $stmt->execute();
             $stmt->execute(array(':us' => $username));
             $numeroRighe = $stmt->rowCount();
-            if ($numeroRighe == 0) {
-                $risultato = null;
-            } else {
-                $risultato = $stmt->fetch(PDO::FETCH_ASSOC);   //ritorna una sola riga
-                if(!password_verify($pass,$risultato["password"])) $risultato = null; //se la passw hashata non corrisponde
-            }
+            if ($numeroRighe == 0)
+                {
+                    $risultato = null;
+                } else
+                    {
+                        $risultato = $stmt->fetch(PDO::FETCH_ASSOC);   //ritorna una sola riga
+                        if(!password_verify($pass,$risultato["password"])) $risultato = null; //se la passw hashata non corrisponde
+                    }
             return $risultato;
-        } catch (PDOException $e) {
-            echo "Errore: " . $e->getMessage();
-            $this->db->rollBack();
-            return null;
-        }
+        } catch (PDOException $e)
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->db->rollBack();
+                return null;
+            }
     }
 
     /*
@@ -175,16 +191,18 @@ class FConnectionDB {
             $this->closeDbConnection();
             $verifica = true;
 
-        } catch (PDOException $e) {
-            echo "Attenzione errore: " . $e->getMessage();
-            $this->pdo->rollBack();
+        } catch (PDOException $e)
+            {
+                echo "Attenzione errore: " . $e->getMessage();
+                $this->pdo->rollBack();
             //return false;
-        }
+            }
         return $verifica;
     }
 
     /* Chiude la connessione con il db */
-    public function closeDBConnection() {
+    public function closeDBConnection()
+    {
         self::$istanza = null;
     }
 
@@ -203,30 +221,30 @@ class FConnectionDB {
         if($numeroRighe == 0) $righe = null;
         return $righe;
     }
-    public function storeFollow($idA,$idB) {
+    public function storeFollow($id_seguito,$id_seguace)
+    {
 
-        try {
-
+        try
+        {
             $this->pdo->beginTransaction();
-            $sql = "INSERT INTO Follow (idA,idB)  VALUES (:idA,:idB)";
+            $sql = "INSERT INTO follow (id_seguito,id_seguace)  VALUES (:id_seguito,:id_seguace)";
             $stmt = $this->pdo->prepare($sql);
             //print($sql);
-            $stmt->execute(array(':idA' => $idA,
-                ':idB' => $idB,
-                ));
+            $stmt->execute(array(':id_seguito' => $id_seguito, ':id_seguace' => $id_seguace,));
             $this->pdo->commit();
             $this->closeDBConnection();
 
-        } catch (Exception $e) {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return null;
-        }
+        } catch (Exception $e)
+            {
+                 echo "Errore: " . $e->getMessage();
+                 $this->pdo->rollBack();
+                 return null;
+             }
     }
 
     public function loadCorr($id_Watchlist)
     {
-        $stmt = $this->pdo->query("SELECT * from Follow where id_watchlist= ". $id_Watchlist.";");
+        $stmt = $this->pdo->query("SELECT * from corrispondenza where id_watchlist= '". $id_Watchlist."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -235,8 +253,8 @@ class FConnectionDB {
 
     public function storeCorr($id_watchlist,$id_stv)
     {
-        try {
-
+        try
+        {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO corrispondenze (id_watchlist,id_stv)  VALUES (:id_watchlist,:id_stv)";
             $stmt = $this->pdo->prepare($sql);
@@ -246,16 +264,16 @@ class FConnectionDB {
             $this->closeDBConnection();
 
         } catch (Exception $e)
-        {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return null;
-        }
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+                return null;
+            }
     }
 
     public function loadGenere($id_genere)
     {
-        $stmt = $this->pdo->query("SELECT * from genere where id = ". $id_genere.";");
+        $stmt = $this->pdo->query("SELECT * from genere where id = '". $id_genere."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -264,8 +282,8 @@ class FConnectionDB {
 
     public function storeGenere($id,$genere)
     {
-        try {
-
+        try
+        {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO genere (genere,id)  VALUES (:genere,:id)";
             $stmt = $this->pdo->prepare($sql);
@@ -275,15 +293,15 @@ class FConnectionDB {
             $this->closeDBConnection();
 
         } catch (Exception $e)
-        {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return null;
-        }
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+                return null;
+            }
     }
     public function loadLingua($id_lingua)
     {
-        $stmt = $this->pdo->query("SELECT * from lingua where id = ". $id_lingua.";");
+        $stmt = $this->pdo->query("SELECT * from lingua where id = '". $id_lingua."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -292,8 +310,8 @@ class FConnectionDB {
 
     public function storeLingua($id,$lingua)
     {
-        try {
-
+        try
+        {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO lingua (lingua,id)  VALUES (:lingua,:id)";
             $stmt = $this->pdo->prepare($sql);
@@ -302,26 +320,17 @@ class FConnectionDB {
             $this->closeDBConnection();
 
         } catch (Exception $e)
-        {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return null;
-        }
-    }
-
-
-    public function loadTransazioniSchedina($idPortafoglio) {
-        $stmt = $this->pdo->query("SELECT * from TransazioneSchedina where idPortafoglio = ". $idPortafoglio.";");
-        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $numeroRighe = $stmt->rowCount();
-        if($numeroRighe == 0) $righe = null;
-        return $righe;
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+                return null;
+            }
     }
 
 
     public function loadSTGlingua($id_stg)
     {
-        $stmt = $this->pdo->query("SELECT * from STGLingua where id_stg= ". $id_stg.";");
+        $stmt = $this->pdo->query("SELECT * from STGLingua where id_stg= '". $id_stg."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -330,8 +339,8 @@ class FConnectionDB {
 
     public function storeSTGlingua($id_lingua,$id_stg)
     {
-        try {
-
+        try
+        {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO STGLingua (id_lingua,id_stg)  VALUES (:id_lingua,:id_stg)";
             $stmt = $this->pdo->prepare($sql);
@@ -341,16 +350,16 @@ class FConnectionDB {
             $this->closeDBConnection();
 
         } catch (Exception $e)
-        {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return null;
-        }
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+                return null;
+            }
     }
 
     public function loadTVgenere($id_tv)
     {
-        $stmt = $this->pdo->query("SELECT * from TVgenere where id_tv= ". $id_tv.";");
+        $stmt = $this->pdo->query("SELECT * from TVgenere where id_tv= '". $id_tv."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -359,8 +368,8 @@ class FConnectionDB {
 
     public function storeTVgenere($id_genere,$id_serie)
     {
-        try {
-
+        try
+        {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO TVgenere (id_genere,id_serie)  VALUES (:id_genere,:id_serie)";
             $stmt = $this->pdo->prepare($sql);
@@ -370,11 +379,11 @@ class FConnectionDB {
             $this->closeDBConnection();
 
         } catch (Exception $e)
-        {
-            echo "Errore: " . $e->getMessage();
-            $this->pdo->rollBack();
-            return null;
-        }
+            {
+                echo "Errore: " . $e->getMessage();
+                $this->pdo->rollBack();
+                return null;
+            }
     }
 
 }

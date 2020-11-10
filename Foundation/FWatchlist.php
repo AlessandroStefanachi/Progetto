@@ -33,8 +33,6 @@ class FWatchlist
         $id = $con->store($watchlist, FWatchlist::$nomeClasse);
         $watchlist->setId($id);
         $serietv = $watchlist->getSerie();
-
-
         if ($serietv)
         {
             $n= count($serietv);
@@ -81,7 +79,8 @@ class FWatchlist
                         $a=FPersistentManager::load('id',$corrispondenze[$i]['id_stv'],FSerieTv::getNomeClasse());
                         array_push($serie, $a);//inserisci la serie tv
                     }
-                   $watchlist[$i]->setSerie($a);
+                    if($a)
+                        $watchlist[$i]->setSerie($a);
                 }
 
             }

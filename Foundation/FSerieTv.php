@@ -70,7 +70,8 @@ class FSerieTv
                 $serie[$i] = new ESerieTv($righe[$i]["titolo"], $righe[$i]["trama"], $righe[$i]["regista"], $righe[$i]["tipo"]);
                 $serie[$i]->setId($righe[$i]["id"]);
                 $stagione= FPersistentManager::load('id_serieTV',$righe[$i]['id'],FStagione::getNomeClasse());
-                $serie[$i]->setStagioni($stagione);
+                if($stagione)
+                    $serie[$i]->setStagioni($stagione);
                 $CGenere= FPersistentManager::loadTVgenere($righe[$i]['id']);
                 ///////////////////
                 if($CGenere!=null)
@@ -82,7 +83,8 @@ class FSerieTv
                         $a=FPersistentManager::loadGenere($CGenere[$i]['id_genere']);
                         array_push($serie, $generi);//inserisci la lingua
                     }
-                    $serie[$i]->setGenere($generi);
+                    if($generi)
+                        $serie[$i]->setGenere($generi);
                 }
             }
         }

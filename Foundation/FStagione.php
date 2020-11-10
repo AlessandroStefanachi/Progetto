@@ -68,7 +68,8 @@ class FStagione
                 $stagioni[$i] = new EStagione($righe[$i]["data"], $righe[$i]["numero"],$righe[$i]["id_serieTv"]);
                 $stagioni[$i]->setId($righe[$i]["id"]);
                 $episodi= FPersistentManager::load('id_stagione',$righe[$i]['id'],FEpisodio::getNomeClasse());
-                $stagioni[$i]->setEpisodi($episodi);
+                if($episodi)
+                    $stagioni[$i]->setEpisodi($episodi);
                 $Clingue= FPersistentManager::loadSTGlingua($righe[$i]['id']);
                 ///////////////////
                 if($Clingue!=null)
@@ -80,7 +81,8 @@ class FStagione
                         $a=FPersistentManager::loadLingua($Clingue[$i]['id_lingua']);
                         array_push($serie, $lingue);//inserisci la lingua
                     }
-                    $stagioni[$i]->setLingue($lingue);
+                    if($lingue)
+                        $stagioni[$i]->setLingue($lingue);
                 }
             }
         }
