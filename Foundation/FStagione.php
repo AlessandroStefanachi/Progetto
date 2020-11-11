@@ -22,8 +22,8 @@ class FStagione
     {
         $stmt->bindValue(':data', $stagione->getData(), PDO::PARAM_STR);
         $stmt->bindValue(':numero', $stagione->getNumero(), PDO::PARAM_INT);
-        $stmt->bindValue(':id', $stagione->getId(), PDO::PARAM_INT);//da aggiungere attributo e metodo
-        $stmt->bindValue(':id_serieTv', $stagione->getIdSerieTv(), PDO::PARAM_INT);//da aggiungere attributo e metodo
+        $stmt->bindValue(':id', NULL, PDO::PARAM_INT);//da aggiungere attributo e metodo
+        $stmt->bindValue(':id_serieTV', $stagione->getIdSerieTv(), PDO::PARAM_INT);//da aggiungere attributo e metodo
 
     }
 
@@ -47,7 +47,7 @@ class FStagione
         $lingua = $stagione->getLingue();
         if($lingua)
         {
-            $n= count(lingua);
+            $n= count($lingua);
             for($i = 0; $i < $n; $i++)
             {
                 FSTGlingua::store($lingua[$i],$stagione->getId());

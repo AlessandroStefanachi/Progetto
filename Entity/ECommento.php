@@ -100,7 +100,7 @@ class ECommento
      */
     public function setData(DateTime $data): void
     {
-        $this->data = $data;
+        $this->data = $data->format("Y-m-d");
     }
 
     /**

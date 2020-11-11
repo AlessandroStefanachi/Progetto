@@ -8,7 +8,7 @@ class EStagione
     private $episodi=array();
     private int $valutazione=0;
     private DateTime $data;
-    private int $numero=0;
+    private int $numero;
     private int $id;
     private int $id_serieTv;
 
@@ -72,11 +72,11 @@ class EStagione
     }
 
     /**
-     * @return DateTime|false
+     * @return String|false
      */
     public function getData()
     {
-        return $this->data;
+        return $this->data->format("Y-m-d");
     }
 
     /**
@@ -193,7 +193,7 @@ class EStagione
 
     public function __toString(): String
     {
-        $str="Numero: ".$this->getNumero()."\n"."Lingue Disponibili: ".$this->ArrayToString($this->getLingue())."\n"."Episodi: ".$this->ArrayToString($this->getEpisodi())."\n"."Attori: ".$this->ArrayToString($this->getAttori())."\n"."Valutazione: ".$this->getValutazione()."\n"."Data Disponibilità: ".$this->getData()->format('d-m-Y')."\n";
+        $str="Numero: ".$this->getNumero()."\n"."Lingue Disponibili: ".$this->ArrayToString($this->getLingue())."\n"."Episodi: ".$this->ArrayToString($this->getEpisodi())."\n"."Valutazione: ".$this->getValutazione()."\n"."Data Disponibilità: ".$this->getData()."\n";
         return $str;
     }
 }

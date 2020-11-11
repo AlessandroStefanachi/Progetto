@@ -6,7 +6,7 @@ class FSerieTv
     /*Nome della classe Foundation*/
     private static $nomeClasse = "FSerieTv";
     /*Nome della tabella del db*/
-    private static $nomeTabella = "Serie TV";
+    private static $nomeTabella = "SerieTV";
     /*Campi della tabella del db*/
     private static $campiTabella = "(titolo, trama, regista, tipo, id)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
@@ -24,7 +24,7 @@ class FSerieTv
         $stmt->bindValue(':trama', $serie->getTrama(), PDO::PARAM_STR);
         $stmt->bindValue(':regista', $serie->getRegista(), PDO::PARAM_STR);
         $stmt->bindValue(':tipo', $serie->getTipo(), PDO::PARAM_STR);
-        $stmt->bindValue(':id', $serie->getId(), PDO::PARAM_INT);// AGGIUNGERE METODO GET E PARAMETRO ID
+        $stmt->bindValue(':id', NULL, PDO::PARAM_INT);// AGGIUNGERE METODO GET E PARAMETRO ID
 
     }
 
@@ -43,7 +43,9 @@ class FSerieTv
             for($i = 0; $i < $n; $i++)
             {
                 $stagione[$i]->setIdSerieTv($id);//AGGIUNGERE NELLA CLASSE STAGIONE ATT E METODO PER ID
+
                 FStagione::store($stagione[$i]);
+
 
             }
         }

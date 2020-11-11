@@ -301,7 +301,7 @@ class FConnectionDB {
     }
     public function loadLingua($lingua)
     {
-        $stmt = $this->pdo->query("SELECT * from lingua where id = '". $lingua."';");
+        $stmt = $this->pdo->query("SELECT * from lingua where lingua = '". $lingua."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -330,7 +330,7 @@ class FConnectionDB {
 
     public function loadSTGlingua($id_stg)
     {
-        $stmt = $this->pdo->query("SELECT * from STGLingua where id_stg= '". $id_stg."';");
+        $stmt = $this->pdo->query("SELECT * from STGLingua where id_stagione= '". $id_stg."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -342,10 +342,10 @@ class FConnectionDB {
         try
         {
             $this->pdo->beginTransaction();
-            $sql = "INSERT INTO STGLingua (id_lingua,id_stg)  VALUES (:id_lingua,:id_stg)";
+            $sql = "INSERT INTO STGLingua (id_lingua,id_stagione)  VALUES (:id_lingua,:id_stagione)";
             $stmt = $this->pdo->prepare($sql);
             //print($sql);
-            $stmt->execute(array(':id_lingua' => $id_lingua, ':id_stg' => $id_stg,));
+            $stmt->execute(array(':id_lingua' => $id_lingua, ':id_stagione' => $id_stg,));
             $this->pdo->commit();
             $this->closeDBConnection();
 

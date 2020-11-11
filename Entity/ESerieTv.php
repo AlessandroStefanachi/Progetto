@@ -10,7 +10,7 @@ class ESerieTv
     private String $regista;
     private $stagioni=array();
     private String $tipo;//solo disponibile o in uscita
-    private int $id;
+    private $id;
 
     /**
      * ESerieTv constructor.

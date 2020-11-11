@@ -24,7 +24,7 @@ class FEpisodio
         $stmt->bindValue(':durata', $episodio->getDurata(), PDO::PARAM_STR);
         $stmt->bindValue(':visto', $episodio->isVisto(), PDO::PARAM_BOOL);
         $stmt->bindValue(':id_stagione', $episodio->getIdStagione(), PDO::PARAM_INT);
-        $stmt->bindValue(':id', $episodio->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':id', NULL, PDO::PARAM_INT);
     }
 
     /**
