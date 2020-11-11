@@ -47,7 +47,15 @@ class FSerieTv
 
             }
         }
-
+        $genere = $serie->getGenere();
+        if($genere)
+        {
+            $n= count($genere);
+            for($i = 0; $i < $n; $i++)
+            {
+                FTVgenere::store($genere[$i],$serie->getId());
+            }
+        }
 
     }
 

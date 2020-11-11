@@ -34,7 +34,6 @@ class FStagione
         $stagione->setId($id);
         $episodi = $stagione->getEpisodi();
 
-
         if ($episodi)
         {
             $n= count($episodi);
@@ -45,7 +44,15 @@ class FStagione
 
             }
         }
-
+        $lingua = $stagione->getLingue();
+        if($lingua)
+        {
+            $n= count(lingua);
+            for($i = 0; $i < $n; $i++)
+            {
+                FSTGlingua::store($lingua[$i],$stagione->getId());
+            }
+        }
 
     }
 
