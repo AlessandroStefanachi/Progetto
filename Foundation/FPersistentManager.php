@@ -109,15 +109,15 @@ class FPersistentManager
 
     }
 
-    public static function loadGenere($id_genere)
+    public static function loadGenere($genere)
     {
-        $genere = FGenere::load($id_genere);
+        $genere = FGenere::load($genere);
         return $genere;
     }
 
-    public static function storeGenere($genere, $id)
+    public static function storeGenere($genere)
     {
-        FGenere::store($genere, $id);
+        FGenere::store($genere);
 
     }
 
@@ -127,9 +127,9 @@ class FPersistentManager
         return $lingua;
     }
 
-    public static function storeLingua($lingua, $id)
+    public static function storeLingua($lingua)
     {
-        FLingua::store($lingua, $id);
+        FLingua::store($lingua);
 
     }
 

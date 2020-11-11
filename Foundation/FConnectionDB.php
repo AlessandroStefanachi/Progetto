@@ -271,24 +271,24 @@ class FConnectionDB {
             }
     }
 
-    public function loadGenere($id_genere)
+    public function loadGenere($genere)
     {
-        $stmt = $this->pdo->query("SELECT * from genere where id = '". $id_genere."';");
+        $stmt = $this->pdo->query("SELECT * from genere where genere = '". $genere."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
         return $righe;
     }
 
-    public function storeGenere($id,$genere)
+    public function storeGenere($genere)
     {
         try
         {
             $this->pdo->beginTransaction();
-            $sql = "INSERT INTO genere (genere,id)  VALUES (:genere,:id)";
+            $sql = "INSERT INTO genere (genere)  VALUES (:genere)";
             $stmt = $this->pdo->prepare($sql);
             //print($sql);
-            $stmt->execute(array(':genere' => $genere, ':id' => $id,));
+            $stmt->execute(array(':genere' => $genere));
             $this->pdo->commit();
             $this->closeDBConnection();
 
@@ -299,23 +299,23 @@ class FConnectionDB {
                 return null;
             }
     }
-    public function loadLingua($id_lingua)
+    public function loadLingua($lingua)
     {
-        $stmt = $this->pdo->query("SELECT * from lingua where id = '". $id_lingua."';");
+        $stmt = $this->pdo->query("SELECT * from lingua where id = '". $lingua."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
         return $righe;
     }
 
-    public function storeLingua($id,$lingua)
+    public function storeLingua($lingua)
     {
         try
         {
             $this->pdo->beginTransaction();
-            $sql = "INSERT INTO lingua (lingua,id)  VALUES (:lingua,:id)";
+            $sql = "INSERT INTO lingua (lingua)  VALUES (:lingua)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute(array(':lingua' => $lingua, ':id' => $id,));
+            $stmt->execute(array(':lingua' => $lingua));
             $this->pdo->commit();
             $this->closeDBConnection();
 
