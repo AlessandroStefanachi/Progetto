@@ -4,14 +4,14 @@
 class EValutazione
 {
     private int $voto;
-    private EUtente $autore;
+    private String $autore;
     private int $id_episodio;
     /**
      * EValutazione constructor.
      * @param int $voto
      * @param EUtente $autore
      */
-    public function __construct(int $voto, EUtente $autore, int $id_episodio)
+    public function __construct(int $voto, String $autore, int $id_episodio)
     {
         $this->voto = $voto;
         $this->autore = $autore;

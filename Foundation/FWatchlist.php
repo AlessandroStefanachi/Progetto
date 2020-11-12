@@ -8,9 +8,9 @@ class FWatchlist
     /*Nome della tabella del db*/
     private static $nomeTabella = "watchlist";
     /*Campi della tabella del db*/
-    private static $campiTabella = "(nome, descrizione, pubblico, propietario, id)";
+    private static $campiTabella = "(nome, descrizione, pubblico, proprietario, id)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
-    private static $campiParametriciTabella = "(:nome, :descrizione, :pubblico, :propietario, :id)";
+    private static $campiParametriciTabella = "(:nome, :descrizione, :pubblico, :proprietario, :id)";
 
     /**
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
@@ -23,8 +23,8 @@ class FWatchlist
         $stmt->bindValue(':nome', $watchlist->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(':descrizione', $watchlist->getDescrizione(), PDO::PARAM_STR);
         $stmt->bindValue(':pubblico', $watchlist->isPubblico(), PDO::PARAM_BOOL);
-        $stmt->bindValue(':propietario', $watchlist->getProprietario()->getUsername(), PDO::PARAM_STR);//DA METTERE IN ENTITY
-        $stmt->bindValue(':id', $watchlist->getId(), PDO::PARAM_INT);//DA METTERE IN ENTITY
+        $stmt->bindValue(':proprietario', $watchlist->getProprietario(), PDO::PARAM_STR);//DA METTERE IN ENTITY
+        $stmt->bindValue(':id', NULL, PDO::PARAM_INT);//DA METTERE IN ENTITY
     }
 
     public static function store(EWatchlist $watchlist)
@@ -61,12 +61,12 @@ class FWatchlist
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                $utenti = FPersistentManager::load("username", $righe[$i]["propietario"], FUtente::getNomeClasse());
+                echo("PRIMA DEL COSTRUTTORE");
                 $watchlist[$i] = new EWatchlist(
                     $righe[$i]["nome"],
                     $righe[$i]["descrizione"],
                     $righe[$i]["pubblico"],
-                    $utenti[0]
+                    $righe[$i]["proprietario"]
 
                 );
                 $watchlist[$i]->setId($righe[$i]["id"]);//non nel costruttore perchè non puoi fornire un id alla prima generazione in quanto l'id è dato dal primo salvataggio nel DB
@@ -75,12 +75,13 @@ class FWatchlist
                 if($corrispondenze!=null){
                     $serie=array();
                     $nr=count($corrispondenze);
-                    for($i=0;$i < $nr;$i++){
+
+                    for($b=0;$b < $nr;$b++){
                         $a=FPersistentManager::load('id',$corrispondenze[$i]['id_stv'],FSerieTv::getNomeClasse());
                         array_push($serie, $a);//inserisci la serie tv
                     }
-                    if($a)
-                        $watchlist[$i]->setSerie($a);
+                    if($serie)
+                        $watchlist[$i]->setSerie($serie);
                 }
 
             }

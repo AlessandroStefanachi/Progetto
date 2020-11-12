@@ -194,22 +194,23 @@ class EUtente
 /////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE SEGUITI AL PROFILO////////////////////////////////////////////////////////////////////
     public function AggiungiSeguiti(EUtente $utente)
     {
-        array_push($this->seguiti,$utente);
+        array_push($this->seguiti,$utente->getUserName());
+
     }
 /////////////////////////////////////////////////////////////////////////METODO PER RIMUOVERE SEGUITI AL PROFILO////////////////////////////////////////////////////////////////////
     public function RimuoviSeguiti(EUtente $utente)
     {
-        unset($this->seguiti[array_search($utente,$this->seguiti)]);
+        unset($this->seguiti[array_search($utente->getUserName(),$this->seguiti)]);
     }
 /////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE SEGUACI AL PROFILO////////////////////////////////////////////////////////////////////
     public function AggiungiSeguaci(EUtente $utente)
     {
-        array_push($this->seguaci,$utente);
+        array_push($this->seguaci,$utente->getUserName());
     }
 /////////////////////////////////////////////////////////////////////////METODO PER RIMUOVERE SEGUACI AL PROFILO////////////////////////////////////////////////////////////////////
     public function RimuoviSeguaci(EUtente $utente)
     {
-        unset($this->seguaci[array_search($utente,$this->seguaci)]);
+        unset($this->seguaci[array_search($utente->getUserName(),$this->seguaci)]);
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////
     /**
@@ -235,7 +236,7 @@ class EUtente
     {
         // TODO: Implement __toString() method.
         $str="username: ".$this->getUserName()."\n"."Email: ".$this->getEmail()."\n"."Password: ".$this->getPassword()."\n"."Watchlist: ".$this->ArrayToString($this->getWatchlist())
-            ."\n"."Serie tv Attese: ".$this->ArrayToString($this->getAttese());
+            ."\n"."Serie tv Attese: ".$this->ArrayToString($this->getAttese())."\n"."Seguaci: ".$this->ArrayToString($this->getSeguaci())."\n"."Seguiti: ".$this->ArrayToString($this->getSeguiti());
         return $str;
 
     }

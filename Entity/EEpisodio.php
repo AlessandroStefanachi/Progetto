@@ -176,7 +176,7 @@ class EEpisodio
 
     public function aggiungiCommento(ECommento $commento):void
     {
-        array_push($this->Commenti, $commento);
+        array_push($this->commenti, $commento);
     }
 ///////////////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE MEDIA/////////////////////////////////////////////////
 
@@ -202,7 +202,9 @@ class EEpisodio
         $str = null;
         if (is_array($array))
             foreach ($array as $valore) {
+                if(is_string($valore))
                 $str = $str."-".$valore;
+                else{$str=$valore->__toString();}
             }
         else
             $str = $array;

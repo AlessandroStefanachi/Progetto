@@ -190,7 +190,11 @@ class ESerieTv
         $str = null;
         if (is_array($array))
             foreach ($array as $valore) {
+                if(is_string($valore))
                 $str = $str."-".$valore;
+                else{
+                    $str=$str."\n".$valore->__toString();//qui non array mentre in wathclist si (?)
+                }
             }
         else
             $str = $array;

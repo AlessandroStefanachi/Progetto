@@ -44,7 +44,7 @@ class FEpisodio
             $n= count($commenti);
             for($i = 0; $i < $n; $i++)
             {
-                $commenti[$i]->setId_episodio($id);
+                $commenti[$i]->setIdEpisodio($id);
                 FCommento::store($commenti[$i]);
 
             }
@@ -95,7 +95,7 @@ class FEpisodio
                 if($commenti)
                     $episodio[$i]->setCommenti($commenti);
                 $valutazioni= FPersistentManager::load('id_episodio',$righe[$i]['id'],FValutazione::getNomeClasse());
-                if($commenti)
+                if($valutazioni)
                     $episodio[$i]->setValutazioni($valutazioni);
             }
         }

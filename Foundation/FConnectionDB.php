@@ -244,7 +244,7 @@ class FConnectionDB {
 
     public function loadCorr($id_Watchlist)
     {
-        $stmt = $this->pdo->query("SELECT * from corrispondenza where id_watchlist= '". $id_Watchlist."';");
+        $stmt = $this->pdo->query("SELECT * from corrispondenze where id_watchlist= '". $id_Watchlist."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;
@@ -359,7 +359,7 @@ class FConnectionDB {
 
     public function loadTVgenere($id_tv)
     {
-        $stmt = $this->pdo->query("SELECT * from TVgenere where id_tv= '". $id_tv."';");
+        $stmt = $this->pdo->query("SELECT * from TVgenere where id_serie= '". $id_tv."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;

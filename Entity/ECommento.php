@@ -7,7 +7,7 @@ class ECommento
     private String $testo;
     private DateTime $data;
     private DateTime $ora;
-    private EUtente $autore;
+    private String $autore;
     private int $id_episodio;
 
     /**
@@ -18,11 +18,11 @@ class ECommento
      * @param EUtente $autore
      * @param Int $id_episodio
      */
-    public function __construct(String $testo, DateTime $data, DateTime $ora, EUtente $autore, int $id_episodio)
+    public function __construct(String $testo, String $_date, String $_ora, String $autore, int $id_episodio)
     {
         $this->testo = $testo;
-        $this->data = $data;
-        $this->ora = $ora;
+        $this->data = DateTime::createFromFormat('Y-m-d',$_date);
+        $this->ora = DateTime::createFromFormat('H:i:s', $_ora);
         $this->autore = $autore;
         $this->id_episodio = $id_episodio;
     }
@@ -47,23 +47,23 @@ class ECommento
     /**
      * @return DateTime
      */
-    public function getData(): DateTime
+    public function getData(): String
     {
-        return $this->data;
+        return $this->data->format("Y-m-d");
     }
 
     /**
      * @return DateTime
      */
-    public function getOra(): DateTime
+    public function getOra(): String
     {
-        return $this->ora;
+        return $this->ora->format('H:i:s');
     }
 
     /**
      * @return EUtente
      */
-    public function getAutore(): EUtente
+    public function getAutore(): String
     {
         return $this->autore;
     }
@@ -127,5 +127,9 @@ class ECommento
         $this->id_episodio = $id_episodio;
     }
 
-
+    public function __toString(): String
+    {
+        $str="Autore: ".$this->getAutore()."\n"."Testo: ".$this->getTesto()."\n"."Data: ".$this->getData()."\n"."Ora: ".$this->getOra()."\n";
+        return $str;
+    }
 }

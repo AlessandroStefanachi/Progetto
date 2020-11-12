@@ -8,7 +8,7 @@ class EWatchlist
     private Bool $pubblico;
     private  $serie=array();
     private int $id;
-    private EUtente $proprietario;
+    private String $proprietario;
 
     /**
      * EWatchlist constructor.
@@ -17,7 +17,7 @@ class EWatchlist
      * @param bool $pubblico
      * @param array $serie
      */
-    public function __construct(String $_nome, String $_descrizione, bool $_pubblico, EUtente $proprietario)
+    public function __construct(String $_nome, String $_descrizione, bool $_pubblico, String $proprietario)
     {
         $this->nome = $_nome;
         $this->descrizione = $_descrizione;
@@ -140,7 +140,12 @@ class EWatchlist
         $str = null;
         if (is_array($array))
             foreach ($array as $valore) {
+                if(is_string(($valore)))
                 $str = $str."-".$valore;
+                else{
+
+                    $str=$valore[0]->__toString();
+                }
             }
         else
             $str = $array;
@@ -150,7 +155,7 @@ class EWatchlist
     public function __toString():String
     {
         // TODO: Implement __toString() method.
-        $str="Nome: ".$this->getNome()."\n"."Descrizione: ".$this->getDescrizione()."\n"."pubblico: ".$this->isPubblico()."\n"."Serie TV: ".$this->ArrayToString($this->getSerie())."\n";
+        $str="Nome: ".$this->getNome()."\n"."Descrizione: ".$this->getDescrizione()."\n"."pubblico: ".$this->isPubblico()."\n"."Serie TV: ".$this->ArrayToString($this->getSerie())."\n"."proprietario: ".$this->getProprietario()."\n";
         return $str;
 
     }

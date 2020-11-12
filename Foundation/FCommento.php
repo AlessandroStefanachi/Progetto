@@ -20,11 +20,11 @@ class FCommento
      */
     public static function bind($stmt, ECommento $commento)
     {
-        $stmt->bindValue(':id', $commento->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':id', NULL, PDO::PARAM_INT);
         $stmt->bindValue(':testo', $commento->getTesto(), PDO::PARAM_STR);
         $stmt->bindValue(':data', $commento->getData(), PDO::PARAM_STR);
         $stmt->bindValue(':ora', $commento->getOra(), PDO::PARAM_STR);
-        $stmt->bindValue(':autore', $commento->getAutore()->getUserName(), PDO::PARAM_STR);
+        $stmt->bindValue(':autore', $commento->getAutore(), PDO::PARAM_STR);
         $stmt->bindValue(':id_episodio', $commento->getIdEpisodio(), PDO::PARAM_INT);//aggiungere getIdEpisodio e l'attributo id_episodio
     }
 
@@ -51,8 +51,8 @@ class FCommento
         }else {
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++) {
-                $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
-                $commenti[$i] = new ECommento($righe[$i]["testo"], $righe[$i]["data"], $righe[$i]["ora"], $utenti[0], $righe[$i]["id_episodio"]);
+               // $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
+                $commenti[$i] = new ECommento($righe[$i]["testo"], $righe[$i]["data"], $righe[$i]["ora"], $righe[$i]["autore"], $righe[$i]["id_episodio"]);
                 $commenti[$i]->setId($righe[$i]["id"]);
 
             }

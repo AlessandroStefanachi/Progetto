@@ -72,24 +72,26 @@ class FStagione
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                $stagioni[$i] = new EStagione($righe[$i]["data"], $righe[$i]["numero"],$righe[$i]["id_serieTv"]);
+                $stagioni[$i] = new EStagione($righe[$i]["data"], $righe[$i]["numero"],$righe[$i]["id_serieTV"]);
                 $stagioni[$i]->setId($righe[$i]["id"]);
                 $episodi= FPersistentManager::load('id_stagione',$righe[$i]['id'],FEpisodio::getNomeClasse());
                 if($episodi)
                     $stagioni[$i]->setEpisodi($episodi);
                 $Clingue= FPersistentManager::loadSTGlingua($righe[$i]['id']);
                 ///////////////////
-                if($Clingue!=null)
+
+                if($Clingue)
                 {
-                    $lingue=array();
+                    $a=array();
                     $nr=count($Clingue);
-                    for($i=0;$i < $nr;$i++)
+                    for($b=0;$b < $nr;$b++)
                     {
-                        $a=FPersistentManager::loadLingua($Clingue[$i]['id_lingua']);
-                        array_push($serie, $lingue);//inserisci la lingua
+                        $lingue=FPersistentManager::loadLingua($Clingue[$b]['id_lingua']);
+
+                        array_push($a, $lingue[0]["lingua"]);//inserisci la lingua
                     }
-                    if($lingue)
-                        $stagioni[$i]->setLingue($lingue);
+                    if($a)
+                        $stagioni[$i]->setLingue($a);
                 }
             }
         }

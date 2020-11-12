@@ -88,10 +88,10 @@ class FSerieTv
                 {
                     $generi=array();
                     $nr=count($CGenere);
-                    for($i=0;$i < $nr;$i++)
+                    for($b=0;$b < $nr;$b++)
                     {
                         $a=FPersistentManager::loadGenere($CGenere[$i]['id_genere']);
-                        array_push($serie, $generi);//inserisci la lingua
+                        array_push($generi, $a[0]["genere"]);//inserisci la lingua
                     }
                     if($generi)
                         $serie[$i]->setGenere($generi);

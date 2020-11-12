@@ -18,7 +18,7 @@ class EStagione
     public function __construct(String $_date, int $_numero, int $id_serieTv)
     {
 
-        $this->data = DateTime::createFromFormat('d-m-Y',$_date);
+        $this->data = DateTime::createFromFormat('Y-m-d',$_date);
         $this->numero = $_numero;
         $this->id_serieTv = $id_serieTv;
     }
