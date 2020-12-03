@@ -5,7 +5,7 @@ class EEpisodio
 {
     private int $id;
     private String $titolo;
-    private float $durata;
+    private DateTime $durata;
     private bool $visto;
     private $commenti= array() ;
     private $valutazioni=array();
@@ -15,14 +15,15 @@ class EEpisodio
     /**
      * EEpisodio constructor.
      * @param String $titolo
-     * @param float $durata
+     * @param DateTime $durata
      * @param bool $visto
      */
-    public function __construct($titolo, $durata, $visto)
+    public function __construct($titolo, $durata, $visto,$id_stagione)
     {
         $this->titolo = $titolo;
-        $this->durata = $durata;
+        $this->durata = DateTime::createFromFormat('H:i:s', $durata);;
         $this->visto = $visto;
+        $this->id_stagione = $id_stagione;
     }
 /////////////////////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -53,9 +54,9 @@ class EEpisodio
     /**
      * @return float
      */
-    public function getDurata(): float
+    public function getDurata(): String
     {
-        return $this->durata;
+        return $this->durata->format('H:i:s');;
     }
 
     /**
@@ -167,7 +168,7 @@ class EEpisodio
     }
 ////////////////////////////////////////////////////////////METODO PER AGGIUNGERE VALUTAZIONI///////////////////////////////////////////////////////////////
 
-    public function aggiungiValutazione(int $valutazione):void
+    public function aggiungiValutazione(EValutazione $valutazione):void
     {
         array_push($this->valutazioni, $valutazione);
         $this->calcolaValutazione();
@@ -185,9 +186,9 @@ class EEpisodio
     ///////////////non va int $media /////////////////////////////////
         $media=0;
         $i=0;
-        foreach ($this->valutazioni as &$value)
-            $media=$value+$value->voto;
-        $i++;
+        foreach ($this->valutazioni as &$value){
+            $media=$media+$value->getvoto();
+        $i++;}
         $this->valutazione=$media/$i;
 
     }
@@ -204,7 +205,7 @@ class EEpisodio
             foreach ($array as $valore) {
                 if(is_string($valore))
                 $str = $str."-".$valore;
-                else{$str=$valore->__toString();}
+                else{$str=$str."\n".$valore->__toString();}
             }
         else
             $str = $array;

@@ -38,7 +38,7 @@ class EValutazione
     /**
      * @return EUtente
      */
-    public function getAutore(): EUtente
+    public function getAutore(): String
     {
         return $this->autore;
     }
@@ -67,5 +67,10 @@ class EValutazione
     {
         $this->autore = $autore;
     }
-    
+    public function __toString(): String
+    {
+        $str="Voto: ".$this->getVoto()."\n"."Autore: ".$this->getAutore()."\n";
+        return $str;
+    }
+
 }

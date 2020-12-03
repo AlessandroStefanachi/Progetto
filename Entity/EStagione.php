@@ -118,6 +118,7 @@ class EStagione
     public function setEpisodi(array $episodi): void
     {
         $this->episodi = $episodi;
+        $this->calcolaValutazione();
     }
 
     /**
@@ -170,7 +171,9 @@ class EStagione
         foreach ($this->getEpisodi() as $value)
         {
             $media=$media+$value->getValutazione();
+
         }
+        
         $this->valutazione=$media/count($this->episodi);}
     }
 ///////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////

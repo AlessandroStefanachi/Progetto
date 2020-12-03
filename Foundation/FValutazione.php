@@ -22,7 +22,7 @@ class FValutazione
     public static function bind($stmt, EValutazione $valutazione)
     {
         $stmt->bindValue(':voto', $valutazione->getVoto(), PDO::PARAM_INT);
-        $stmt->bindValue(':autore', $valutazione->getAutore()->getUserName(), PDO::PARAM_STR);
+        $stmt->bindValue(':autore', $valutazione->getAutore(), PDO::PARAM_STR);
         $stmt->bindValue(':id_episodio', $valutazione->getIdEpisodio(), PDO::PARAM_INT);//aggiungere getIdEpisodio e l'attributo id_episodio
     }
 
@@ -53,8 +53,8 @@ class FValutazione
                     $numeroRighe = count($righe);
                      for($i = 0; $i < $numeroRighe; $i++)
                         {
-                            $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
-                            $valutazioni[$i] = new EValutazione($righe[$i]["voto"], $utenti[0], $righe[$i]["id_episodio"]);
+                           // $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
+                            $valutazioni[$i] = new EValutazione($righe[$i]["voto"], $righe[$i]["autore"], $righe[$i]["id_episodio"]);
                         }
                 }
 

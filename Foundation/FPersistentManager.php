@@ -10,7 +10,7 @@ class FPersistentManager
     public static function store($oggetto)
     {
         $EClass = get_class($oggetto);
-        $FClass = str_replace('E', 'F', $EClass);
+        $FClass = substr_replace($EClass,"F","0",1);
         $FClass::store($oggetto);
     }
 

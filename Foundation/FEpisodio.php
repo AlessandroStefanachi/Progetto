@@ -55,7 +55,7 @@ class FEpisodio
             $n= count($valutazioni);
             for($i = 0; $i < $n; $i++)
             {
-                $valutazioni[$i]->setId_episodio($id);
+                $valutazioni[$i]->setIdEpisodio($id);
                 FValutazione::store($valutazioni[$i]);
 
             }
@@ -88,7 +88,9 @@ class FEpisodio
                 $episodio[$i] = new EEpisodio(
                         $righe[$i]["titolo"],
                         $righe[$i]["durata"],
-                        $righe[$i]["visto"]
+                        $righe[$i]["visto"],
+                        $righe[$i]["id_stagione"]
+
                     );
                 $episodio[$i]->setId($righe[$i]["id"]);
                 $commenti= FPersistentManager::load('id_episodio',$righe[$i]['id'],FCommento::getNomeClasse());
