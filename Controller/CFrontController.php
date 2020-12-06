@@ -29,7 +29,11 @@ class CFrontController {
                 }else static::errore();//(3) se la classe non esiste errore
             }//(2) la classe non esiste setta l'header
             else {
-                header('Location: /WeBetting/Utente/home');
+                header('Location: /Progetto/Utente/homepagedef');
+                //static::errore();
+              // $smarty=SetupSmarty::configura();
+                //$smarty->display("errore.tpl");
+
             }
         }else static::errore();
     }

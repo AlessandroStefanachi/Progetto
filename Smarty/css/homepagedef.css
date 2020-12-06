@@ -1,0 +1,111 @@
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+
+#bg2{
+    height:100vh;
+    min-width:100%;
+    background-color:#555B5F;
+
+    position:fixed;
+    z-index:-1;
+}
+#bg1{
+    height:100vh;
+    min-width:100%;
+    background-color:white;
+    clip-path: polygon(0 43%, 100% 25%, 100% 70%, 0 88%);
+    position:absolute;
+
+    z-index:-1;
+}
+html{
+    height:100%;
+    width:100%;}
+body{
+    margin:0;
+    height:100%;
+    width:100%;}
+
+div.form-group{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 300;
+    font-size: 25px;
+
+}
+.navbar-brand{
+    color:red;}
+a{
+    line-height: 1;
+
+    display: inline-block;
+
+    color:#ffeb3b;
+
+    text-decoration:none;
+
+    cursor: pointer;}
+
+a:after {
+
+    display: block;
+
+    content: "";
+
+    height: 2px;
+
+    width: 0%;
+
+    background-color: #ffeb3b;
+
+    transition: width .3s ease-in-out;
+
+}
+
+a:hover:after,
+
+a:focus:after {
+
+    width: 100%;
+
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+#first{
+
+
+    font-size:30px;
+}
+#second{
+
+    font-size:20px;
+}
+#third{
+
+    font-size:20px;
+}
+#fourth{
+
+    font-size:20px;
+}
+.text-right{
+    color:#555B5F;
+}
+.modal-open {
+    position: fixed;
+    overflow: scroll;
+    width: 100%;
+    padding-right: 0!important;
+}
+
+.dot {
+    margin-right: 20px;
+    height: 15px;
+    width: 15px;
+    background-color: #FFCF17;
+    border-radius: 50%;
+    display: inline-block;
+
+}
