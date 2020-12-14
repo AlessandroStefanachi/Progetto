@@ -8,9 +8,9 @@ class FSerieTv
     /*Nome della tabella del db*/
     private static $nomeTabella = "SerieTV";
     /*Campi della tabella del db*/
-    private static $campiTabella = "(titolo, trama, regista, tipo, id)";
+    private static $campiTabella = "(titolo, trama, regista, tipo, id, id_copertina)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
-    private static $campiParametriciTabella = "(:titolo, :trama, :regista, :tipo, :id)";
+    private static $campiParametriciTabella = "(:titolo, :trama, :regista, :tipo, :id, :id_copertina)";
 
     /**
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
@@ -25,6 +25,7 @@ class FSerieTv
         $stmt->bindValue(':regista', $serie->getRegista(), PDO::PARAM_STR);
         $stmt->bindValue(':tipo', $serie->getTipo(), PDO::PARAM_STR);
         $stmt->bindValue(':id', NULL, PDO::PARAM_INT);// AGGIUNGERE METODO GET E PARAMETRO ID
+        $stmt->bindValue(':id_copertina', $serie->getId_copertina(), PDO::PARAM_INT);// AGGIUNGERE METODO GET E PARAMETRO ID
 
     }
 
@@ -32,6 +33,11 @@ class FSerieTv
     public static function store(ESerieTv $serie)
     {
         $con = FConnectionDB::getIstanza();
+        if($serie->getCopertina()!=null){
+            $id_copertina=$con->store($serie->getCopertina());
+            $serie->setId_copertina($id_copertina);
+        }
+
         $id = $con->store($serie, FSerieTv::$nomeClasse);
         $serie->setId($id);
         $stagione = $serie->getStagioni();
@@ -78,7 +84,11 @@ class FSerieTv
             for($i = 0; $i < $numeroRighe; $i++)
             {
                 $serie[$i] = new ESerieTv($righe[$i]["titolo"], $righe[$i]["trama"], $righe[$i]["regista"], $righe[$i]["tipo"]);
+
                 $serie[$i]->setId($righe[$i]["id"]);
+                if($righe[$i]['id_copertina']!=null)$serie[$i]->setId_copertina($righe[$i]["id_copertina"]);
+                $copertina=FPersistentManager::load('id',$righe[$i]["id_copertina"],FCopertina::getNomeClasse());
+                if($copertina!=null)$serie[$i]->setCopertina($copertina[0]);// se trovo la copertina la setto
                 $stagione= FPersistentManager::load('id_serieTV',$righe[$i]['id'],FStagione::getNomeClasse());
                 if($stagione)
                     $serie[$i]->setStagioni($stagione);
@@ -136,6 +146,16 @@ class FSerieTv
     {
         return self::$campiParametriciTabella;
     }
-
+public static function getId(){
+    $con = FConnectionDB::getIstanza();
+    $id =  $con->getID(static::getNomeTabella());
+    return $id;
+}
+    public static function exist($campo, $valoreCampo)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
+        return $ris;
+    }
 
 }

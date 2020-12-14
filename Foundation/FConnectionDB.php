@@ -89,6 +89,29 @@ class FConnectionDB {
             }
     }
 
+    public function getID( $nomeTabella)
+    {
+        try
+        {
+
+            $sql = "SELECT ".'id'." FROM ".$nomeTabella.";";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $numeroRighe = $stmt->rowCount();
+            if($numeroRighe == 0)
+            {
+                $risultato = NULL;
+            }
+            return $risultato;
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+        }
+    }
+
     /*
      * Metodo che permette di aggiornare il valore di un attributo passato come parametro
      * @param $campo campo da aggiornare
@@ -150,7 +173,7 @@ class FConnectionDB {
         try
         {
             $sql = null;
-            $class = "FUtenteRegistrato";
+            $class = "FUtente";
             $sql = "SELECT * FROM " . $class::getNomeTabella() . " WHERE username = :us";
             //print($sql);
             $stmt = $this->pdo->prepare($sql);

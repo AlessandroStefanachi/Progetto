@@ -156,6 +156,33 @@ class FPersistentManager
         FTVgenere::store($id_genere, $id_serie);
 
     }
+
+    //metodo per estrarre 9 serie casuali da far comparire in homelog
+    public static function homepagedef(){
+        $id=FSerieTv::getId();
+       // echo($id[0]["id"]);
+        $valor=array();
+      $i=count($id);
+       for($a=0;$a<$i;$a++)array_push($valor,$id[$a]['id']);
+        $i=0;
+        $serie=array();
+        $usato=array();
+        if(count($id)>=9){
+        while($i<9){
+            $rand=rand(min($valor),max($valor));
+            if(FSerieTv::exist("id",$rand)&& !(in_array($rand,$usato))){
+                $s=FSerieTv::load("id",$rand);
+                array_push($serie,clone($s[0]));
+                array_push($usato,$rand);
+                $i++;
+            }
+
+        }}
+        $s=array();
+        foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
+        return array($serie,$s);
+
+    }
 }
 
 /*

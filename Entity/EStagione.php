@@ -11,6 +11,7 @@ class EStagione
     private int $numero;
     private int $id;
     private int $id_serieTv;
+    private $copertina;
 
     /**
      * EStagione constructor.

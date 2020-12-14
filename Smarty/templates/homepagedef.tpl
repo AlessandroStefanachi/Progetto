@@ -1,11 +1,13 @@
 {assign var='errore' value=$errore|default:false}
+{assign var='errorelog' value=$errorelog|default:false}
+{assign var='errorelog' value=$errorelog|default:false}
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/Progetto/Smarty/css/homepagedef.css">
+
 
 
 
@@ -13,22 +15,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.5.14/css/mdb.min.css">
     <link rel="stylesheet" type="text/css" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/mdb-plugins-gathered.min.css">
+
     <script src="/Progetto/Smarty/js/registrazione.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/Progetto/Smarty/css/homepagedef.css">
     <title>TvTracker</title>
+    <script>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! per un corretto funzionamento del sito abilita i cookie e ricarica la pagina');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    </script>
 
 </head>
-<body>
+
 
 <div id="bg2"></div>
 
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark " id="navbarprincipale">
-    <p class="navbar-brand">TvTracker</p>
+
 
     <div class="navbar-collapse order-3 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+<span class="navbar-brand"style="margin-top:;">
+ <img src="/Progetto/Smarty/Immagini/giallo2.png" width="50" height="50" class="d-inline-block align-top" alt="" loading="lazy" style="margin-right:2px"">
+                  </span></li>
+
+            <li class="nav-item pt-2">
+<span class="navbar-brand"style="margin-top:;">
+
+                 Tv Tracker </span></li>
+        </ul>
+
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="navbar-brand" data-toggle="modal" data-target="#login" href="">Login</a>
@@ -47,6 +71,21 @@
     </button>
 </div>
 {/if}
+
+{if $errorelog == true}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>LOGIN FALLITO</strong> username o password errati
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{/if}
+<noscript><div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Per un corretto funzionamento del sito web è necessario abilitare JavaScript e poi ricaricare la pagina
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div></noscript>
 <div class="container-fluid" >
 
     <div class="row">
@@ -107,37 +146,34 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top " style="width: 100%;height: 15vw;object-fit: fill;" {if isset($serie[0]) }src="data:{$serie[0]->getCopertina()->getType()};base64,{$s[0]}"{/if} alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">{if isset($serie[0]) }{$serie[0]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[0]) }{$serie[0]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[1]) }src="data:{$serie[1]->getCopertina()->getType()};base64,{$s[1]}"{/if} alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">{if isset($serie[1]) }{$serie[1]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[1]) }{$serie[1]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[2]) }src="data:{$serie[2]->getCopertina()->getType()};base64,{$s[2]}" {/if}alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">{if isset($serie[2]) }{$serie[2]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[2]) }{$serie[2]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -147,41 +183,38 @@
                         <!--/.First slide-->
 
                         <!--Second slide-->
-                        <div class="carousel-item">
+                        <div class="carousel-item ">
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[3]) }src="data:{$serie[3]->getCopertina()->getType()};base64,{$s[3]}" {/if}alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">{if isset($serie[3]) }{$serie[3]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[3]) }{$serie[3]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[4]) }src="data:{$serie[4]->getCopertina()->getType()};base64,{$s[4]}" {/if}alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">{if isset($serie[4]) }{$serie[4]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[4]) }{$serie[4]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[5]) }src="data:{$serie[5]->getCopertina()->getType()};base64,{$s[5]}"{/if} alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title">{if isset($serie[5]) }{$serie[5]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[5]) }{$serie[5]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -191,41 +224,38 @@
                         <!--/.Second slide-->
 
                         <!--Third slide-->
-                        <div class="carousel-item">
+                        <div class="carousel-item ">
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="../Immagini/pr4.jpg" alt="Card image cap">
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"{if isset($serie[6]) }src="data:{$serie[6]->getCopertina()->getType()};base64,{$s[6]}" {/if}alt="Card image cap">
                                         <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                            <h4 class="card-title">{if isset($serie[6]) }{$serie[6]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[6]) }{$serie[6]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="../Immagini/pr5.jpg" alt="Card image cap">
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[7]) }src="data:{$serie[7]->getCopertina()->getType()};base64,{$s[7]}"  {/if}alt="Card image cap">
                                         <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                            <h4 class="card-title">{if isset($serie[7]) }{$serie[7]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[7]) }{$serie[7]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg" alt="Card image cap">
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"   {if isset($serie[8]) }src="data:{$serie[8]->getCopertina()->getType()};base64,{$s[8]}"{/if} alt="Card image cap">
                                         <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                            <h4 class="card-title">{if isset($serie[8]) }{$serie[8]->getTitolo()}{/if}</h4>
+                                            <p class="card-text">{if isset($serie[8]) }{$serie[8]->getTrama()}{/if}</p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -263,16 +293,16 @@
 
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" action="/Progetto/Utente/login">
 
                         <div class="form-group">
 
-                            <input type="username" class="form-control" id="username" aria-describedby="username" placeholder="Username">
+                            <input type="username" class="form-control" name="username" id="username" aria-describedby="username" placeholder="Username">
 
                         </div>
                         <div class="form-group">
 
-                            <input type="password" class="form-control" id="exampleInputPassword1"placeholder="Password">
+                            <input type="password"  name="password" class="form-control" id="exampleInputPassword1"placeholder="Password">
                         </div>
                         <div>
                             <div class="form-check">

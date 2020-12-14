@@ -10,12 +10,38 @@ class VUtente
     public function __construct() {
         $this->smarty = SetupSmarty::configura();
     }
-    public function  showHome(){
-        $this->smarty->assign("errore");
+    public function  showHome($serie,$s,$errlog,$errreg){
+       // $s=array();
+        //foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
+       // $immagine=base64_encode($serie[0]->getCopertina()->getImmagine());
+       // $type=$serie[0]->getCopertina()->getType();
+        $this->smarty->assign("s",$s);
+        $this->smarty->assign("errorelog",$errlog);
+        $this->smarty->assign("errore",$errreg);
+        //$this->smarty->assign("type",$type);
+        $this->smarty->assign("serie",$serie);
         $this->smarty->display("homepagedef.tpl");
     }
-    public function  erroreregistarzione($errore){
+    public function  erroreregistarzione($errore,$serie,$s){
+
         $this->smarty->assign("errore",$errore);
+        $this->smarty->assign("s",$s);
+        //$this->smarty->assign("type",$type);
+        $this->smarty->assign("serie",$serie);
         $this->smarty->display("homepagedef.tpl");
+
+    }
+    public function  errorerelog($errore,$serie,$s){
+
+        $this->smarty->assign("errorelog",$errore);
+        $this->smarty->assign("s",$s);
+        //$this->smarty->assign("type",$type);
+        $this->smarty->assign("serie",$serie);
+        $this->smarty->display("homepagedef.tpl");
+
+    }
+    public function  showHomelog($username){
+        $this->smarty->assign("username",$username);
+        $this->smarty->display("homelog.tpl");
     }
 }

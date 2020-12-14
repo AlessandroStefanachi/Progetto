@@ -5,12 +5,14 @@ class ESerieTv
 {
     private String $titolo;
     private String $trama;
-    private  $genere=array();
+    private $genere=array();
     private int $valutazione=0;
     private String $regista;
     private $stagioni=array();
     private String $tipo;//solo disponibile o in uscita
     private $id;
+    private $copertina;
+    private $id_copertina;
 
     /**
      * ESerieTv constructor.
@@ -69,7 +71,14 @@ class ESerieTv
     {   $this->calcolaValutazione();
         return $this->valutazione;
     }
+    public function getCopertina( )
+    {
+       return $this->copertina;
 
+    }
+    public function getId_copertina(){
+        return $this->id_copertina;
+    }
     /**
      * @return String
      */
@@ -159,6 +168,14 @@ class ESerieTv
         $this->tipo = $tipo;
     }
 
+    public function setCopertina( $copertina): void
+    {
+        $this->copertina = $copertina;
+        //$this->setId_copertina($copertina->getid());
+    }
+    public function setId_copertina($id_copertina){
+        $this->id_copertina=$id_copertina;
+    }
 //////////////////////////////////////METODO PER AGGIUNGERE UNA STAGIONE////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function aggiungiStagione(EStagione $stagione):void

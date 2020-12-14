@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-06 19:06:50
+/* Smarty version 3.1.34-dev-7, created on 2020-12-13 22:19:52
   from '/opt/lampp/htdocs/Progetto/Smarty/templates/homepagedef.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fcd1dba2a9d83_76891548',
+  'unifunc' => 'content_5fd685785f40c0_17850406',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16e219a2673da0e12bba6ee77e861ca1dbf5ab57' => 
     array (
       0 => '/opt/lampp/htdocs/Progetto/Smarty/templates/homepagedef.tpl',
-      1 => 1607277994,
+      1 => 1607894390,
       2 => 'file',
     ),
   ),
@@ -20,15 +20,17 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fcd1dba2a9d83_76891548 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore']->value)===null||$tmp==='' ? false : $tmp));?>
+function content_5fd685785f40c0_17850406 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore']->value)===null||$tmp==='' ? false : $tmp));
+$_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['errorelog']->value)===null||$tmp==='' ? false : $tmp));
+$_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['errorelog']->value)===null||$tmp==='' ? false : $tmp));?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/Progetto/Smarty/css/homepagedef.css">
+
 
 
 
@@ -36,6 +38,7 @@ $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore'
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.5.14/css/mdb.min.css">
     <link rel="stylesheet" type="text/css" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/mdb-plugins-gathered.min.css">
+
     <?php echo '<script'; ?>
  src="/Progetto/Smarty/js/registrazione.js"><?php echo '</script'; ?>
 >
@@ -48,18 +51,41 @@ $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore'
     <?php echo '<script'; ?>
  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
+    <link rel="stylesheet" href="/Progetto/Smarty/css/homepagedef.css">
     <title>TvTracker</title>
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! per un corretto funzionamento del sito abilita i cookie e ricarica la pagina');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
 
 </head>
-<body>
+
 
 <div id="bg2"></div>
 
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark " id="navbarprincipale">
-    <p class="navbar-brand">TvTracker</p>
+
 
     <div class="navbar-collapse order-3 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+<span class="navbar-brand"style="margin-top:;">
+ <img src="/Progetto/Smarty/Immagini/giallo2.png" width="50" height="50" class="d-inline-block align-top" alt="" loading="lazy" style="margin-right:2px"">
+                  </span></li>
+
+            <li class="nav-item pt-2">
+<span class="navbar-brand"style="margin-top:;">
+
+                 Tv Tracker </span></li>
+        </ul>
+
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="navbar-brand" data-toggle="modal" data-target="#login" href="">Login</a>
@@ -78,6 +104,21 @@ $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore'
     </button>
 </div>
 <?php }?>
+
+<?php if ($_smarty_tpl->tpl_vars['errorelog']->value == true) {?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>LOGIN FALLITO</strong> username o password errati
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php }?>
+<noscript><div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Per un corretto funzionamento del sito web è necessario abilitare JavaScript e poi ricaricare la pagina
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div></noscript>
 <div class="container-fluid" >
 
     <div class="row">
@@ -138,37 +179,52 @@ $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore'
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top " style="width: 100%;height: 15vw;object-fit: fill;" <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[0]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[0]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[0];?>
+"<?php }?> alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[0]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[0]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[0]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[0]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[1]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[1]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[1];?>
+"<?php }?> alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[1]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[1]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[1]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[1]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[2]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[2];?>
+" <?php }?>alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[2]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[2]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -178,41 +234,56 @@ $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore'
                         <!--/.First slide-->
 
                         <!--Second slide-->
-                        <div class="carousel-item">
+                        <div class="carousel-item ">
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[3]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[3]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[3];?>
+" <?php }?>alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[3]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[3]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[3]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[3]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[4]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[4]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[4];?>
+" <?php }?>alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[4]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[4]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[4]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[4]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[5]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[5]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[5];?>
+"<?php }?> alt="Card image cap">
+                                        <div class="card-body ">
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[5]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[5]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[5]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[5]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -222,41 +293,56 @@ $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore'
                         <!--/.Second slide-->
 
                         <!--Third slide-->
-                        <div class="carousel-item">
+                        <div class="carousel-item ">
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="../Immagini/pr4.jpg" alt="Card image cap">
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"<?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[6]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[6]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[6];?>
+" <?php }?>alt="Card image cap">
                                         <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[6]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[6]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[6]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[6]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="../Immagini/pr5.jpg" alt="Card image cap">
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[7]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[7]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[7];?>
+"  <?php }?>alt="Card image cap">
                                         <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[7]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[7]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[7]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[7]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg" alt="Card image cap">
+                                    <div class="card mb-2 h-100">
+                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"   <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[8]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[8]->getCopertina()->getType();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[8];?>
+"<?php }?> alt="Card image cap">
                                         <div class="card-body">
-                                            <h4 class="card-title">Card title</h4>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                                card's content.</p>
-                                            <a class="btn btn-primary waves-effect waves-light">Button</a>
+                                            <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[8]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[8]->getTitolo();
+}?></h4>
+                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[8]))) {
+echo $_smarty_tpl->tpl_vars['serie']->value[8]->getTrama();
+}?></p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -294,16 +380,16 @@ $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore'
 
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" action="/Progetto/Utente/login">
 
                         <div class="form-group">
 
-                            <input type="username" class="form-control" id="username" aria-describedby="username" placeholder="Username">
+                            <input type="username" class="form-control" name="username" id="username" aria-describedby="username" placeholder="Username">
 
                         </div>
                         <div class="form-group">
 
-                            <input type="password" class="form-control" id="exampleInputPassword1"placeholder="Password">
+                            <input type="password"  name="password" class="form-control" id="exampleInputPassword1"placeholder="Password">
                         </div>
                         <div>
                             <div class="form-check">
