@@ -183,6 +183,13 @@ class FPersistentManager
         return array($serie,$s);
 
     }
+
+    public static function AllSeries(){
+        $serie=FSerieTv::loadAll();
+        $s=array();
+        foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
+        return array($serie,$s);
+    }
 }
 
 /*

@@ -40,8 +40,10 @@ class VUtente
         $this->smarty->display("homepagedef.tpl");
 
     }
-    public function  showHomelog($username){
-        $this->smarty->assign("username",$username);
+    public function  showHomelog($serie,$cop,$seguiti){
+        $this->smarty->assign("serie",$serie);
+        $this->smarty->assign("cop",$cop);
+        $this->smarty->assign("seguiti",$seguiti);
         $this->smarty->display("homelog.tpl");
     }
 }

@@ -104,12 +104,17 @@ class FUtente  {
                    $seguiti=FPersistentManager::loadFollowed($utenti[$i]->getUsername());
                    if($seguiti){
                        $n=count($seguiti);
+                       echo ("questo è l n".$n);
+                       $se=array();
                        for($b=0;$b<$n;$b++){
-                           $se=array();
+
+                           echo("\n"."ora pusho".$seguiti[$b]["id_seguito"]);
                            array_push($se,$seguiti[$b]["id_seguito"]);
                        }
 
-                   $utenti[$i]->setSeguiti($se);}
+                   $utenti[$i]->setSeguiti($se);
+                   foreach ($utenti[$i]->getSeguiti() as $value) echo ("\n"."qui ce ".$value);
+                   }
                     $watchlist=FPersistentManager::load("proprietario",$utenti[$i]->getUsername(),FWatchlist::getNomeCLasse());
                     $utenti[$i]->setWatchlist($watchlist);
                 }
@@ -131,9 +136,8 @@ class FUtente  {
 
         if(isset($riga))
             {
-                $utente = new EUtente(
-                    $riga["username"],
-                    $riga["email"],$riga["password"],$riga["ruolo"]);
+                $u=self::load("username",$username);
+                $utente =clone($u[0]);
 
 
             //var_dump($utente->getStato());

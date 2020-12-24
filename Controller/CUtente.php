@@ -32,8 +32,9 @@ static function homepagedef(){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
             session_start();
+            $res=FPersistentManager::AllSeries();
         $view = new VUtente();
-        $view->showHomelog($_SESSION['utente']->getusername());}
+        $view->showHomelog($res[0],$res[1],$_SESSION["utente"]->getSeguiti());}
 
     }
 
@@ -79,7 +80,7 @@ static function homepagedef(){
                 $utente = FPersistentManager::loadLoginPWHash($_POST["username"], $_POST["password"]);
                 //var_dump($utente->getStato());
                 if ($utente != null ) { //verifica se l'utente esiste e se non è bannato (true)
-
+                    echo(count($utente->getSeguiti()));
                     $_SESSION["utente"] = $utente;
                     if($utente->getRuolo() == "a") {
                         header('Location: /WeBetting/Admin/homepage');
@@ -113,5 +114,13 @@ static function homepagedef(){
 
         if (isset($_SESSION['utente'])){session_abort();return true;}
         else {session_abort();return false;}
+    }
+
+    static function logout(){
+        session_start(); // recupera i parametri di sessione
+        setcookie("PHPSESSID", "", time() - 3600, "/"); //Elimino il cookie di sessione
+        session_unset(); // rimuove le variabili di sessione
+        session_destroy(); // distrugge la sessione
+        header('Location: /Progetto/Utente/homepagedef');
     }
 }

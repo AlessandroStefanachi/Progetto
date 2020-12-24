@@ -88,7 +88,28 @@ class FConnectionDB {
                 $this->pdo->rollBack();
             }
     }
+    public function loadAll($nomeTabella){
+        try
+        {
 
+            $sql = "SELECT * FROM " . $nomeTabella . ";";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $numeroRighe = $stmt->rowCount();
+            if($numeroRighe == 0)
+            {
+                $risultato = NULL;
+            }
+            return $risultato;
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+        }
+
+    }
     public function getID( $nomeTabella)
     {
         try

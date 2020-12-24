@@ -111,6 +111,52 @@ class FSerieTv
 
         return $serie;
     }
+
+
+    public static function loadAll()
+    {
+
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->loadAll(FSerieTv::$nomeTabella);
+        $serie = array();
+
+        if($righe == NULL)
+        {
+            $serie = NULL;
+        }
+        else
+        {
+            $numeroRighe = count($righe);
+            for($i = 0; $i < $numeroRighe; $i++)
+            {
+                $serie[$i] = new ESerieTv($righe[$i]["titolo"], $righe[$i]["trama"], $righe[$i]["regista"], $righe[$i]["tipo"]);
+
+                $serie[$i]->setId($righe[$i]["id"]);
+                if($righe[$i]['id_copertina']!=null)$serie[$i]->setId_copertina($righe[$i]["id_copertina"]);
+                $copertina=FPersistentManager::load('id',$righe[$i]["id_copertina"],FCopertina::getNomeClasse());
+                if($copertina!=null)$serie[$i]->setCopertina($copertina[0]);// se trovo la copertina la setto
+                $stagione= FPersistentManager::load('id_serieTV',$righe[$i]['id'],FStagione::getNomeClasse());
+                if($stagione)
+                    $serie[$i]->setStagioni($stagione);
+                $CGenere= FPersistentManager::loadTVgenere($righe[$i]['id']);
+                ///////////////////
+                if($CGenere!=null)
+                {
+                    $generi=array();
+                    $nr=count($CGenere);
+                    for($b=0;$b < $nr;$b++)
+                    {
+                        $a=FPersistentManager::loadGenere($CGenere[$i]['id_genere']);
+                        array_push($generi, $a[0]["genere"]);//inserisci la lingua
+                    }
+                    if($generi)
+                        $serie[$i]->setGenere($generi);
+                }
+            }
+        }
+
+        return $serie;
+    }
     /**
      * Questo metodo restituisce il nome della classe per la costruzione delle query
      * @return string $nomeClasse nome della classe
@@ -151,6 +197,8 @@ public static function getId(){
     $id =  $con->getID(static::getNomeTabella());
     return $id;
 }
+
+
     public static function exist($campo, $valoreCampo)
     {
         $con = FConnectionDB::getIstanza();

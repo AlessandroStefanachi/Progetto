@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-13 22:19:52
+/* Smarty version 3.1.34-dev-7, created on 2020-12-18 00:11:37
   from '/opt/lampp/htdocs/Progetto/Smarty/templates/homepagedef.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fd685785f40c0_17850406',
+  'unifunc' => 'content_5fdbe5a9186b52_27804403',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16e219a2673da0e12bba6ee77e861ca1dbf5ab57' => 
     array (
       0 => '/opt/lampp/htdocs/Progetto/Smarty/templates/homepagedef.tpl',
-      1 => 1607894390,
+      1 => 1608246163,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fd685785f40c0_17850406 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fdbe5a9186b52_27804403 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore']->value)===null||$tmp==='' ? false : $tmp));
 $_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['errorelog']->value)===null||$tmp==='' ? false : $tmp));
 $_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['errorelog']->value)===null||$tmp==='' ? false : $tmp));?>
@@ -29,7 +29,7 @@ $_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['erro
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 
 
