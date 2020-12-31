@@ -61,7 +61,7 @@ class FWatchlist
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                echo("PRIMA DEL COSTRUTTORE");
+
                 $watchlist[$i] = new EWatchlist(
                     $righe[$i]["nome"],
                     $righe[$i]["descrizione"],
@@ -123,6 +123,19 @@ class FWatchlist
     public static function getCampiParametriciTabella()
     {
         return self::$campiParametriciTabella;
+    }
+
+    public static function exist($campo, $valoreCampo)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
+        return $ris;
+    }
+
+    public static function getIDfrom($campo,$valoreCampo){
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->getIDfrom(static::getNomeTabella(),$campo, $valoreCampo);
+        return $ris;
     }
 }
 

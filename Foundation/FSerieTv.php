@@ -137,7 +137,8 @@ class FSerieTv
                 if($copertina!=null)$serie[$i]->setCopertina($copertina[0]);// se trovo la copertina la setto
                 $stagione= FPersistentManager::load('id_serieTV',$righe[$i]['id'],FStagione::getNomeClasse());
                 if($stagione)
-                    $serie[$i]->setStagioni($stagione);
+                {
+                    $serie[$i]->setStagioni($stagione);}
                 $CGenere= FPersistentManager::loadTVgenere($righe[$i]['id']);
                 ///////////////////
                 if($CGenere!=null)
@@ -146,7 +147,7 @@ class FSerieTv
                     $nr=count($CGenere);
                     for($b=0;$b < $nr;$b++)
                     {
-                        $a=FPersistentManager::loadGenere($CGenere[$i]['id_genere']);
+                        $a=FPersistentManager::loadGenere($CGenere[$b]['id_genere']);
                         array_push($generi, $a[0]["genere"]);//inserisci la lingua
                     }
                     if($generi)

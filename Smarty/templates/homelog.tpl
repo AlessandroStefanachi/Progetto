@@ -49,13 +49,20 @@
                 <div id="dropdown-content" style="background-color: #FFCF17">
 
                     <form class>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
-                            <label class="form-check-label" for="exampleRadios1">
-                                genere
-                            </label>
-                        </div>
+                        {$v=1}
+                        {foreach from=$genere item=$g }
 
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="radio" name="genere" id="{$g}" value="{$g}" >
+                            <label class="form-check-label" for="{$g}">
+
+                                {$g}
+
+                            </label>
+                            {$v=$v+1}
+                        </div>
+                       {/foreach}
 
                         <button type="submit" class="btn btn-primary" style="background-color: #555B5F !important;">Filtra</button>
                     </form>
@@ -143,17 +150,19 @@
             <div class="d-flex justify-content-between controls-top">
                 <div class="pt-4 watch pr-5"></div>
                     <div class="pt-4 series">
+                        <form>
                         <label for="order" style="color: #f9f9f9">Ordina per rating</label>
                         <div class="btn-group me-2" id="order" role="group" aria-label="Second group">
 
-                            <button type="button" class="btn btn-secondary" id="order"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
+                            <button type="submit" formmethod="post" formaction="/Progetto/Utente/crs" class="btn btn-secondary" id="order"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
                                 </svg></button>
-                            <button type="button" class="btn btn-secondary" id="order"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                            <button type="submit"formmethod="post" formaction="/Progetto/Utente/decr" class="btn btn-secondary" id="order"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
-                                </svg></button>
+                                </svg></button >
 
                         </div>
+                        </form>
                     </div>
                 <div class="pr-5">
                 <a class="btn-floating waves-effect waves-light" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left" style="background-color:#FFCF17; !important;"></i></a>
@@ -178,12 +187,22 @@
 
                 <!--First slide-->
                 {$se=0}
-                {for $ciclo=1 to count($serie)/6}
+                {if !isset($serie)||count($serie)/6<=1}
+                    {$cicli=1}
+                    {else }{$cicli=count($serie)/6}
+                {/if}
+                {for $ciclo=1 to $cicli}
                 <div class="carousel-item {if $ciclo==1}active{/if} ">
 
                     <div class="row justify-content-center">
 
-                            <div class="jumbotron series">
+                            <div class="jumbotron series" style="display: block; overflow: auto;background-color: #919598;min-height: 70vh;min-width: 70vw;max-width: 90vw;!important;">
+                                {if isset($filtro)&&$filtro!='empty'}<h1 class="text-center" style="color: #555B5F">{$filtro}
+
+                                    <a class="icon" style="color: #555B5F" href="/Progetto/Utente/homepagedef"> <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                                            </svg></div></a>
+                                    </h1>{/if}
                                 {for $r=0 to 1}
                              <div class="row pt-2">
 
@@ -191,8 +210,9 @@
                                  {for $c=0 to 2}
                                  {if $se < count($serie)}
                                  <div class="col-4">
-                                     <div class="card mb-2 h-100">
-                                         <img class="card-img-top " style="width:20vw;height: 15vw;object-fit: fill;" {if isset($serie[$se]) }src="data:{$serie[$se]->getCopertina()->getType()};base64,{$cop[$se]}"{/if} alt="Card image cap">
+                                     <div class="card mb-2 h-100 mr-2" style=" display:block;overflow:auto; min-width: 20vw; max-width: 20vw!important;">
+                                         <div class="imgdiv"style="display: block;">
+                                             <img class="card-img-top " style="width:20vw;height: 15vw;object-fit: fill; !important" {if isset($serie[$se]) }src="data:{$serie[$se]->getCopertina()->getType()};base64,{$cop[$se]}"{/if} alt="Card image cap"></div>
                                          <div class="card-body ">
                                              {if isset($serie[$se])}<h4 class="card-title"> {$serie[$se]->getTitolo()} </h4>{/if}
                                             {if isset($serie[$se]) }
@@ -228,6 +248,7 @@
                                  </div>
                                  {/if}
                                    {/for}
+                                 {if $se==2||$se==5} <div class="card mb-2 h-100 mr-2 pr-2" style="overflow:auto; min-width: 20vw;!important;"></div>{/if}
 
 
                             </div>
@@ -289,23 +310,31 @@
             <div class="carousel-inner" >
 
                 <!--First slide-->
-                {for $ciclo=1 to 6}
+                {$se=0}
+                {if !isset($watch)||count($watch)/3<=1}
+                    {$cicli=1}
+                {else }{$cicli=count($watch)/3}
+                {/if}
+                {for $ciclo=1 to $cicli}
                     <div class="carousel-item {if $ciclo==1}active{/if} ">
 
                         <div class="row justify-content-center">
 
-                            <div class="jumbotron watch">
+                            <div class="jumbotron watch"  style="display: block; overflow: auto;background-color: #919598;min-height: 70vh;min-width: 70vw;max-width: 90vw;!important;">
                                 <div class="row">
-                                    <div class="col-4">
-                                        <div class="card mb-2 h-100">
-                                            <img class="card-img-top " style="width: 100%;height: 15vw;object-fit: fill;" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg" alt="Card image cap">
+                                    {for $c=0 to 2}
+                                    {if $se<count($watch)}
+                                    <div class="col-4 ">
+                                        <div class="card mb-2 h-100 mr-2 pr-2" style="overflow:auto; min-width: 20vw;max-width: 20vw;!important;">
+                                            <img class="card-img-top " style="width:20vw;height: 15vw;object-fit: fill;" {if isset($Cwatch[$se]) }src="data:{$type[$se]};base64,{$Cwatch[$se]}"{/if} alt="Card image cap">
                                             <div class="card-body ">
-                                                <h4 class="card-title">questo è un watch {$ciclo}</h4>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
+                                                <h4 class="card-title">{$watch[$se]->getNome()}</h4>
+                                                <a>{$watch[$se]->getProprietario()}</a>
+                                                <br>
+                                                <hr>
+                                                <span>{$watch[$se]->getDescrizione()}</span>
+                                                {$se=$se+1}
+                                                <hr>
                                                 <br>
                                                 <a  class="pt-2" href="" >
 
@@ -328,7 +357,10 @@
                                         </div>
                                     </div>
 
-
+                                    {/if}{/for}
+                                    {if $se==1||$se==4} <div class="card mb-2 h-100 mr-2 pr-2" style="overflow:auto; min-width: 20vw;!important;"></div>
+                                        <div class="card mb-2 h-100 mr-2 pr-2" style="overflow:auto; min-width: 20vw;!important;"></div>{/if}
+                                    {if $se==2} <div class="card mb-2 h-100 mr-2 pr-2" style="overflow:auto; min-width: 20vw;!important;"></div>{/if}
 
                                 </div>
 

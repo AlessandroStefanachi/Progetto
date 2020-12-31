@@ -3,6 +3,7 @@
 
 class FGenere
 {
+    private static $nomeTabella = "genere";
     public static function load($genere)
     {
         $righe = null;
@@ -15,6 +16,20 @@ class FGenere
     {
         $con = FConnectionDB::getIstanza();
         $con->storeGenere($genere);
+    }
+
+    public static function loadAll()
+    {
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->loadAll(FGenere::$nomeTabella);
+        return $righe;
+    }
+
+    public static function exist($campo, $valoreCampo)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->exist($campo, $valoreCampo, static::$nomeTabella);
+        return $ris;
     }
 
 }

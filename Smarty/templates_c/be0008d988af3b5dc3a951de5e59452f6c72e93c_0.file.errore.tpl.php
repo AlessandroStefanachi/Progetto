@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-06 23:40:02
+/* Smarty version 3.1.34-dev-7, created on 2020-12-28 23:25:28
   from '/opt/lampp/htdocs/Progetto/Smarty/templates/errore.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fcd5dc2839737_48643401',
+  'unifunc' => 'content_5fea5b58d21621_87083892',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'be0008d988af3b5dc3a951de5e59452f6c72e93c' => 
     array (
       0 => '/opt/lampp/htdocs/Progetto/Smarty/templates/errore.tpl',
-      1 => 1607294397,
+      1 => 1609194326,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fcd5dc2839737_48643401 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fea5b58d21621_87083892 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 
@@ -54,7 +54,7 @@ function content_5fcd5dc2839737_48643401 (Smarty_Internal_Template $_smarty_tpl)
  <div class="navbar-collapse order-3 dual-collapse2">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="navbar-brand" href="/Progetto/Utente/homepagedef">WeBetting</a>
+                <a class="navbar-brand" href="/Progetto/Utente/homepagedef">TvTracker</a>
             </li>
             
         </ul>

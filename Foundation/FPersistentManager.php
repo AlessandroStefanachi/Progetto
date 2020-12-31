@@ -112,9 +112,16 @@ class FPersistentManager
     public static function loadGenere($genere)
     {
         $genere = FGenere::load($genere);
+
         return $genere;
     }
+public static function AllGenere(){
+        $genere1=FGenere::loadAll();
+        $genere=array();
+        foreach ($genere1 as $value)array_push($genere,$value['genere']);
+        return $genere;
 
+}
     public static function storeGenere($genere)
     {
         FGenere::store($genere);
@@ -151,6 +158,12 @@ class FPersistentManager
         return $TVgenere;
     }
 
+    public static function loadGenereTv($genere)
+    {
+        $TVgenere = FTVgenere::loadbygen($genere);
+        return $TVgenere;
+    }
+
     public static function storeTVgenere($id_genere, $id_serie)
     {
         FTVgenere::store($id_genere, $id_serie);
@@ -184,11 +197,128 @@ class FPersistentManager
 
     }
 
-    public static function AllSeries(){
+    public static function AllSeries($order){
         $serie=FSerieTv::loadAll();
+        if(isset($order)){
+            if($order=='crescente'){
+                function cmp($a, $b)
+                {
+                    if ($a->getValutazione() == $b->getValutazione()) {
+                        return 0;
+                    }
+                    return ($a->getValutazione() < $b->getValutazione()) ? 1 : -1;
+
+                }
+                usort($serie, "cmp");
+
+            }
+
+            if($order=='decrescente'){
+                function cmp($a, $b)
+                {
+                    if ($a->getValutazione() == $b->getValutazione()) {
+                        return 0;
+                    }
+                    return ($a->getValutazione() < $b->getValutazione()) ? -1 : 1;
+
+                }
+                usort($serie, "cmp");
+            }
+        }
         $s=array();
         foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
         return array($serie,$s);
+    }
+
+    public static function filter($genere,$order)
+    {
+        $valor = FTVgenere::loadbygen($genere);
+        $id_series = array();
+        if(isset($valor))
+        $i = count($valor);
+        else $i=0;
+        $serie=array();
+        for ($a = 0; $a < $i; $a++) array_push($id_series, $valor[$a]['id_serie']);
+        foreach ($id_series as $id) {
+            if (FSerieTv::exist("id", $id)) {
+                $s = FSerieTv::load("id", $id);
+                array_push($serie, clone($s[0]));
+
+
+            }
+
+        }
+
+        if(isset($order)){
+            if($order=='crescente'){
+                function cmp($a, $b)
+                {
+                    if ($a->getValutazione() == $b->getValutazione()) {
+                        return 0;
+                    }
+                    return ($a->getValutazione() < $b->getValutazione()) ? 1 : -1;
+
+                }
+                usort($serie, "cmp");
+
+            }
+
+            if($order=='decrescente'){
+                function cmp($a, $b)
+                {
+                    if ($a->getValutazione() == $b->getValutazione()) {
+                        return 0;
+                    }
+                    return ($a->getValutazione() < $b->getValutazione()) ? -1 : 1;
+
+                }
+                usort($serie, "cmp");
+            }
+        }
+
+
+        $s=array();
+        foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
+        return array($serie,$s);
+    }
+
+
+    //metodo per estrarre 6 watchlist casuali da far comparire in homelog
+    public static function watches(){
+        $id=FWatchlist::getIDfrom('pubblico',true);
+        // echo($id[0]["id"]);
+        $valor=array();
+        $i=count($id);
+        for($a=0;$a<$i;$a++)array_push($valor,$id[$a]['id']);
+        $i=0;
+        $watch=array();
+        $usato=array();
+        if(count($id)>=0){
+            if(count($id)>=6)$it=6;
+            else $it=count($id);
+            while($i<$it){
+                $rand=rand(min($valor),max($valor));
+                if(FWatchlist::exist("id",$rand)&& !(in_array($rand,$usato))&& in_array($rand,$valor)){
+                    $s=FWatchlist::load("id",$rand);
+
+                    array_push($watch,clone($s[0]));
+                    array_push($usato,$rand);
+                    $i++;
+                }
+
+            }}
+        $series=array();
+        foreach ($watch as $a) array_push($series,$a->getSerie());
+        $s=array();
+        foreach ($series as $a){if(isset($a[0][0]) )array_push($s,base64_encode($a[0][0]->getCopertina()->getImmagine()));
+        else array_push($s,null);
+        }
+        $type=array();
+        foreach ($series as $a){ if(isset($a[0][0]) ) array_push($type,$a[0][0]->getCopertina()->getType());
+        else array_push($type,null);}
+
+        return array($watch,$s,$type);
+
     }
 }
 

@@ -28,13 +28,27 @@ static function homepagedef(){
 
 
 
-    static function homelog(){
+    static function homelog($genere){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
             session_start();
-            $res=FPersistentManager::AllSeries();
+            if(isset($_SESSION['order']))$order=$_SESSION['order'];
+            else $order=null;
+            $generi=FPersistentManager::AllGenere();
+            if($genere=='empty'){
+                if(isset($_SESSION['genere']))unset($_SESSION['genere']);
+            $res=FPersistentManager::AllSeries($order);
+        }
+            else{
+                if(FPersistentManager::exist('genere',$genere,'FGenere')){
+                    $_SESSION['genere']=$genere;
+                    $res=FPersistentManager::filter($genere,$order);
+                }
+                else{CFrontController::errore();}
+            }
+            $watch=FPersistentManager::watches();
         $view = new VUtente();
-        $view->showHomelog($res[0],$res[1],$_SESSION["utente"]->getSeguiti());}
+        $view->showHomelog($res[0],$res[1],$_SESSION["utente"]->getSeguiti(),$generi,$genere,$watch[0],$watch[1],$watch[2]);}
 
     }
 
@@ -122,5 +136,30 @@ static function homepagedef(){
         session_unset(); // rimuove le variabili di sessione
         session_destroy(); // distrugge la sessione
         header('Location: /Progetto/Utente/homepagedef');
+    }
+
+    static function crs(){
+    session_start();
+    if(isset($_SESSION['order'])){
+        if($_SESSION['order']=='crescente') unset($_SESSION['order']);
+        else $_SESSION['order']='crescente';
+    }
+    else $_SESSION['order']='crescente';
+
+        if(isset($_SESSION['genere']))header('Location: /Progetto/Utente/homelog?genere='.$_SESSION['genere']);
+        else
+            header('Location: /Progetto/Utente/homelog');
+    }
+
+    static function decr(){
+        session_start();
+        if(isset($_SESSION['order'])){
+            if($_SESSION['order']=='decrescente') unset($_SESSION['order']);
+            else $_SESSION['order']='decrescente';
+        }
+        else $_SESSION['order']='decrescente';
+        if(isset($_SESSION['genere']))header('Location: /Progetto/Utente/homelog?genere='.$_SESSION['genere']);
+        else
+        header('Location: /Progetto/Utente/homelog');
     }
 }

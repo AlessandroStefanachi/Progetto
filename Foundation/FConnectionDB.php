@@ -133,6 +133,29 @@ class FConnectionDB {
         }
     }
 
+    public function getIDfrom( $nomeTabella,$campo,$valoreCampo)
+    {
+        try
+        {
+
+            $sql = "SELECT ".'id'." FROM ".$nomeTabella. " WHERE " . $campo . " = '" . $valoreCampo . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $numeroRighe = $stmt->rowCount();
+            if($numeroRighe == 0)
+            {
+                $risultato = NULL;
+            }
+            return $risultato;
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+        }
+    }
+
     /*
      * Metodo che permette di aggiornare il valore di un attributo passato come parametro
      * @param $campo campo da aggiornare
@@ -404,6 +427,15 @@ class FConnectionDB {
     public function loadTVgenere($id_tv)
     {
         $stmt = $this->pdo->query("SELECT * from TVgenere where id_serie= '". $id_tv."';");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+    public function loadGenereTv($genere)
+    {
+        $stmt = $this->pdo->query("SELECT id_serie from TVgenere where id_genere= '". $genere."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
         if($numeroRighe == 0) $righe = null;

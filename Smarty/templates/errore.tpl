@@ -27,7 +27,7 @@
  <div class="navbar-collapse order-3 dual-collapse2">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="navbar-brand" href="/Progetto/Utente/homepagedef">WeBetting</a>
+                <a class="navbar-brand" href="/Progetto/Utente/homepagedef">TvTracker</a>
             </li>
             
         </ul>
