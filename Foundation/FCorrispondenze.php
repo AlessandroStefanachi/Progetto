@@ -18,4 +18,11 @@ class FCorrispondenze
         $con = FConnectionDB::getIstanza();
         $con->storeCorr($id_watchlist,$id_stv);
     }
+
+    public static function existcorr($id_w, $id_s)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->existCorr($id_w,$id_s);
+        return $ris;
+    }
 }

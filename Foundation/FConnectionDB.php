@@ -212,6 +212,49 @@ class FConnectionDB {
     }
 
 
+    public function existFollow($followed, $follower)
+    {
+        try
+        {
+            $sql = "SELECT * FROM follow WHERE id_seguito ='" . $followed . "' AND id_seguace ='" . $follower . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $numeroRighe = $stmt->rowCount();
+            if($numeroRighe == 0)
+            {
+                $risultato = NULL;
+            }
+            return $risultato;
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+        }
+    }
+    public function existCorr($id_w, $id_s)
+    {
+        try
+        {
+            $sql = "SELECT * FROM follow WHERE id_watchlist ='" . $id_w . "' AND id_s ='" . $id_s . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $numeroRighe = $stmt->rowCount();
+            if($numeroRighe == 0)
+            {
+                $risultato = NULL;
+            }
+            return $risultato;
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+        }
+    }
+
     public function loadVerificaAccessoPWHash ($username, $pass) {
 
         try
@@ -264,6 +307,27 @@ class FConnectionDB {
                 $this->pdo->rollBack();
             //return false;
             }
+        return $verifica;
+    }
+
+    public function deletefollow($followed,$follower) {
+        try {
+            $verifica = null;
+            $this->pdo->beginTransaction();
+
+            $sql = "DELETE FROM follow WHERE id_seguito ='" . $followed . "' AND id_seguace ='" . $follower . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $this->pdo->commit();
+            $this->closeDbConnection();
+            $verifica = true;
+
+        } catch (PDOException $e)
+        {
+            echo "Attenzione errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            //return false;
+        }
         return $verifica;
     }
 

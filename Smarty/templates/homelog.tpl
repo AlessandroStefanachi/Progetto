@@ -16,6 +16,7 @@
 
 
     <script src="/Progetto/Smarty/js/switch.js"></script>
+    <script src="/Progetto/Smarty/js/button.js"></script>
 
 
 
@@ -29,6 +30,12 @@
     <link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.5.14/css/mdb.min.css">
 
     <link rel="stylesheet" type="text/css" href="/Progetto/Smarty/css/hov2.css">
+
+    <script>
+        $(document).ready(function(){
+            $("#staticBackdrop").modal('show');
+        });
+    </script>
 
 
 
@@ -54,7 +61,7 @@
 
                         <div class="form-check">
 
-                            <input class="form-check-input" type="radio" name="genere" id="{$g}" value="{$g}" >
+                            <input class="form-check-input" type="radio" name="genere" id="{$g}" value="{$g}" onclick="activatefilter()">
                             <label class="form-check-label" for="{$g}">
 
                                 {$g}
@@ -64,7 +71,7 @@
                         </div>
                        {/foreach}
 
-                        <button type="submit" class="btn btn-primary" style="background-color: #555B5F !important;">Filtra</button>
+                        <button id="filterbutton" type="submit" class="btn btn-primary" style="background-color: #555B5F !important;" disabled="true">Filtra</button>
                     </form>
                 </div>
             </li>
@@ -224,9 +231,9 @@
                                              <span class="fa fa-star {if $star>0} checked {$star=$star-1}{/if}"></span>
                                              <span class="fa fa-star {if $star>0} checked {$star=$star-1}{/if}"></span>
                                              {/if}
-                                             {$se=$se+1}
+
                                              <br>
-                                             <a  class="pt-2" href="" >
+                                             <a  class="pt-2" href="/Progetto/Utente/shortadding?id={$serie[$se]->getId()}" >
 
                                                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#555B5F" class="bi bi-plus-square" viewBox="0 0 16 16">
                                                          <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -242,7 +249,7 @@
                                                  </svg>
 
                                              </a>
-
+                                             {$se=$se+1}
                                          </div>
                                      </div>
                                  </div>
@@ -333,10 +340,10 @@
                                                 <br>
                                                 <hr>
                                                 <span>{$watch[$se]->getDescrizione()}</span>
-                                                {$se=$se+1}
+
                                                 <hr>
                                                 <br>
-                                                <a  class="pt-2" href="" >
+                                                <a  class="pt-2" {if !in_array($watch[$se]->getProprietario(),$seguiti)}href="/Progetto/Utente/follow?user={$watch[$se]->getProprietario()}" {/if} >
 
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#555B5F" class="bi bi-plus-square" viewBox="0 0 16 16">
                                                         <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -352,6 +359,7 @@
                                                     </svg>
 
                                                 </a>
+                                                {$se=$se+1}
 
                                             </div>
                                         </div>
@@ -391,9 +399,10 @@
         <!--Carousel watch end-->
         <div class="rect mt-5 ">
 
+
             {foreach from=$seguiti item=$a }
 
-          <a class="followed"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-person-dash" viewBox="0 0 16 16">
+          <a class="followed"   methods="post" href="/Progetto/Utente/unfollow?user={$a}"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-person-dash" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
               </svg></a>
                 <a class="followed " style="color:white;">{$a}</a>
@@ -404,6 +413,42 @@
 
             </div>
 
+
+{if isset($id)}
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Seleziona la watchlist</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class action="/Progetto/Watchlist/aggiungiserie">
+                            {$v=1}
+                            {foreach from=$watchlist item=$g }
+
+                                <div class="form-check">
+
+                                    <input class="form-check-input" type="radio" name="genere" id="{$g->getNome()}" value="{$g->getId()}" onclick="activeadd()" >
+                                    <label class="form-check-label" for="{$g->getNome()}">
+
+                                        {$g->getNome()}
+
+                                    </label>
+                                    {$v=$v+1}
+                                </div>
+                            {/foreach}
+
+                            <button id="addbutton" type="submit" class="btn btn-primary" style="background-color: #555B5F !important;" disabled>Aggiungi</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+{/if}
 </div>
 
 

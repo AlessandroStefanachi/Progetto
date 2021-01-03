@@ -18,4 +18,18 @@ class FFollow
         $con = FConnectionDB::getIstanza();
         $con->storeFollow($idA,$idB);
     }
+
+    public static function existFollow($followed, $follower)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->existFollow($followed,$follower);
+        return $ris;
+    }
+
+    public static function delete($followed, $follower)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->deletefollow($followed,$follower);
+        return $ris;
+    }
 }

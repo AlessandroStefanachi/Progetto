@@ -47,8 +47,15 @@ static function homepagedef(){
                 else{CFrontController::errore();}
             }
             $watch=FPersistentManager::watches();
+            if(isset($_SESSION['id_add'])){
+                $id=$_SESSION['id_add'];
+                $watchlist=$_SESSION['utente']->getWatchlist();
+                $_SESSION['adding']=$id;
+                unset($_SESSION['id_add']);
+            }
+            else{ $id=null;$watchlist=null;}
         $view = new VUtente();
-        $view->showHomelog($res[0],$res[1],$_SESSION["utente"]->getSeguiti(),$generi,$genere,$watch[0],$watch[1],$watch[2]);}
+        $view->showHomelog($res[0],$res[1],$_SESSION["followed"],$generi,$genere,$watch[0],$watch[1],$watch[2],$id,$watchlist);}
 
     }
 
@@ -96,6 +103,7 @@ static function homepagedef(){
                 if ($utente != null ) { //verifica se l'utente esiste e se non è bannato (true)
                     echo(count($utente->getSeguiti()));
                     $_SESSION["utente"] = $utente;
+                    $_SESSION["followed"]=$utente->getSeguiti();
                     if($utente->getRuolo() == "a") {
                         header('Location: /WeBetting/Admin/homepage');
                     }
@@ -161,5 +169,41 @@ static function homepagedef(){
         if(isset($_SESSION['genere']))header('Location: /Progetto/Utente/homelog?genere='.$_SESSION['genere']);
         else
         header('Location: /Progetto/Utente/homelog');
+    }
+
+    static function unfollow($followed){
+
+        if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            FPersistentManager::deleteFollow($followed,$_SESSION['utente']->getUserName());
+            $pos=array_search($followed,$_SESSION['followed']);
+            unset($_SESSION['followed'][$pos]);
+            header('Location: /Progetto/Utente/homelog');
+        }
+
+    }
+    static function follow($followed){
+
+        if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!FPersistentManager::existFollow($followed,$_SESSION['utente']->getUserName())){
+            FPersistentManager::storeFollower($followed,$_SESSION['utente']->getUserName());
+            array_push($_SESSION['followed'],$followed);
+            header('Location: /Progetto/Utente/homelog');}
+            else header('Location: /Progetto/Utente/homelog');
+        }
+
+    }
+
+    static function shortadding($id){
+        if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+        session_start();
+        $_SESSION['id_add']=$id;
+        header('Location: /Progetto/Utente/homelog');
+        }
+
     }
 }

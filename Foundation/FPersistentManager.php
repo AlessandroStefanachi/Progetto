@@ -169,7 +169,19 @@ public static function AllGenere(){
         FTVgenere::store($id_genere, $id_serie);
 
     }
+    public static function existFollow($followed, $follower)
+    {
+        $ris=FFollow::existFollow($followed,$follower);
+        return $ris;
 
+    }
+
+    public static function existCorr($id_w, $id_s)
+    {
+        $ris=FFollow::existFollow($id_w,$id_s);
+        return $ris;
+
+    }
     //metodo per estrarre 9 serie casuali da far comparire in homelog
     public static function homepagedef(){
         $id=FSerieTv::getId();
@@ -319,6 +331,10 @@ public static function AllGenere(){
 
         return array($watch,$s,$type);
 
+    }
+
+    public static function deleteFollow($followed,$follower){
+        FFollow::delete($followed,$follower);
     }
 }
 
