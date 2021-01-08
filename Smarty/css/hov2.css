@@ -1,0 +1,127 @@
+#bg2{
+    height:100vh;
+    min-width:100%;
+    background-color:#555B5F;
+    position:fixed;
+    z-index:-1;
+}
+.navbar-brand{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    left: 0;
+}
+html,body{
+    width:100%;}
+#b {
+    color: white;
+}
+
+ul {
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+
+!important;
+}
+
+li {
+    float: left;
+!important;
+}
+
+li , #dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+!important;
+}
+
+ #dropdown:hover #dropbtn { border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #FFCF17; !important;
+}
+
+li#dropdown {
+    display: inline-block;
+!important;
+}
+
+#dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FFCF17;
+    min-width: 160px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    z-index: 1;
+!important;
+}
+
+#dropdown-content .form-check{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+!important;
+}
+
+#dropdown-content  {background-color: #f1f1f1;}
+
+#dropdown:hover #dropdown-content {
+    display: block;
+!important;
+}
+
+.icon:hover{color:#FFCF17;}
+
+
+#scbar:focus{   box-shadow: 0 0 1px 1px #FFCF17;border: 1px solid #FFCF17;!important;}
+
+
+#popwc:hover #wc-appear{color: #f9f9f9;display: block;}
+#poppr:hover #pr-appear{color: #f9f9f9;display: block;}
+#poplg:hover #lg-appear{color: #f9f9f9;display: block;}
+
+
+#wc-appear {display: none;color: #9B410E;}
+#pr-appear {display: none;color: #9B410E;}
+#lg-appear {display: none;color: #9B410E;}
+
+a{
+   margin: auto;
+
+    display: inline-block;
+line-height: 1;
+    color:#ffeb3b;
+
+    text-decoration:none;
+
+    cursor: pointer;}
+.jumbotron{display: block;
+    overflow: auto;
+    background-color: #919598;
+    min-height: 70vh;
+    min-width: 90vw;
+
+    max-width: 90vw;
+    !important;
+}
+
+#dropdown{width:192px}
+
+.checked {
+    color: orange;
+}
+
+#order{background-color: #FFCF17 !important;}
+.series{display: block}
+.watch{display: none;}
+.rect{height: 200px; background-color:transparent ;overflow-x:hidden;overflow-y: auto;}
+.list-group-item{color: #555B5F}
+.followed{color: #f1f1f1}
