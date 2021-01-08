@@ -1,0 +1,49 @@
+#bg2{
+    height:100vh;
+    min-width:100%;
+    background-color:#555B5F;
+    position:fixed;
+    z-index:-1;
+}
+
+.icon:hover{color:#FFCF17;}
+
+#poplg:hover #lg-appear{color: #f9f9f9;display: block;}
+
+#lg-appear {display: none;color: #9B410E;}
+
+#profile{
+    background-color: #919598;
+    border-radius: 5px;
+}
+
+hr{
+    background-color:#FFCF17;
+
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+    !important;
+}
+
+#sgbox{display: none}
+
+#sg-appear:hover #sgbox{display: block;}
+
+#sebox{display: none}
+
+#se-appear:hover #sebox{display: block;}
+
+#wcbox{display: none}
+
+#watch-appear:hover #wcbox{display: block;}
+
+.jumbotron{border-radius: 5px}
+
+.jumbotron a{
+    color: #555B5F;
+}
+#pr-appear {display: none;color: #9B410E;}
+#poppr:hover #pr-appear{color: #f9f9f9;display: block;}

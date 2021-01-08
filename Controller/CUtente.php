@@ -32,6 +32,7 @@ static function homepagedef(){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
             session_start();
+            if(isset($_SESSION['location']))unset($_SESSION['location']);
             if(isset($_SESSION['order']))$order=$_SESSION['order'];
             else $order=null;
             $generi=FPersistentManager::AllGenere();
@@ -54,8 +55,9 @@ static function homepagedef(){
                 unset($_SESSION['id_add']);
             }
             else{ $id=null;$watchlist=null;}
+            if (!isset($_SESSION['followed']))$_SESSION['followed']=array();
         $view = new VUtente();
-        $view->showHomelog($res[0],$res[1],$_SESSION["followed"],$generi,$genere,$watch[0],$watch[1],$watch[2],$id,$watchlist);}
+        $view->showHomelog($res[0],$res[1],$_SESSION["followed"],$generi,$genere,$watch[0],$watch[1],$watch[2],$id,$watchlist,$_SESSION['utente']->getUsername());}
 
     }
 
@@ -104,6 +106,7 @@ static function homepagedef(){
                     echo(count($utente->getSeguiti()));
                     $_SESSION["utente"] = $utente;
                     $_SESSION["followed"]=$utente->getSeguiti();
+
                     if($utente->getRuolo() == "a") {
                         header('Location: /WeBetting/Admin/homepage');
                     }
@@ -179,7 +182,12 @@ static function homepagedef(){
             FPersistentManager::deleteFollow($followed,$_SESSION['utente']->getUserName());
             $pos=array_search($followed,$_SESSION['followed']);
             unset($_SESSION['followed'][$pos]);
-            header('Location: /Progetto/Utente/homelog');
+            if(isset($_SESSION['location'])){
+                if(stripos($_SESSION['location'],'user')!==false) header('Location: /Progetto/Utente'.$_SESSION['location']);
+                else header('Location: /Progetto/Utente/homelog');
+            }
+            else{
+            header('Location: /Progetto/Utente/homelog');}
         }
 
     }
@@ -188,11 +196,17 @@ static function homepagedef(){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
             session_start();
-            if(!FPersistentManager::existFollow($followed,$_SESSION['utente']->getUserName())){
+            if(!FPersistentManager::existFollow($followed,$_SESSION['utente']->getUserName())&&FPersistentManager::exist('username',$followed,'FUtente')){
             FPersistentManager::storeFollower($followed,$_SESSION['utente']->getUserName());
             array_push($_SESSION['followed'],$followed);
-            header('Location: /Progetto/Utente/homelog');}
-            else header('Location: /Progetto/Utente/homelog');
+            }
+            if(isset($_SESSION['location'])){
+                if(stripos($_SESSION['location'],'user')!==false) header('Location: /Progetto/Utente'.$_SESSION['location']);
+                else header('Location: /Progetto/Utente/homelog');
+            }
+            else{
+                header('Location: /Progetto/Utente/homelog');}
+
         }
 
     }
@@ -205,5 +219,123 @@ static function homepagedef(){
         header('Location: /Progetto/Utente/homelog');
         }
 
+    }
+
+    static function user($username){
+        if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            $self=array();
+            if($_SESSION['utente']->getUsername()==$username) {
+
+                if (isset($_SESSION['pwedit'])) {
+                    $pwedit = $_SESSION['pwedit'];
+                    unset($_SESSION['pwedit']);
+                } else {
+                    $pwedit = null;
+                }
+
+                if (isset($_SESSION['emailedit'])) {
+                    $emailedit = $_SESSION['emailedit'];
+                    unset($_SESSION['emailedit']);
+                } else {
+                    $emailedit = null;
+                }
+
+                if (isset($_SESSION['usernameedit'])) {
+                    $usernameedit = $_SESSION['usernameedit'];
+                    unset($_SESSION['usernameedit']);
+                } else {
+                    $usernameedit = null;
+                }
+                  $self[0]=true;
+                $utente=$_SESSION['utente'];
+                $seguiti=$_SESSION['followed'];
+            }
+            else{
+                if(FPersistentManager::exist('username',$username,'FUtente')!=null){
+                    $utente=FPersistentManager::load('username',$username,"FUtente");
+                    $utente=clone($utente[0]);
+                    $self[0]=false;
+                    $self[1]=$_SESSION['utente']->getUsername();
+                    $pwedit=null;
+                    $emailedit=null;
+                    $usernameedit=null;
+                    $seguiti=null;
+                }
+
+                else{CFrontController::errore();}
+            }
+            $_SESSION['location']='/user?id='.$username;
+                $view = new VUtente();
+                $view->ownProfile($utente,$self,$seguiti,$pwedit,$emailedit,$usernameedit);
+
+
+        }
+    }
+
+    static function modificaPassword(){
+        if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if($_SERVER['REQUEST_METHOD'] == "GET")header('Location: /Progetto/Utente/homepagedef');
+            else{
+                $utenteDB = FPersistentManager::loadLoginPWHash($_SESSION['utente']->getUsername(), $_POST["PwPassword"]);
+                if($utenteDB != null) {
+                    $hashPW = password_hash($_POST["NewPassword"], PASSWORD_DEFAULT);
+                    FPersistentManager::update("password", $hashPW, "username", $_SESSION['utente']->getUsername(), "FUtente");
+                    $_SESSION['utente']->setPassword($hashPW);
+                    $_SESSION['pwedit']=true;
+
+                }
+                else $_SESSION['pwedit']=false;
+
+                header('Location: /Progetto/Utente/user?id='.$_SESSION['utente']->getUsername());
+            }
+        }
+    }
+
+    static function modificaEmail(){
+        if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if($_SERVER['REQUEST_METHOD'] == "GET")header('Location: /Progetto/Utente/homepagedef');
+            else{
+                $utenteDB = FPersistentManager::loadLoginPWHash($_SESSION['utente']->getUsername(), $_POST["password"]);
+                $check=FPersistentManager::exist("email",$_POST["email"],"FUtente");
+                if($utenteDB != null&&$check==null) {
+
+                    FPersistentManager::update("email", $_POST["email"], "username", $_SESSION['utente']->getUsername(), "FUtente");
+                    $_SESSION['utente']->setEmail($_POST["email"]);
+                    $_SESSION['emailedit']=true;
+
+                }
+                else $_SESSION['emailedit']=false;
+
+                header('Location: /Progetto/Utente/user?id='.$_SESSION['utente']->getUsername());
+            }
+        }
+    }
+
+    static function modificaUsername(){
+        if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if($_SERVER['REQUEST_METHOD'] == "GET")header('Location: /Progetto/Utente/homepagedef');
+            else{
+                $utenteDB = FPersistentManager::loadLoginPWHash($_SESSION['utente']->getUsername(), $_POST["password"]);
+                $check=FPersistentManager::exist("username",$_POST["username"],"FUtente");
+                if($utenteDB != null&&$check==null) {
+
+                    FPersistentManager::update("username", $_POST["username"], "username", $_SESSION['utente']->getUsername(), "FUtente");
+                    $_SESSION['utente']->setUsername($_POST["username"]);
+                    $_SESSION['usernameedit']=true;
+
+                }
+                else $_SESSION['usernameedit']=false;
+
+                header('Location: /Progetto/Utente/user?id='.$_SESSION['utente']->getUsername());
+            }
+        }
     }
 }

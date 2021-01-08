@@ -338,7 +338,7 @@ class FConnectionDB {
     }
 
     public function loadFollower($idA) {
-        echo("SELECT id_seguace from follow where id_seguito="." ".$idA.";");
+     //   echo("SELECT id_seguace from follow where id_seguito="." ".$idA.";");
         $stmt = $this->pdo->query("SELECT id_seguace from follow where id_seguito='".$idA."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $numeroRighe = $stmt->rowCount();
