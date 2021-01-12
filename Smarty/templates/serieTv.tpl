@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.5.14/css/mdb.min.css">
     <link rel="stylesheet" type="text/css" href="/Progetto/Smarty/css/serieTv.css">
+
+
+    <script src="/Progetto/Smarty/js/serietv.js"></script>
     <title>TvTracker</title>
 
 </head>
@@ -104,7 +107,11 @@
         <div><span>Regista: {$serie->getRegista()}</span></div>
         <hr class="my-4">
         <div id="genere-appear">
-            <span>genere</span>
+            <span>genere
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+</svg>
+            </span>
             <br>
             <div id="genere-box">
                 <ul>
@@ -117,9 +124,53 @@
             </div>
         </div>
         <hr class="my-4">
+
+
         {foreach from=$serie->getStagioni() item=$a}
             <span>Stagione {$a->getNumero()}</span>
+
+            <button type="button" class="btn  btn-sm down" id="down{$a->getNumero()}" style="background-color: #FFCF17;!important;" onclick="show('{$a->getNumero()}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"></path>
+                </svg>
+
+            </button>
+
+            <button type="button" class="btn  btn-sm up " id="up{$a->getNumero()}" style="background-color: #FFCF17;!important;" onclick="hide('{$a->getNumero()}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                </svg>
+
+            </button>
+
             <br>
+            <div class="season" id="season{$a->getNumero()}">
+            <ul>
+            {foreach from=$a->getEpisodi() item=$i}
+                <li>
+                    <div class="d-flex flex-row pb-1 pt-1" >
+                    <span class="mr-auto">{$i->getTitolo()}</span>
+                    <span class="mx-auto">{$i->getDurata()}</span>
+                        <a  class="mr-auto" href="/Progetto/SerieTv/info?id=" >
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#555B5F" class="bi bi-binoculars" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
+                            </svg>
+
+                        </a>
+                    </div>
+                </li>
+
+            {/foreach}
+
+                <li><span>Lingue Disponibili: </span>
+                {foreach from=$a->getLingue() item=$l}
+                    <span>{$l}</span>
+
+                {/foreach}
+                </li>
+            </ul>
+            </div>
             <hr class="my-4">
         {/foreach}
 </div>

@@ -63,3 +63,18 @@ ul {
 #genere-box{display: none}
 
 #genere-appear:hover #genere-box{display: block;}
+
+#lingue-box{display: none}
+
+#lingue-appear:hover #lingue-box{display: block;}
+
+
+
+.season{display: none}
+
+.down{display: inline-block}
+.up{display: none;}
+
+
+
+.btn{background-color: #FFCF17; !important}
