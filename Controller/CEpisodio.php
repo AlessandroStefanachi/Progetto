@@ -12,6 +12,7 @@ class CEpisodio
                 $episodio=clone($episodio[0]);
                 $view = new VEpisodio();
                 $view->info($episodio,$_SESSION["utente"]);
+                //modifica
             }
             else{
                 CFrontController::errore();
