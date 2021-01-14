@@ -12,9 +12,16 @@
 
 #lg-appear {display: none;color: #9B410E;}
 
-#profile{
+.episodio{
+    overflow-wrap: break-word;
+    word-wrap:break-word;
     background-color: #919598;
+    min-width: 30vw;
+    max-width: 40vw;
+    display: block;
+    overflow: auto;
     border-radius: 5px;
+    !important;
 }
 
 hr{
@@ -25,7 +32,7 @@ hr{
 ul {
     padding: 0;
     list-style-type: none;
-    !important;
+!important;
 }
 
 #sgbox{display: none}
@@ -47,3 +54,30 @@ ul {
 }
 #pr-appear {display: none;color: #9B410E;}
 #poppr:hover #pr-appear{color: #f9f9f9;display: block;}
+
+.checked {
+    color: orange;
+}
+
+.fa{ font-size: 30px;}
+
+#genere-box{display: none}
+
+#genere-appear:hover #genere-box{display: block;}
+
+#lingue-box{display: none}
+
+#lingue-appear:hover #lingue-box{display: block;}
+
+
+
+.season{display: none}
+
+.down{display: inline-block}
+.up{display: none;}
+
+
+
+.btn{background-color: #FFCF17; !important}
+
+.text{font-size: large}

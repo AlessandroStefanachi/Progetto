@@ -139,5 +139,10 @@ class FEpisodio
     {
         return self::$campiParametriciTabella;
     }
-
+    public static function exist($campo, $valoreCampo)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
+        return $ris;
+    }
 }
