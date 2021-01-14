@@ -8,8 +8,9 @@ static function aggiungiserie ($watch){
 if (!FPersistentManager::existCorr($watch,$_SESSION['adding']));{
 FPersistentManager::storeCorrispondenze($watch,$_SESSION['adding']);
 unset($_SESSION['adding']);}//dovrebbe essere un array
-header('Location: /Progetto/Utente/homepagedef');
-
+    if(isset($_SESSION['location']))
+header('Location: /Progetto'.$_SESSION['location']);
+else header('Location: /Progetto/Utente/homelog');
 
 }
 }

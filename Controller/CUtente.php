@@ -216,6 +216,8 @@ static function homepagedef(){
         else{
         session_start();
         $_SESSION['id_add']=$id;
+        if(isset($_SESSION['location'])) header('Location: /Progetto'.$_SESSION['location']);
+        else
         header('Location: /Progetto/Utente/homelog');
         }
 

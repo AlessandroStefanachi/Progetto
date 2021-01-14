@@ -22,6 +22,13 @@
     <script src="/Progetto/Smarty/js/serietv.js"></script>
     <title>TvTracker</title>
 
+
+    <script>
+        $(document).ready(function(){
+            $("#staticBackdrop").modal('show');
+        });
+    </script>
+
 </head>
 
 <body>
@@ -71,9 +78,19 @@
 </nav>
 <div class="d-flex " style="display: flex ; flex-wrap: wrap; width: 100%;flex-grow: 1;">
     <div class="d-flex flex-row justify-content-center pt-5" style="width: 100%">
-    <div class="jumbotron serie" style="overflow-wrap: break-word;!important;">
+    <div class="jumbotron serie" >
         <div class="d-flex flex-row" style="width: 100%">
-        <h1 class="display-4 mx-auto" style="align-self: center">{$serie->getTitolo()}</h1>
+        <h1 class="display-4 mx-auto" style="align-self: center">{$serie->getTitolo()}
+            <a  class="" href="/Progetto/Utente/shortadding?id={$serie->getId()}" >
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#555B5F" class="bi bi-plus-square" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+
+            </a>
+        </h1>
+
         </div>
 
 
@@ -174,6 +191,42 @@
             <hr class="my-4">
         {/foreach}
 </div>
+
+        {if isset($watchlist)}
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Seleziona la watchlist</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class action="/Progetto/Watchlist/aggiungiserie">
+                                {$v=1}
+                                {foreach from=$watchlist item=$g }
+
+                                    <div class="form-check">
+
+                                        <input class="form-check-input" type="radio" name="genere" id="{$g->getNome()}" value="{$g->getId()}" onclick="activeadd()" >
+                                        <label class="form-check-label" for="{$g->getNome()}">
+
+                                            {$g->getNome()}
+
+                                        </label>
+                                        {$v=$v+1}
+                                    </div>
+                                {/foreach}
+
+                                <button id="addbutton" type="submit" class="btn btn-primary" style="background-color: #555B5F !important;" disabled>Aggiungi</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {/if}
 
 
 </div>

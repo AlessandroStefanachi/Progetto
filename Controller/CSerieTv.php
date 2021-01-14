@@ -8,11 +8,19 @@ static function info($id){
     else{
         if(FPersistentManager::exist('id',$id,'FSerieTv')){
             session_start();
+            $_SESSION['location']='/SerieTv/info?id='.$id;
+            if(isset($_SESSION['id_add'])){
+                $id=$_SESSION['id_add'];
+                $watchlist=$_SESSION['utente']->getWatchlist();
+                $_SESSION['adding']=$id;
+                unset($_SESSION['id_add']);
+            }
+            else{$watchlist=null;}
             $serie=FPersistentManager::load('id',$id,'FSerieTv');
             $serie=clone($serie[0]);
             $copertina=base64_encode($serie->getCopertina()->getImmagine());
             $view = new VSerieTv();
-            $view->info($serie,$copertina,$_SESSION['utente']);
+            $view->info($serie,$copertina,$_SESSION['utente'],$watchlist);
         }
         else{
             CFrontController::errore();

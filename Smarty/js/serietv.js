@@ -17,3 +17,14 @@ function hide( id) {
     up.style.display="none";
     show.style.display="none";
 }
+
+function activeadd(){
+    console.log("parte la funzione")
+    btn = document.getElementById('addbutton');
+
+    btn.disabled=false;
+
+
+
+
+}
