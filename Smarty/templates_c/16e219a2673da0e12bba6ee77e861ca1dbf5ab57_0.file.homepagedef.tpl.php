@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-18 00:11:37
+/* Smarty version 3.1.34-dev-7, created on 2021-01-10 22:15:14
   from '/opt/lampp/htdocs/Progetto/Smarty/templates/homepagedef.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fdbe5a9186b52_27804403',
+  'unifunc' => 'content_5ffb6e629d73c6_18011420',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16e219a2673da0e12bba6ee77e861ca1dbf5ab57' => 
     array (
       0 => '/opt/lampp/htdocs/Progetto/Smarty/templates/homepagedef.tpl',
-      1 => 1608246163,
+      1 => 1610313312,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fdbe5a9186b52_27804403 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5ffb6e629d73c6_18011420 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_assignInScope('errore', (($tmp = @$_smarty_tpl->tpl_vars['errore']->value)===null||$tmp==='' ? false : $tmp));
 $_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['errorelog']->value)===null||$tmp==='' ? false : $tmp));
 $_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['errorelog']->value)===null||$tmp==='' ? false : $tmp));?>
@@ -178,9 +178,9 @@ $_smarty_tpl->_assignInScope('errorelog', (($tmp = @$_smarty_tpl->tpl_vars['erro
                         <div class="carousel-item active">
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card mb-2 h-100">
-                                        <img class="card-img-top " style="width: 100%;height: 15vw;object-fit: fill;" <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[0]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[0]->getCopertina()->getType();?>
+                                <div class="col-md-4" >
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
+                                        <img class="card-img-top " style="width: 17vw;height: 15vw;object-fit: fill;" <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[0]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[0]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[0];?>
 "<?php }?> alt="Card image cap">
                                         <div class="card-body ">
@@ -196,8 +196,8 @@ echo $_smarty_tpl->tpl_vars['serie']->value[0]->getTrama();
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
-                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[1]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[1]->getCopertina()->getType();?>
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
+                                        <img class="card-img-top" style="width: 17vw;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[1]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[1]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[1];?>
 "<?php }?> alt="Card image cap">
                                         <div class="card-body ">
@@ -213,17 +213,17 @@ echo $_smarty_tpl->tpl_vars['serie']->value[1]->getTrama();
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
-                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[2]->getCopertina()->getType();?>
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
+                                        <img class="card-img-top" style="width: 17vw;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[2]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[2];?>
 " <?php }?>alt="Card image cap">
                                         <div class="card-body ">
                                             <h4 class="card-title"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {
 echo $_smarty_tpl->tpl_vars['serie']->value[2]->getTitolo();
 }?></h4>
-                                            <p class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {
+                                            <span class="card-text"><?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[2]))) {
 echo $_smarty_tpl->tpl_vars['serie']->value[2]->getTrama();
-}?></p>
+}?></span>
 
                                         </div>
                                     </div>
@@ -238,7 +238,7 @@ echo $_smarty_tpl->tpl_vars['serie']->value[2]->getTrama();
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[3]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[3]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[3];?>
 " <?php }?>alt="Card image cap">
@@ -255,7 +255,7 @@ echo $_smarty_tpl->tpl_vars['serie']->value[3]->getTrama();
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[4]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[4]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[4];?>
 " <?php }?>alt="Card image cap">
@@ -272,7 +272,7 @@ echo $_smarty_tpl->tpl_vars['serie']->value[4]->getTrama();
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[5]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[5]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[5];?>
 "<?php }?> alt="Card image cap">
@@ -297,7 +297,7 @@ echo $_smarty_tpl->tpl_vars['serie']->value[5]->getTrama();
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"<?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[6]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[6]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[6];?>
 " <?php }?>alt="Card image cap">
@@ -314,7 +314,7 @@ echo $_smarty_tpl->tpl_vars['serie']->value[6]->getTrama();
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[7]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[7]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[7];?>
 "  <?php }?>alt="Card image cap">
@@ -331,7 +331,7 @@ echo $_smarty_tpl->tpl_vars['serie']->value[7]->getTrama();
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100"  style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"   <?php if ((isset($_smarty_tpl->tpl_vars['serie']->value[8]))) {?>src="data:<?php echo $_smarty_tpl->tpl_vars['serie']->value[8]->getCopertina()->getType();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['s']->value[8];?>
 "<?php }?> alt="Card image cap">

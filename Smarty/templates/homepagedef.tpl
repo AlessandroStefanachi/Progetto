@@ -145,9 +145,9 @@
                         <div class="carousel-item active">
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card mb-2 h-100">
-                                        <img class="card-img-top " style="width: 100%;height: 15vw;object-fit: fill;" {if isset($serie[0]) }src="data:{$serie[0]->getCopertina()->getType()};base64,{$s[0]}"{/if} alt="Card image cap">
+                                <div class="col-md-4" >
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
+                                        <img class="card-img-top " style="width: 17vw;height: 15vw;object-fit: fill;" {if isset($serie[0]) }src="data:{$serie[0]->getCopertina()->getType()};base64,{$s[0]}"{/if} alt="Card image cap">
                                         <div class="card-body ">
                                             <h4 class="card-title">{if isset($serie[0]) }{$serie[0]->getTitolo()}{/if}</h4>
                                             <p class="card-text">{if isset($serie[0]) }{$serie[0]->getTrama()}{/if}</p>
@@ -157,8 +157,8 @@
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
-                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[1]) }src="data:{$serie[1]->getCopertina()->getType()};base64,{$s[1]}"{/if} alt="Card image cap">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
+                                        <img class="card-img-top" style="width: 17vw;height: 15vw;object-fit: fill;"  {if isset($serie[1]) }src="data:{$serie[1]->getCopertina()->getType()};base64,{$s[1]}"{/if} alt="Card image cap">
                                         <div class="card-body ">
                                             <h4 class="card-title">{if isset($serie[1]) }{$serie[1]->getTitolo()}{/if}</h4>
                                             <p class="card-text">{if isset($serie[1]) }{$serie[1]->getTrama()}{/if}</p>
@@ -168,11 +168,11 @@
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
-                                        <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[2]) }src="data:{$serie[2]->getCopertina()->getType()};base64,{$s[2]}" {/if}alt="Card image cap">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
+                                        <img class="card-img-top" style="width: 17vw;height: 15vw;object-fit: fill;"  {if isset($serie[2]) }src="data:{$serie[2]->getCopertina()->getType()};base64,{$s[2]}" {/if}alt="Card image cap">
                                         <div class="card-body ">
                                             <h4 class="card-title">{if isset($serie[2]) }{$serie[2]->getTitolo()}{/if}</h4>
-                                            <p class="card-text">{if isset($serie[2]) }{$serie[2]->getTrama()}{/if}</p>
+                                            <span class="card-text">{if isset($serie[2]) }{$serie[2]->getTrama()}{/if}</span>
 
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[3]) }src="data:{$serie[3]->getCopertina()->getType()};base64,{$s[3]}" {/if}alt="Card image cap">
                                         <div class="card-body ">
                                             <h4 class="card-title">{if isset($serie[3]) }{$serie[3]->getTitolo()}{/if}</h4>
@@ -198,7 +198,7 @@
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[4]) }src="data:{$serie[4]->getCopertina()->getType()};base64,{$s[4]}" {/if}alt="Card image cap">
                                         <div class="card-body ">
                                             <h4 class="card-title">{if isset($serie[4]) }{$serie[4]->getTitolo()}{/if}</h4>
@@ -209,7 +209,7 @@
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[5]) }src="data:{$serie[5]->getCopertina()->getType()};base64,{$s[5]}"{/if} alt="Card image cap">
                                         <div class="card-body ">
                                             <h4 class="card-title">{if isset($serie[5]) }{$serie[5]->getTitolo()}{/if}</h4>
@@ -228,7 +228,7 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"{if isset($serie[6]) }src="data:{$serie[6]->getCopertina()->getType()};base64,{$s[6]}" {/if}alt="Card image cap">
                                         <div class="card-body">
                                             <h4 class="card-title">{if isset($serie[6]) }{$serie[6]->getTitolo()}{/if}</h4>
@@ -239,7 +239,7 @@
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100" style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"  {if isset($serie[7]) }src="data:{$serie[7]->getCopertina()->getType()};base64,{$s[7]}"  {/if}alt="Card image cap">
                                         <div class="card-body">
                                             <h4 class="card-title">{if isset($serie[7]) }{$serie[7]->getTitolo()}{/if}</h4>
@@ -250,7 +250,7 @@
                                 </div>
 
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card mb-2 h-100">
+                                    <div class="card mb-2 h-100"  style="min-width: 17vw; max-width: 17vw!important;">
                                         <img class="card-img-top" style="width: 100%;height: 15vw;object-fit: fill;"   {if isset($serie[8]) }src="data:{$serie[8]->getCopertina()->getType()};base64,{$s[8]}"{/if} alt="Card image cap">
                                         <div class="card-body">
                                             <h4 class="card-title">{if isset($serie[8]) }{$serie[8]->getTitolo()}{/if}</h4>
