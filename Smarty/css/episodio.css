@@ -81,3 +81,9 @@ ul {
 .btn{background-color: #FFCF17; !important}
 
 .text{font-size: large}
+
+#check1,#check2,#check3,#check4,#check5{display: none; !important;}
+
+#uncheck1,#uncheck2,#uncheck3,#uncheck4,#uncheck5{display: inline-block; !important;}
+
+#btn1,#btn2,#btn3,#btn4,#btn5{display: none; !important;}

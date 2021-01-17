@@ -255,6 +255,29 @@ class FConnectionDB {
         }
     }
 
+
+    public function existvote($id_u, $id_s)
+    {
+        try
+        {
+            $sql = "SELECT * FROM valutazione WHERE autore ='" . $id_u . "' AND id_episodio ='" . $id_s . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $numeroRighe = $stmt->rowCount();
+            if($numeroRighe == 0)
+            {
+                $risultato = NULL;
+            }
+            return $risultato;
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+        }
+    }
+
     public function loadVerificaAccessoPWHash ($username, $pass) {
 
         try

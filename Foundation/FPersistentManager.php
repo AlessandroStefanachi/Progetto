@@ -182,6 +182,13 @@ public static function AllGenere(){
         return $ris;
 
     }
+
+    public static function existval($id_u, $id_s)
+    {
+        $ris=FValutazione::existval($id_u,$id_s);
+        return $ris;
+
+    }
     //metodo per estrarre 9 serie casuali da far comparire in homelog
     public static function homepagedef(){
         $id=FSerieTv::getId();

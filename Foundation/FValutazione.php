@@ -97,5 +97,10 @@ class FValutazione
     {
         return self::$campiParametriciTabella;
     }
-
+    public static function existval($id_w, $id_s)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->existvote($id_w,$id_s);
+        return $ris;
+    }
 }

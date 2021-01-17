@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.5.14/css/mdb.min.css">
     <link rel="stylesheet" type="text/css" href="/Progetto/Smarty/css/episodio.css">
 
-
+    <script src="/Progetto/Smarty/js/episodio.js"></script>
 
     <title>TvTracker</title>
 </head>
@@ -70,20 +70,42 @@
         <h1 class="display-4">{$episodio->getTitolo()}</h1>
         <span>
             Serie Tv:
-        </span><span> prova</span><br>
+        </span><span> {$serie}</span><br>
         <span>
             Stagione:
-        </span><br>
+        </span><span> {$stagione}</span><br>
         <span>
             N°:
-        </span><br>
+        </span> <span> {$pos+1}</span><br>
         <span>
             Durata:
-        </span><br>
+        </span><span> {$episodio->getDurata()}</span><br>
 
         <hr class="my-4">
+        <div class="vote">
+            <span class="fa fa-star" id="uncheck1" onclick="checked(1)"></span>
+            <span class="fa fa-star checked" id="check1" onclick="unchecked(1)"></span>
+            <span class="fa fa-star" id="uncheck2" onclick="checked(2)"></span>
+            <span class="fa fa-star checked" id="check2" onclick="unchecked(2)"></span>
+            <span class="fa fa-star" id="uncheck3" onclick="checked(3)"></span>
+            <span class="fa fa-star checked" id="check3" onclick="unchecked(3)"></span>
+            <span class="fa fa-star" id="uncheck4" onclick="checked(4)"></span>
+            <span class="fa fa-star checked" id="check4" onclick="unchecked(4)"></span>
+            <span class="fa fa-star" id="uncheck5" onclick="checked(5)"></span>
+            <span class="fa fa-star checked" id="check5" onclick="unchecked(5)"></span>
+
+
+        </div>
+        <br>
+        <button href="/Progetto/Episodio/vote?voto=" class="btn btn-sm votebt" id="btn0" disabled>valuta</button>
+        <a href="/Progetto/Episodio/vote?voto=1" class="btn btn-sm votebt" id="btn1">valuta</a>
+        <a href="/Progetto/Episodio/vote?voto=2" class="btn btn-sm votebt" id="btn2">valuta</a>
+        <a href="/Progetto/Episodio/vote?voto=3" class="btn btn-sm votebt" id="btn3">valuta</a>
+        <a href="/Progetto/Episodio/vote?voto=4" class="btn btn-sm votebt" id="btn4">valuta</a>
+        <a href="/Progetto/Episodio/vote?voto=5" class="btn btn-sm votebt" id="btn5">valuta</a>
+        <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <a class="btn btn-sm btn-lg" href="#" role="button">Learn more</a>
     </div>
 </div>
 </div>
