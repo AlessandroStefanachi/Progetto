@@ -41,3 +41,24 @@ function unchecked(num) {
         star.style.display="inline-block";
         dem=dem-1;}
 }
+
+
+function show( ) {
+    var show = document.getElementById('BoxCommenti');
+    var down = document.getElementById('down');
+    var up = document.getElementById('up');
+
+    down.style.display="none";
+    up.style.display="inline-block";
+    show.style.display="block";
+}
+
+function hide() {
+    var show = document.getElementById('BoxCommenti');
+    var down = document.getElementById('down');
+    var up = document.getElementById('up');
+
+    down.style.display="inline-block";
+    up.style.display="none";
+    show.style.display="none";
+}

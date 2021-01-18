@@ -16,8 +16,9 @@ class CEpisodio
                 $serie=$serie[0]->getTitolo();
                 $pos=array_search($episodio,$stagione[0]->getEpisodi());
                 $stagione=$stagione[0]->getNumero();
+                $commenti=FPersistentManager::load('id_episodio',$id,'FCommento');
                 $view = new VEpisodio();
-                $view->info($episodio,$_SESSION["utente"],$serie,$pos,$stagione);
+                $view->info($episodio,$_SESSION["utente"],$serie,$pos,$stagione,$commenti);
                 //modifica
             }
             else{
@@ -51,5 +52,29 @@ class CEpisodio
             }
         }
 
+    }
+
+    static function commento($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+            else{
+                if(stripos($_SESSION['location'],'Episodio')!==false && $_SERVER['REQUEST_METHOD'] == "POST"){
+                    $testo=$_POST["comments"];
+                    $autore=$_SESSION['utente']->getUsername();
+                    $ora= date('H:i:s');
+                    $data= date('Y-m-d');
+                    $commento=new ECommento($testo,$data,$ora,$autore,$id);
+                    FPersistentManager::store($commento);
+
+                }
+
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            //header('Location: /Progetto/Utente/homepagedef');
+
+        }
     }
 }

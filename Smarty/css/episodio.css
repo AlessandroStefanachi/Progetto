@@ -17,7 +17,7 @@
     word-wrap:break-word;
     background-color: #919598;
     min-width: 30vw;
-    max-width: 40vw;
+    max-width: 30vw;
     display: block;
     overflow: auto;
     border-radius: 5px;
@@ -87,3 +87,5 @@ ul {
 #uncheck1,#uncheck2,#uncheck3,#uncheck4,#uncheck5{display: inline-block; !important;}
 
 #btn1,#btn2,#btn3,#btn4,#btn5{display: none; !important;}
+
+#BoxCommenti{display: none;}

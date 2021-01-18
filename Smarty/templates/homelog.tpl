@@ -127,7 +127,7 @@
 <div class="d-flex " style="display: flex ; flex-wrap: wrap; width: 100%;flex-grow: 1;">
     <div class="d-flex flex-row justify-content-center pt-5" style="width: 100%">
         <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Cerca serie tv" aria-label="Nome serie tv" id="scbar" style="width: 40vw">
+            <input class="form-control mr-sm-2" type="search" placeholder="Cerca serie tv" aria-label="Nome serie tv" id="scbar" style="width: 40vw" name="q">
 
             <btn  id="b" type="submit">
               <div class="icon">
