@@ -77,4 +77,29 @@ class CEpisodio
 
         }
     }
+
+    static function eliminaCommento($id){
+
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+            else{
+                if(stripos($_SESSION['location'],'Episodio')!==false ){
+                   $commento=FPersistentManager::load('id',$id,'FCommento');
+                   if($commento[0]->getAutore()==$_SESSION['utente']->getUsername()){
+                       FPersistentManager::delete('FCommento',$id);
+
+                   }
+
+                }
+
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            //header('Location: /Progetto/Utente/homepagedef');
+
+        }
+
+    }
 }

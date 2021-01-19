@@ -70,10 +70,10 @@ class FPersistentManager
     }
 
     /*Metodo che permette di cancellare un commento dato l'id*/
-    public static function deleteCommento($id)
+    public static function delete($nomeClasse,$id)
     {
         $verifica = null;
-        $verifica = FCommento::deleteCommento($id);
+        $verifica = $nomeClasse::delete($id);
         return $verifica;
     }
 

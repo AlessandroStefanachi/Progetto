@@ -62,3 +62,39 @@ function hide() {
     up.style.display="none";
     show.style.display="none";
 }
+
+function comment() {
+    var text=document.getElementById('comments');
+    var button=document.getElementById('CommentButton');
+    if(text.value.length==0||text.value[0]==" "||text.value[0]=="\n"){
+        console.log("disabilita")
+        button.disabled=true;}
+    else{ button.disabled=false;
+        console.log("abilita")
+    }
+
+}
+
+function edit(id) {
+    var text=document.getElementById("testo".concat(id));
+var togliform=document.getElementById("commentform");
+var action=document.getElementById('editaction');
+    var mostraform=document.getElementById("editform");
+    var area=document.getElementById("editarea");
+    togliform.style.display="none";
+mostraform.style.display="block";
+area.innerText=text.innerText;
+action.action="/Progetto/Episodio/modificaCommento?id=".concat(id);
+}
+
+function editcheck() {
+    var text = document.getElementById('editarea');
+    var button = document.getElementById('EditButton');
+    if (text.value.length == 0 || text.value[0] == " " || text.value[0] == "\n") {
+        console.log("disabilita")
+        button.disabled = true;
+    } else {
+        button.disabled = false;
+        console.log("abilita")
+    }
+}

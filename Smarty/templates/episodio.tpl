@@ -149,19 +149,38 @@
             </div>
             <br>
             <div id="text" style="max-height: 10vh; overflow: auto">
-            <span>{$a->getTesto()}</span>
+            <span id="testo{$a->getId()}">{$a->getTesto()}</span>
             </div>
+                {if $a->getAutore()==$utente->getUsername()}
+            <div class="d-flex flex-row pt-2" style="width: 100%">
+                <a class="mr-auto" onclick="edit('{$a->getId()}')">modifica</a>
+                <a class="ml-auto" href="/Progetto/Episodio/eliminaCommento?id={$a->getId()}">elimina</a>
+            </div>
+                {/if}
             {/foreach}
         </div>
         <hr class="my-4">
+        <div id="commentform">
         <form action="/Progetto/Episodio/commento?id={$episodio->getId()}" method="post">
-            <div>
-<textarea name="comments" id="comments" >
-aggiungi commento
-</textarea>
+            <div >
+<textarea name="comments" id="comments" oninput="comment()">
+aggiungi commento</textarea>
             </div>
-            <input class="btn"type="submit" value="Submit">
+            <input class="btn"type="submit" id="CommentButton" value="Submit" >
         </form>
+        </div>
+
+        <div id="editform">
+            <form action="/Progetto/Episodio/commento?id={$episodio->getId()}" method="post" id="editaction">
+                <div >
+<textarea name="comments" id="editarea" oninput="editcheck()">
+aggiungi commento</textarea>
+                </div>
+                <input class="btn"type="submit" id="EditButton" value="edit" >
+            </form>
+        </div>
+
+
     </div>
 </div>
 </div>

@@ -16,6 +16,7 @@ class VEpisodio
         $this->smarty->assign("pos",$pos);
         $this->smarty->assign("stagione",$stagione);
         $this->smarty->assign("commenti",$commenti);
+
         $this->smarty->display("episodio.tpl");
 
 

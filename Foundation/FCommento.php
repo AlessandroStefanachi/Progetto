@@ -98,4 +98,11 @@ class FCommento
         return self::$campiParametriciTabella;
     }
 
+    public static function delete($id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->delete(static::getNomeTabella(),$id);
+        return $ris;
+    }
+
 }
