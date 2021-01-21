@@ -49,7 +49,7 @@ class FPersistentManager
 
         ////////////////////////////DA MODIFICARE CON LE CLASSI DI TVTRACKER///////////////////////////////////////////////
         if ($nomeClasse == "FWatchlist" || $nomeClasse == "FUtente" || $nomeClasse == "FEpisodio"
-            || $nomeClasse == "FStagione" || $nomeClasse == "FSerieTv") {
+            || $nomeClasse == "FStagione" || $nomeClasse == "FSerieTv"||$nomeClasse="FCommento") {
             $verifica = $nomeClasse::update($campo, $nuovoValore, $chiave, $id);
             return $verifica;
         } else return false;
@@ -108,6 +108,20 @@ class FPersistentManager
         FCorrispondenze::store($id_watchlist, $id_stv);
 
     }
+
+    public static function loadvisto($username)
+    {
+        $corrispondenze = FVisto::load($username);
+        return $corrispondenze;
+
+    }
+
+    public static function storevisto($username, $id_episodio)
+    {
+        FVisto::store($username, $id_episodio);
+
+    }
+
 
     public static function loadGenere($genere)
     {

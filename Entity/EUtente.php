@@ -11,7 +11,7 @@ class EUtente
     private $watchlist=array();
     private $attese=array();
     private String $ruolo;
-
+    private $visti=array();
     /**
      * EUtente constructor.
      * @param String $userName
@@ -92,6 +92,14 @@ class EUtente
     {
         return $this->ruolo;
     }
+
+    /**
+     * @return String
+     */
+    public function getVisti()
+    {
+        return $this->visti;
+    }
 /////////////////////////////////////////////////////////////////////////////////////SETTERS//////////////////////////////////////////////////////////////////////////////////
     /**
      * @param String $userName
@@ -155,6 +163,14 @@ class EUtente
     public function setRuolo(String $ruolo): void
     {
         $this->ruolo = $ruolo;
+    }
+
+    /**
+     * @param String $ruolo
+     */
+    public function setvisti( $visti): void
+    {
+        $this->visti = $visti;
     }
 //////////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERA UNA WATCHLIST AL PROFILO////////////////////////////////////////////////////////
     public function AggiungiWatchlist(EWatchlist $watchlist): void

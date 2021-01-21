@@ -83,16 +83,16 @@
 
         <hr class="my-4">
         <div class="vote">
-            <span class="fa fa-star" id="uncheck1" onclick="checked(1)"></span>
-            <span class="fa fa-star checked" id="check1" onclick="unchecked(1)"></span>
-            <span class="fa fa-star" id="uncheck2" onclick="checked(2)"></span>
-            <span class="fa fa-star checked" id="check2" onclick="unchecked(2)"></span>
-            <span class="fa fa-star" id="uncheck3" onclick="checked(3)"></span>
-            <span class="fa fa-star checked" id="check3" onclick="unchecked(3)"></span>
-            <span class="fa fa-star" id="uncheck4" onclick="checked(4)"></span>
-            <span class="fa fa-star checked" id="check4" onclick="unchecked(4)"></span>
-            <span class="fa fa-star" id="uncheck5" onclick="checked(5)"></span>
-            <span class="fa fa-star checked" id="check5" onclick="unchecked(5)"></span>
+            <span class="fa fa-star" id="uncheck1" {if in_array($episodio->getId(),$visti)}onclick="checked(1)"{/if}></span>
+            <span class="fa fa-star checked" id="check1" {if in_array($episodio->getId(),$visti)}onclick="unchecked(1)"{/if}></span>
+            <span class="fa fa-star" id="uncheck2" {if in_array($episodio->getId(),$visti)}onclick="checked(2)"{/if}></span>
+            <span class="fa fa-star checked" id="check2" {if in_array($episodio->getId(),$visti)}onclick="unchecked(2)"{/if}></span>
+            <span class="fa fa-star" id="uncheck3" {if in_array($episodio->getId(),$visti)}onclick="checked(3)"{/if}></span>
+            <span class="fa fa-star checked" id="check3" {if in_array($episodio->getId(),$visti)}onclick="unchecked(3)"{/if}></span>
+            <span class="fa fa-star" id="uncheck4" {if in_array($episodio->getId(),$visti)}onclick="checked(4)"{/if}></span>
+            <span class="fa fa-star checked" id="check4" {if in_array($episodio->getId(),$visti)}onclick="unchecked(4)"{/if}></span>
+            <span class="fa fa-star" id="uncheck5" {if in_array($episodio->getId(),$visti)}onclick="checked(5)"{/if}></span>
+            <span class="fa fa-star checked" id="check5" {if in_array($episodio->getId(),$visti)}onclick="unchecked(5)"{/if}></span>
 
 
         </div>
@@ -163,17 +163,17 @@
         <div id="commentform">
         <form action="/Progetto/Episodio/commento?id={$episodio->getId()}" method="post">
             <div >
-<textarea name="comments" id="comments" oninput="comment()">
+<textarea name="comments" id="comments" oninput="comment()" {if !in_array($episodio->getId(),$visti)}disabled{/if}>
 aggiungi commento</textarea>
             </div>
-            <input class="btn"type="submit" id="CommentButton" value="Submit" >
+            <input class="btn"type="submit" id="CommentButton" value="Submit" {if !in_array($episodio->getId(),$visti)}disabled{/if}>
         </form>
         </div>
 
         <div id="editform">
             <form action="/Progetto/Episodio/commento?id={$episodio->getId()}" method="post" id="editaction">
                 <div >
-<textarea name="comments" id="editarea" oninput="editcheck()">
+<textarea name="editarea" id="editarea" oninput="editcheck()">
 aggiungi commento</textarea>
                 </div>
                 <input class="btn"type="submit" id="EditButton" value="edit" >

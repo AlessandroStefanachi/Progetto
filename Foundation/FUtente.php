@@ -52,6 +52,16 @@ class FUtente  {
                     FFollow::store($seguiti[$i],$utente->getUserName());
 
                 }}
+        $visti=$utente->getVisti();
+        if($visti){
+            $n= count($visti);
+            for($i = 0; $i < $n; $i++)
+            {
+
+                FVisto::store($utente->getUserName(),$seguiti[$i]);
+
+            }}
+
                 $watchlist=$utente->getWatchlist();
                 if($watchlist){
                     $n= count($watchlist);
@@ -115,6 +125,22 @@ class FUtente  {
                    $utenti[$i]->setSeguiti($se);
                    //foreach ($utenti[$i]->getSeguiti() as $value) echo ("\n"."qui ce ".$value);
                    }
+                    $visti=FPersistentManager::loadvisto($utenti[$i]->getUsername());
+                    if($visti){
+                        $n=count($visti);
+                        // echo ("questo è l n".$n);
+                        $se=array();
+                        for($b=0;$b<$n;$b++){
+
+                            // echo("\n"."ora pusho".$seguiti[$b]["id_seguito"]);
+                            array_push($se,$visti[$b]["id_episodio"]);
+                        }
+
+                        $utenti[$i]->setvisti($se);
+                        //foreach ($utenti[$i]->getSeguiti() as $value) echo ("\n"."qui ce ".$value);
+                    }
+
+
                     $watchlist=FPersistentManager::load("proprietario",$utenti[$i]->getUsername(),FWatchlist::getNomeCLasse());
                     $utenti[$i]->setWatchlist($watchlist);
                 }

@@ -425,6 +425,36 @@ class FConnectionDB {
             }
     }
 
+    public function storeVisto($username,$id_episodio)
+    {
+        try
+        {
+            $this->pdo->beginTransaction();
+            $sql = "INSERT INTO visto (utente,id_episodio)  VALUES (:utente,:id_episodio";
+            $stmt = $this->pdo->prepare($sql);
+            //print($sql);
+            $stmt->execute(array(':username' => $username, ':id_episodio' => $id_episodio,));
+            $this->pdo->commit();
+            $this->closeDBConnection();
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            return null;
+        }
+    }
+
+    public function loadvisto($username)
+    {
+        $stmt = $this->pdo->query("SELECT * from visto where utente= '". $username."';");
+        $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numeroRighe = $stmt->rowCount();
+        if($numeroRighe == 0) $righe = null;
+        return $righe;
+    }
+
+
     public function loadGenere($genere)
     {
         $stmt = $this->pdo->query("SELECT * from genere where genere = '". $genere."';");

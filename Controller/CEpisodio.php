@@ -17,8 +17,10 @@ class CEpisodio
                 $pos=array_search($episodio,$stagione[0]->getEpisodi());
                 $stagione=$stagione[0]->getNumero();
                 $commenti=FPersistentManager::load('id_episodio',$id,'FCommento');
+                if(isset($_SESSION['visti']))$visti=$_SESSION['visti'];
+                else $visti=null;
                 $view = new VEpisodio();
-                $view->info($episodio,$_SESSION["utente"],$serie,$pos,$stagione,$commenti);
+                $view->info($episodio,$_SESSION["utente"],$serie,$pos,$stagione,$commenti,$visti);
                 //modifica
             }
             else{
@@ -67,6 +69,29 @@ class CEpisodio
                     $data= date('Y-m-d');
                     $commento=new ECommento($testo,$data,$ora,$autore,$id);
                     FPersistentManager::store($commento);
+
+                }
+
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            //header('Location: /Progetto/Utente/homepagedef');
+
+        }
+    }
+
+
+
+    static function modificaCommento($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+            else{
+                if(stripos($_SESSION['location'],'Episodio')!==false && $_SERVER['REQUEST_METHOD'] == "POST"){
+                    $testo=$_POST["editarea"];
+
+                    FPersistentManager::update('testo',$testo,'id',$id,'FCommento');
 
                 }
 

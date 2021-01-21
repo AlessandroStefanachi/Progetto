@@ -61,7 +61,13 @@ class FCommento
         return $commenti;
     }
 
+public static function update($campo, $nuovoValore, $chiave, $id){
 
+    $con = FConnectionDB::getIstanza();
+    $righe =  $con->update($campo, $nuovoValore, $chiave,$id,self::getNomeClasse());
+    return $righe;
+
+}
     /**
      * Questo metodo restituisce il nome della classe per la costruzione delle query
      * @return string $nomeClasse nome della classe

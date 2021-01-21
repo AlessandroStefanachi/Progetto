@@ -106,6 +106,7 @@ static function homepagedef(){
                     echo(count($utente->getSeguiti()));
                     $_SESSION["utente"] = $utente;
                     $_SESSION["followed"]=$utente->getSeguiti();
+                    $_SESSION["visti"]=$utente->getVisti();
 
                     if($utente->getRuolo() == "a") {
                         header('Location: /WeBetting/Admin/homepage');
