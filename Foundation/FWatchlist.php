@@ -77,8 +77,8 @@ class FWatchlist
                     $nr=count($corrispondenze);
 
                     for($b=0;$b < $nr;$b++){
-                        $a=FPersistentManager::load('id',$corrispondenze[$i]['id_stv'],FSerieTv::getNomeClasse());
-                        array_push($serie, $a);//inserisci la serie tv
+                        $a=FPersistentManager::load('id',$corrispondenze[$b]['id_stv'],FSerieTv::getNomeClasse());
+                        array_push($serie,clone( $a[0]));//inserisci la serie tv
                     }
                     if($serie)
                         $watchlist[$i]->setSerie($serie);

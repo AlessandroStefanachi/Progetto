@@ -343,11 +343,11 @@ public static function AllGenere(){
         $series=array();
         foreach ($watch as $a) array_push($series,$a->getSerie());
         $s=array();
-        foreach ($series as $a){if(isset($a[0][0]) )array_push($s,base64_encode($a[0][0]->getCopertina()->getImmagine()));
+        foreach ($series as $a){if(isset($a[0]) )array_push($s,base64_encode($a[0]->getCopertina()->getImmagine()));
         else array_push($s,null);
         }
         $type=array();
-        foreach ($series as $a){ if(isset($a[0][0]) ) array_push($type,$a[0][0]->getCopertina()->getType());
+        foreach ($series as $a){ if(isset($a[0]) ) array_push($type,$a[0]->getCopertina()->getType());
         else array_push($type,null);}
 
         return array($watch,$s,$type);

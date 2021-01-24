@@ -60,7 +60,7 @@ class EWatchlist
     /**
      * @return String
      */
-    public function isPubblico(): String
+    public function isPubblico()
     {
         return $this->pubblico;
     }
@@ -151,7 +151,12 @@ class EWatchlist
             $str = $array;
         return $str;
     }
-
+ public function Base64(){
+        $cop=array();
+       // foreach ($this->serie as $s)array_push($cop,base64_encode($s->getCopertina()->getImmagine()));
+     foreach ($this->serie  as $a) array_push($cop,base64_encode($a->getCopertina()->getImmagine()));
+        return $cop;
+ }
     public function __toString():String
     {
         // TODO: Implement __toString() method.
