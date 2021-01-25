@@ -254,7 +254,7 @@
             <ul>
                 <li>
                     {foreach from=$utente->getWatchlist() item=$a }
-                    <a> {$a->getNome()}</a>
+                    <a href="/Progetto/Watchlist/info?id={$a->getId()}"> {$a->getNome()}</a>
                 </li>
                 {/foreach}
             </ul>

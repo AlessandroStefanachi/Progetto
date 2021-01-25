@@ -19,10 +19,17 @@ class FVisto
         $con->storeVisto($username,$id_episodio);
     }
 
-    public static function existcorr($id_w, $id_s) //per ora non serve il metodo corrispondente per questa classe
+    public static function existvisto($username, $id_ep)
     {
         $con = FConnectionDB::getIstanza();
-        $ris = $con->existCorr($id_w,$id_s);
+        $ris = $con->existvisto($username,$id_ep);
+        return $ris;
+    }
+
+    public static function delete($username, $id_ep)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->deletevisto($username,$id_ep);
         return $ris;
     }
 }

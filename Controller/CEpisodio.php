@@ -127,4 +127,61 @@ class CEpisodio
         }
 
     }
+
+    static function visto($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+            else{
+                if(stripos($_SESSION['location'],'Watchlist')!==false){
+                    //$idarr=$resource = explode('=', $_SESSION['location']);
+                    //$id=$idarr[1];
+                    if(!FPersistentManager::existvisto($_SESSION['utente']->getUsername(),$id))
+                    {
+                       // $voto= new EValutazione($voto,$_SESSION['utente']->getUsername(),$id);
+                        //FPersistentManager::store($voto);
+                        FPersistentManager::storevisto($_SESSION['utente']->getUsername(),$id);
+                        array_push($_SESSION['visti'],$id);
+
+                    }
+                    header('Location: /Progetto'.$_SESSION['location']);
+
+
+                }
+                else{
+                    header('Location: /Progetto/Utente/homepagedef');
+                }
+            }
+        }
+
+    }
+
+    static function rimuovivisto($id){
+
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+            else{
+                if(stripos($_SESSION['location'],'Watchlist')!==false ){
+                    //$commento=FPersistentManager::loa('id',$id,'FCommento');
+                    if(in_array($id,$_SESSION['visti'])){
+                        FPersistentManager::deletevisto($_SESSION['utente']->getUsername(),$id);
+                        $pos=array_search($id,$_SESSION['visti']);
+                        unset($_SESSION['visti'][$pos]);
+
+                    }
+                  
+
+                }
+
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            //header('Location: /Progetto/Utente/homepagedef');
+
+        }
+
+    }
 }

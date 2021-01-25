@@ -22,6 +22,7 @@
     <title>TvTracker</title>
 </head>
 <body>
+{if $utente->getUsername()==$watchlist->getProprietario()}{$self=true}{else}{$self=false}{/if}
 <div id="bg2"></div>
 <nav class=" nav-fill w-100 navbar navbar-expand-lg navbar-dark  " style="background-color:#555B5F;" id="navbarprincipale">
 
@@ -73,12 +74,13 @@
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                 </svg>
                 {$watchlist->getProprietario()}</a>
+            {if $self}
             <span class="ml-auto">{if $watchlist->isPubblico()}<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
   <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
 </svg>{else}
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
   <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-</svg>
+</svg>{/if}
 
 {/if}</span>
         </div>
@@ -154,7 +156,7 @@
                                                                 </svg>
 
                                                             </a>
-                                                           <span class="mr-auto"> {if in_array($c->getId(),$visti)}
+                                                           <{if $self}a{else}span{/if} class="mr-auto" {if $self}{if !in_array($c->getId(),$visti)}href="/Progetto/Episodio/visto?id={$c->getId()}"{else}href="/Progetto/Episodio/rimuovivisto?id={$c->getId()}" {/if}{/if}> {if in_array($c->getId(),$visti)}
                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
   <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
   <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
@@ -165,7 +167,7 @@
   <path d="M10.79 12.912l-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.027 7.027 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.088z"/>
   <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6l-12-12 .708-.708 12 12-.708.707z"/>
 </svg>
-                                                           {/if}</span>
+                                                           {/if}</{if $self}a{else}span{/if}>
                                                         </div>
                                                     </li>
                                                 {/foreach}

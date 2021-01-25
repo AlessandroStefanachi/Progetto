@@ -278,6 +278,29 @@ class FConnectionDB {
         }
     }
 
+    public function existvisto($username, $id_ep)
+    {
+        try
+        {
+            $sql = "SELECT * FROM visto WHERE utente ='" . $username . "' AND id_episodio ='" . $id_ep . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $numeroRighe = $stmt->rowCount();
+            if($numeroRighe == 0)
+            {
+                $risultato = NULL;
+            }
+            return $risultato;
+
+        } catch (Exception $e)
+        {
+            echo "Errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+        }
+    }
+
+
     public function loadVerificaAccessoPWHash ($username, $pass) {
 
         try
@@ -354,6 +377,29 @@ class FConnectionDB {
         return $verifica;
     }
 
+
+    public function deletevisto($username,$id_ep) {
+        try {
+            $verifica = null;
+            $this->pdo->beginTransaction();
+
+            $sql = "DELETE FROM visto WHERE utente ='" . $username . "' AND id_episodio ='" . $id_ep . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $this->pdo->commit();
+            $this->closeDbConnection();
+            $verifica = true;
+
+        } catch (PDOException $e)
+        {
+            echo "Attenzione errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            //return false;
+        }
+        return $verifica;
+    }
+
+
     /* Chiude la connessione con il db */
     public function closeDBConnection()
     {
@@ -425,15 +471,15 @@ class FConnectionDB {
             }
     }
 
-    public function storeVisto($username,$id_episodio)
+    public function storeVisto($utente,$id_episodio)
     {
         try
         {
             $this->pdo->beginTransaction();
-            $sql = "INSERT INTO visto (utente,id_episodio)  VALUES (:utente,:id_episodio";
+            $sql = "INSERT INTO visto (utente,id_episodio)  VALUES (:utente,:id_episodio)";
             $stmt = $this->pdo->prepare($sql);
             //print($sql);
-            $stmt->execute(array(':username' => $username, ':id_episodio' => $id_episodio,));
+            $stmt->execute(array(':utente' => $utente, ':id_episodio' => $id_episodio,));
             $this->pdo->commit();
             $this->closeDBConnection();
 

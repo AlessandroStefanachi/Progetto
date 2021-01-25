@@ -203,6 +203,13 @@ public static function AllGenere(){
         return $ris;
 
     }
+
+    public static function existvisto($username, $id_ep)
+    {
+        $ris=FVisto::existvisto($username,$id_ep);
+        return $ris;
+
+    }
     //metodo per estrarre 9 serie casuali da far comparire in homelog
     public static function homepagedef(){
         $id=FSerieTv::getId();
@@ -356,6 +363,10 @@ public static function AllGenere(){
 
     public static function deleteFollow($followed,$follower){
         FFollow::delete($followed,$follower);
+    }
+
+    public static function deletevisto($username,$id_ep){
+        FVisto::delete($username,$id_ep);
     }
 }
 

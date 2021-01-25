@@ -144,7 +144,7 @@ class EWatchlist
                 $str = $str."-".$valore;
                 else{
 
-                    $str=$valore[0]->__toString();
+                    $str=$valore->__toString();
                 }
             }
         else
