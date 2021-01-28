@@ -21,4 +21,12 @@ class VWatchlist
 
 
     }
+
+    public function crea($utente,$serie){
+        $this->smarty->assign("utente",$utente);
+        $this->smarty->assign("serie",$serie);
+
+        $this->smarty->display("creaWatchlist.tpl");
+
+    }
 }

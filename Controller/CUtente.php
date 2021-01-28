@@ -107,6 +107,7 @@ static function homepagedef(){
                     $_SESSION["utente"] = $utente;
                     $_SESSION["followed"]=$utente->getSeguiti();
                     $_SESSION["visti"]=$utente->getVisti();
+                    $_SESSION["watchlist"]=$utente->getWatchlist();
 
                     if($utente->getRuolo() == "a") {
                         header('Location: /WeBetting/Admin/homepage');
@@ -271,7 +272,7 @@ static function homepagedef(){
             }
             $_SESSION['location']='/user?id='.$username;
                 $view = new VUtente();
-                $view->ownProfile($utente,$self,$seguiti,$pwedit,$emailedit,$usernameedit);
+                $view->ownProfile($utente,$self,$seguiti,$pwedit,$emailedit,$usernameedit,$_SESSION['watchlist']);
 
 
         }

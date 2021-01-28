@@ -238,6 +238,7 @@
             </div>
             <hr class="my-2">
         <div id="watch-appear">
+            <div class="d-flex flex-row" style="width: 100%">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                             <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -249,13 +250,18 @@
   <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
 </svg>
             </span>
-            <br>
+            {if $self[0]==true}<a class=" pl-5 ml-auto" href="/Progetto/Watchlist/crea">Crea nuova</a>{/if}
+            </div>
+
         <div id="wcbox">
             <ul>
+                {if !$self[0]}{$watchlist=$utente->getWatchlist() }{/if}
                 <li>
-                    {foreach from=$utente->getWatchlist() item=$a }
+                    {foreach from=$watchlist item=$a }
                     <a href="/Progetto/Watchlist/info?id={$a->getId()}"> {$a->getNome()}</a>
+                    </br>
                 </li>
+
                 {/foreach}
             </ul>
         </div>

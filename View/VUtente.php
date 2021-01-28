@@ -55,7 +55,7 @@ class VUtente
         $this->smarty->display("homelog.tpl");
     }
 
-    public function ownProfile($utente,$self,$seguiti,$pwedit,$emailedit,$usernameedit){
+    public function ownProfile($utente,$self,$seguiti,$pwedit,$emailedit,$usernameedit,$watchlist){
         $this->smarty->assign("utente",$utente);
         $this->smarty->assign("self",$self);
         $this->smarty->assign("seguiti",$seguiti);
@@ -63,6 +63,7 @@ class VUtente
         $this->smarty->assign("pwedit",$pwedit);
         $this->smarty->assign("emailedit",$emailedit);
         $this->smarty->assign("usernameedit",$usernameedit);
+        $this->smarty->assign("watchlist",$watchlist);
         $this->smarty->display("ownprofile.tpl");
     }
 }

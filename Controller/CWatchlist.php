@@ -100,6 +100,51 @@ static function setPubblico($id){
         }
     }
 
+    static function crea(){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            $_SESSION['location']='/Watchlist/crea';
+            $serie=FPersistentManager::AllSeries(null);
+            $view = new VWatchlist();
+            $view->crea($_SESSION['utente'],$serie);
+        }
+    }
+
+    static function salva(){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $nome=$_POST['nome'];
+    $descrizione=$_POST['descrizione'];
+    if($_POST['accessibilità']=='Privato')$pubblico=false;
+    else $pubblico=true;
+    $w=new EWatchlist($nome,$descrizione,$pubblico,$_SESSION['utente']->getUsername());
+    if(isset($_POST['serie'])){
+        if(!empty($_POST['serie'])){
+            foreach ($_POST['serie'] as $serie){
+                $s=FPersistentManager::load('id',$serie,'FSerieTv');
+                $w->AggiungiSerie(clone ($s[0]));
+            }
+        }
+    }
+
+
+
+    FPersistentManager::store($w);
+    $u=FPersistentManager::load('username',$_SESSION['utente']->getUsername(),'FUtente');
+    $_SESSION['utente']=clone($u[0]);
+    $_SESSION['watchlist']= $_SESSION['utente']->getWatchlist();
+
+
+    header('Location: /Progetto/Utente/user?id='.$_SESSION['utente']->getUsername());
+
+            }
+            else header('Location: /Progetto/Utente/homepagedef');
+        }
+    }
+
 
 
 }
