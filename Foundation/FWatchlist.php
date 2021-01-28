@@ -137,5 +137,13 @@ class FWatchlist
         $ris = $con->getIDfrom(static::getNomeTabella(),$campo, $valoreCampo);
         return $ris;
     }
+
+    public static function update($campo, $nuovoValore, $chiave, $id){
+
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->update($campo, $nuovoValore, $chiave,$id,self::getNomeClasse());
+        return $righe;
+
+    }
 }
 

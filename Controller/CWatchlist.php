@@ -32,4 +32,74 @@ static function info($id){
         }
     }
 }
+
+static function setPrivato($id){
+    if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+    else{
+        session_start();
+        if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+        else{
+            if(stripos($_SESSION['location'],'Watchlist')!==false && FPersistentManager::exist('id',$id,'FWatchlist')){
+               $w=FPersistentManager::load('id',$id,'FWatchlist');
+               $w=clone($w[0]);
+                if($w->getProprietario()==$_SESSION['utente']->getUsername())
+                FPersistentManager::update('pubblico',0,'id',$id,'FWatchlist');
+
+            }
+
+            header('Location: /Progetto'.$_SESSION['location']);
+
+        }
+        //header('Location: /Progetto/Utente/homepagedef');
+
+    }
+
+}
+
+
+static function setPubblico($id){
+    if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+    else{
+        session_start();
+        if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+        else{
+            if(stripos($_SESSION['location'],'Watchlist')!==false && FPersistentManager::exist('id',$id,'FWatchlist')){
+                $w=FPersistentManager::load('id',$id,'FWatchlist');
+                if($w[0]->getProprietario()==$_SESSION['utente']->getUsername())
+                    FPersistentManager::update('pubblico',1,'id',$id,'FWatchlist');
+
+            }
+
+            header('Location: /Progetto'.$_SESSION['location']);
+
+        }
+        //header('Location: /Progetto/Utente/homepagedef');
+
+    }
+}
+
+    static function rimuoviserie(){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+            else{
+                if(stripos($_SESSION['location'],'Watchlist')!==false && $_SERVER['REQUEST_METHOD'] == "POST"){
+                    $watch=$_POST["watchlist"];
+                    $serie=$_POST["serie"];
+
+                    if(FPersistentManager::existCorr($watch,$serie))
+                        FPersistentManager::deleteCorrispondenze($watch,$serie);
+                }
+
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            //header('Location: /Progetto/Utente/homepagedef');
+
+        }
+    }
+
+
+
 }

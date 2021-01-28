@@ -192,7 +192,8 @@ public static function AllGenere(){
 
     public static function existCorr($id_w, $id_s)
     {
-        $ris=FFollow::existFollow($id_w,$id_s);
+        $ris=FCorrispondenze::existcorr($id_w,$id_s);
+
         return $ris;
 
     }
@@ -367,6 +368,10 @@ public static function AllGenere(){
 
     public static function deletevisto($username,$id_ep){
         FVisto::delete($username,$id_ep);
+    }
+
+    public static function deleteCorrispondenze($watch,$serie){
+        FCorrispondenze::delete($watch,$serie);
     }
 }
 

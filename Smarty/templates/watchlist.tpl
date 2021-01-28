@@ -75,14 +75,14 @@
                 </svg>
                 {$watchlist->getProprietario()}</a>
             {if $self}
-            <span class="ml-auto">{if $watchlist->isPubblico()}<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+            <a class="ml-auto" href="/Progetto/Watchlist/{if $watchlist->isPubblico()}setPrivato{else}setPubblico{/if}?id={$watchlist->getId()}">{if $watchlist->isPubblico()}<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
   <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
 </svg>{else}
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
   <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
 </svg>{/if}
 
-{/if}</span>
+{/if}</a>
         </div>
         <hr class="my-4">
         <h1 class="display-4">{$watchlist->getNome()}</h1>
@@ -112,7 +112,17 @@
                                 <div class="imgdiv"style="display: block;">
                                     <img class="card-img-top " style="width:20vw;height: 15vw;object-fit: fill; !important" {if isset($a) }src="data:{$a->getCopertina()->getType()};base64,{$cop[$i]}"{/if} alt="Card image cap"></div>
                                 <div class="card-body ">
-                                    <h4 class="card-title"> {$a->getTitolo()} </h4>
+                                    <h4 class="card-title"> {$a->getTitolo()}
+                                        <form method="post" style="display: inline-block" action="/Progetto/Watchlist/rimuoviserie" id="rimuovi">
+                                            <input type='hidden' name='watchlist' value='{$watchlist->getId()}' />
+                                            <input type='hidden' name='serie' value='{$a->getId()}' />
+                                            <button type="submit" class="btn btn-sm" form="rimuovi">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                                                </svg>
+
+                                            </button> </form>
+                                    </h4>
                                     <hr class="my-4">
                                     <span>Stagioni</span>
                                     <button type="button" class="btn  btn-sm down" id="downStagioni{$a->getId()}" style="background-color: #FFCF17;!important;" onclick="showStagioni('{$a->getId()}')">

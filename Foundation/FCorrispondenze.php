@@ -25,4 +25,11 @@ class FCorrispondenze
         $ris = $con->existCorr($id_w,$id_s);
         return $ris;
     }
+
+    public static function delete($watch, $serie)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->deleteCorrispondenze($watch,$serie);
+        return $ris;
+    }
 }

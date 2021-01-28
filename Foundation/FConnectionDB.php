@@ -237,7 +237,7 @@ class FConnectionDB {
     {
         try
         {
-            $sql = "SELECT * FROM follow WHERE id_watchlist ='" . $id_w . "' AND id_s ='" . $id_s . "';";
+            $sql = "SELECT * FROM corrispondenze WHERE id_watchlist ='" . $id_w . "' AND id_stv ='" . $id_s . "';";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $risultato = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -398,7 +398,26 @@ class FConnectionDB {
         }
         return $verifica;
     }
+    public function deleteCorrispondenze($watch,$serie) {
+        try {
+            $verifica = null;
+            $this->pdo->beginTransaction();
 
+            $sql = "DELETE FROM corrispondenze WHERE id_watchlist ='" . $watch . "' AND id_stv ='" . $serie . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $this->pdo->commit();
+            $this->closeDbConnection();
+            $verifica = true;
+
+        } catch (PDOException $e)
+        {
+            echo "Attenzione errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            //return false;
+        }
+        return $verifica;
+    }
 
     /* Chiude la connessione con il db */
     public function closeDBConnection()
