@@ -126,19 +126,35 @@
 
 <div class="d-flex " style="display: flex ; flex-wrap: wrap; width: 100%;flex-grow: 1;">
     <div class="d-flex flex-row justify-content-center pt-5" style="width: 100%">
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Cerca serie tv" aria-label="Nome serie tv" id="scbar" style="width: 40vw" name="q">
+        <form class="form-inline" action="/Progetto/Utente/user?id=" id="ricerca">
+            <div class="input-group">
 
-            <btn  id="b" type="submit">
+
+                <div class="input-group-prepend ">
+                    <div id="userbar">
+                    <span class="input-group-text bar" id="basic-addon1" onclick="userrbar()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg></span></div>
+
+                <div  id="tvbar">
+                    <span class="input-group-text bar" id="basic-addon1" onclick="bartv()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tv-fill" viewBox="0 0 16 16">
+  <path d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zM2 2h12s2 0 2 2v6s0 2-2 2H2s-2 0-2-2V4s0-2 2-2z"/>
+</svg></span>
+                </div>
+                </div>
+            <input class="form-control mr-sm-2" type="search" placeholder="Cerca Utente" aria-label="Nome serie tv" id="scbar" style="width: 40vw" name="id">
+    </div>
+            <button  class="btn btn-sm" id="b" type="submit" form="ricerca">
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="CurrentColor" class="bi bi-search" viewBox="0 0 16 16" d>
                     <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
                     <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
                 </svg>
               </div>
-            </btn>
+            </button>
 
         </form>
+
     </div>
 
 
@@ -405,7 +421,7 @@
           <a class="followed"   methods="post" href="/Progetto/Utente/unfollow?user={$a}"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-person-dash" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
               </svg></a>
-                <a class="followed " style="color:white;">{$a}</a>
+                <a class="followed " style="color:white;" href="/Progetto/Utente/user?id={$a}">{$a}</a>
             <br>
 
             {/foreach}

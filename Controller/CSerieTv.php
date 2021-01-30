@@ -27,4 +27,17 @@ static function info($id){
         }
     }
 }
+static function byname($nome){
+    if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+    else{
+        if(FPersistentManager::exist('titolo',$nome,'FSerieTv')){
+            $s=FPersistentManager::load('titolo',$nome,'FSerieTv');
+            header('Location: /Progetto/SerieTv/info?id='.$s[0]->getId());
+        }
+        else{
+            CFrontController::errore();
+        }
+
+    }
+}
 }

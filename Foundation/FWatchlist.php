@@ -145,5 +145,12 @@ class FWatchlist
         return $righe;
 
     }
+
+    public static function delete($id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->delete(static::getNomeTabella(),$id);
+        return $ris;
+    }
 }
 

@@ -185,7 +185,7 @@ static function homepagedef(){
             $pos=array_search($followed,$_SESSION['followed']);
             unset($_SESSION['followed'][$pos]);
             if(isset($_SESSION['location'])){
-                if(stripos($_SESSION['location'],'user')!==false) header('Location: /Progetto/Utente'.$_SESSION['location']);
+                if(stripos($_SESSION['location'],'user')!==false) header('Location: /Progetto'.$_SESSION['location']);//loc mod
                 else header('Location: /Progetto/Utente/homelog');
             }
             else{
@@ -203,7 +203,7 @@ static function homepagedef(){
             array_push($_SESSION['followed'],$followed);
             }
             if(isset($_SESSION['location'])){
-                if(stripos($_SESSION['location'],'user')!==false) header('Location: /Progetto/Utente'.$_SESSION['location']);
+                if(stripos($_SESSION['location'],'user')!==false) header('Location: /Progetto'.$_SESSION['location']);//loc mod
                 else header('Location: /Progetto/Utente/homelog');
             }
             else{
@@ -270,7 +270,7 @@ static function homepagedef(){
 
                 else{CFrontController::errore();}
             }
-            $_SESSION['location']='/user?id='.$username;
+            $_SESSION['location']='/Utente/user?id='.$username;
                 $view = new VUtente();
                 $view->ownProfile($utente,$self,$seguiti,$pwedit,$emailedit,$usernameedit,$_SESSION['watchlist']);
 

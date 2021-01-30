@@ -85,11 +85,15 @@
 {/if}</a>
         </div>
         <hr class="my-4">
-        <h1 class="display-4">{$watchlist->getNome()}</h1>
+        <h1 class="display-4">{$watchlist->getNome()} </h1>
+       {if $self} <a class="  ml-auto" href="" data-toggle="modal" data-target="#nome" >modifica</a>{/if}
+        <hr class="my-4">
         <div class="pl-2 mx-auto" style="word-break: break-word">
             <span style="float:none" >{$watchlist->getDescrizione()}</span>
 
         </div>
+        </br>
+       {if $self}<a class="  ml-auto" href="" data-toggle="modal" data-target="#descrizione" >modifica</a> {/if}
         <hr class="my-4">
         <div class="d-flex flex-row" style="min-width: auto;max-width: 25vw">
 
@@ -113,10 +117,10 @@
                                     <img class="card-img-top " style="width:20vw;height: 15vw;object-fit: fill; !important" {if isset($a) }src="data:{$a->getCopertina()->getType()};base64,{$cop[$i]}"{/if} alt="Card image cap"></div>
                                 <div class="card-body ">
                                     <h4 class="card-title"> {$a->getTitolo()}
-                                        <form method="post" style="display: inline-block" action="/Progetto/Watchlist/rimuoviserie" id="rimuovi">
+                                        <form method="post" style="display: inline-block" action="/Progetto/Watchlist/rimuoviserie" id="rimuovi{$a->getId()}">
                                             <input type='hidden' name='watchlist' value='{$watchlist->getId()}' />
                                             <input type='hidden' name='serie' value='{$a->getId()}' />
-                                            <button type="submit" class="btn btn-sm" form="rimuovi">
+                                            <button type="submit" class="btn btn-sm" form="rimuovi{$a->getId()}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
                                                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
                                                 </svg>
@@ -209,5 +213,93 @@
     </div>
     </div>
 </div>
+
+
+
+
+<div>
+    <div class="modal fade" id="nome" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Modifica Nome</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/Progetto/Watchlist/modificanome?id={$watchlist->getId()}">
+
+
+
+                        <div class="form-group">
+                            <div class="form-group">
+
+                                <input type="username" name="nome" class="form-control" id="nuovo nome"  placeholder="nuovo nome" oninput="checknome()">
+
+                            </div>
+
+
+
+                            <div> <button type="submit" class="btn btn-primary btn-dark" id="modifica nome" disabled>Modifica</button> </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div>
+    <div class="modal fade" id="descrizione" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Modifica Descrizione</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/Progetto/Watchlist/modificadescrizione?id={$watchlist->getId()}">
+
+
+
+                        <div class="form-group">
+                            <div class="form-group">
+
+                 <textarea class="form-control" name="descrizione" id="nuova descrizione" oninput="checkdescrizione()"></textarea>
+
+                            </div>
+
+
+
+                            <div> <button type="submit" class="btn btn-primary btn-dark" id="modifica descrizione" disabled>Modifica</button> </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>$('#nome').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+        document.getElementById('modifica nome').disabled=true;
+
+    })</script>
+<script>$('#descrizione').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+        document.getElementById('modifica descrizione').disabled=true;
+
+    })</script>
 </body>
 </html>

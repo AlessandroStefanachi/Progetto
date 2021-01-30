@@ -37,3 +37,24 @@ function hideEpisodi( id) {
     up.style.display="none";
     show.style.display="none";
 }
+
+function checknome() {
+    var nuovonome=document.getElementById('nuovo nome');
+    var bottone=document.getElementById('modifica nome');
+    if(nuovonome.value.length>0)bottone.disabled=false;
+    else bottone.disabled=true;
+
+}
+
+function checkdescrizione() {
+    var text = document.getElementById('nuova descrizione');
+    var button = document.getElementById('modifica descrizione');
+    if (text.value.length == 0 || text.value[0] == " " || text.value[0] == "\n") {
+        console.log("disabilita")
+        button.disabled = true;
+    } else {
+        button.disabled = false;
+        console.log("abilita")
+    }
+
+}

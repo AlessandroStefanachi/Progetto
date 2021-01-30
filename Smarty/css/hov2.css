@@ -125,3 +125,7 @@ line-height: 1;
 .rect{height: 200px; background-color:transparent ;overflow-x:hidden;overflow-y: auto;}
 .list-group-item{color: #555B5F}
 .followed{color: #f1f1f1}
+
+.bar{cursor: pointer; !important;}
+#tvbar{display:none}
+#userbar{display: inline-flex;}

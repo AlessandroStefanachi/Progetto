@@ -144,7 +144,73 @@ static function setPubblico($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
+static function cancella($id){
+    if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+    else{
+        session_start();
+        if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+        else{
+            if(stripos($_SESSION['location'],'user')!==false ){
+                $w=FPersistentManager::load('id',$id,'FWatchlist');
+                if($w[0]->getProprietario()==$_SESSION['utente']->getUsername()){
+                    FPersistentManager::delete('FWatchlist',$id);
+                    $pos=array_search($w[0],$_SESSION['watchlist']);
+                    unset($_SESSION['watchlist'][$pos]);
+
+                }
+
+            }
+
+            header('Location: /Progetto'.$_SESSION['location']);
+
+        }
+        //header('Location: /Progetto/Utente/homepagedef');
+
+    }
+}
+static function modificanome($id){
+    if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+    else{
+        session_start();
+        if($_SERVER['REQUEST_METHOD'] == "GET")header('Location: /Progetto/Utente/homepagedef');
+        else{
+
+            if(FPersistentManager::exist('id',$id,'FWatchlist')) {
+                $w=FPersistentManager::load('id',$id,'FWatchlist');
+
+                FPersistentManager::update("nome", $_POST['nome'], "id", $id, "FWatchlist");
+                //$_SESSION['utente']->setPassword($hashPW);
+                //$_SESSION['pwedit']=true;
+                $pos=array_search($w[0],$_SESSION['watchlist']);
+                $_SESSION['watchlist'][$pos]->setNome($_POST['nome']);
+
+            }
+           // else $_SESSION['pwedit']=false;
+
+            header('Location: /Progetto'.$_SESSION['location']);
+        }
+    }
+}
+
+    static function modificadescrizione($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if($_SERVER['REQUEST_METHOD'] == "GET")header('Location: /Progetto/Utente/homepagedef');
+            else{
+
+                if(FPersistentManager::exist('id',$id,'FWatchlist')) {
+                    $w=FPersistentManager::load('id',$id,'FWatchlist');
+
+                    FPersistentManager::update("descrizione", $_POST['descrizione'], "id", $id, "FWatchlist");
 
 
+                }
+                // else $_SESSION['pwedit']=false;
+
+                header('Location: /Progetto'.$_SESSION['location']);
+            }
+        }
+    }
 
 }

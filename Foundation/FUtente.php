@@ -104,9 +104,10 @@ class FUtente  {
 
                    $seguaci=FPersistentManager::loadFollower($utenti[$i]->getUsername());
                    if($seguaci){
+                       $se=array();
                        $n=count($seguaci);
                        for($b=0;$b<$n;$b++){
-                           $se=array();
+
                            array_push($se,$seguaci[$b]["id_seguace"]);
                        }
 
