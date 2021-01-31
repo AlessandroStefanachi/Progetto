@@ -25,6 +25,14 @@ class FGenere
         return $righe;
     }
 
+    public static function delete($id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->delete(static::$nomeTabella,$id,'genere');
+        return $ris;
+    }
+
+
     public static function exist($campo, $valoreCampo)
     {
         $con = FConnectionDB::getIstanza();

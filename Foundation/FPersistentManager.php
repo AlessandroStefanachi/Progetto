@@ -373,6 +373,11 @@ public static function AllGenere(){
     public static function deleteCorrispondenze($watch,$serie){
         FCorrispondenze::delete($watch,$serie);
     }
+
+    public static function loadAll($nomeClasse){
+        $ris=$nomeClasse::loadAll();
+        return $ris;
+    }
 }
 
 /*

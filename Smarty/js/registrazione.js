@@ -77,7 +77,12 @@ function checkUser(){
     var check=false;
     var err = document.getElementById('username alert');
     var input=document.getElementById('nickname');
-    if(input.value.length==0||input.value.length>16){
+    var space=false
+    for(var i=0; i<input.value.length;i++){
+        if(input.value[i]==" ")var space=true;
+
+    }
+    if(input.value.length==0||input.value.length>16||space){
 
         err.style.display = "block";
         check=false;

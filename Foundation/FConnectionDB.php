@@ -335,12 +335,12 @@ class FConnectionDB {
      * @param id id usato per la cancellazione
      * @return $verifica bool se la cancellazione è andata a buon fine
      */
-    public function delete($nometabella,$id) {
+    public function delete($nometabella,$id,$chiave) {
         try {
             $verifica = null;
             $this->pdo->beginTransaction();
 
-            $sql = "DELETE FROM ".$nometabella." WHERE id ='" . $id . "';";
+            $sql = "DELETE FROM ".$nometabella." WHERE " . $chiave . " = '" .$id. "' ;";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $this->pdo->commit();

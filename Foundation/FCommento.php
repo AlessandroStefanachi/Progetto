@@ -107,7 +107,7 @@ public static function update($campo, $nuovoValore, $chiave, $id){
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();
-        $ris = $con->delete(static::getNomeTabella(),$id);
+        $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
 

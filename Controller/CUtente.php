@@ -57,7 +57,7 @@ static function homepagedef(){
             else{ $id=null;$watchlist=null;}
             if (!isset($_SESSION['followed']))$_SESSION['followed']=array();
         $view = new VUtente();
-        $view->showHomelog($res[0],$res[1],$_SESSION["followed"],$generi,$genere,$watch[0],$watch[1],$watch[2],$id,$watchlist,$_SESSION['utente']->getUsername());}
+        $view->showHomelog($res[0],$res[1],$_SESSION["followed"],$generi,$genere,$watch[0],$watch[1],$watch[2],$id,$watchlist,$_SESSION['utente']);}
 
     }
 
@@ -78,14 +78,19 @@ static function homepagedef(){
           session_start();
         if(FPersistentManager::exist("username",$_POST["username"],"FUtente") == null
             && FPersistentManager::exist("email",$_POST["email"],"FUtente") == null) {
+            if($_POST["username"]=='admin')$ruolo='admin';
+                else $ruolo='utente';
             $utente = new EUtente($_POST["username"],
                 $_POST["email"],
                 password_hash($_POST["password"], PASSWORD_DEFAULT), //non prende l hash
             //$_POST["password"],
-            "test"
+            $ruolo
                 );
             FPersistentManager::store($utente);
             $_SESSION["utente"] = $utente;
+            $_SESSION["followed"]=null;
+            $_SESSION["visti"]=null;
+            $_SESSION["watchlist"]=null;
             header('Location: /Progetto/Utente/homepagedef');
         }else {
 

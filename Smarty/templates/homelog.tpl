@@ -75,9 +75,10 @@
                     </form>
                 </div>
             </li>
+            {if $utente->getRuolo()=='admin'}
             <li class="nav-item" id="popwc">
 
-                <a class="navbar-brand" id="popwc" href="#">
+                <a class="navbar-brand" id="popwc" href="/Progetto/Admin/menu">
                     <div class="icon" id="popwc">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                             <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -85,8 +86,9 @@
                         </svg>
                     </div>
                 </a>
-                <span id="wc-appear">Apri <span id="wc-appear">Watchlist</span>
+                <span id="wc-appear">Sezione <span id="wc-appear">Admin</span>
             </li>
+            {/if}
         </ul>
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
@@ -99,7 +101,7 @@
         <ul class="navbar-nav ml-auto" >
             <li class="nav-item" id="poppr">
 
-                <a class="navbar-brand"  href="/Progetto/Utente/user?id={$username}">
+                <a class="navbar-brand"  href="/Progetto/Utente/user?id={$utente->getUsername()}">
                     <div class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>

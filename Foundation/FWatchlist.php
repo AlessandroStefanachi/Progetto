@@ -149,7 +149,7 @@ class FWatchlist
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();
-        $ris = $con->delete(static::getNomeTabella(),$id);
+        $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
 }

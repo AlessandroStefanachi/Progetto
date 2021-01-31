@@ -40,7 +40,7 @@ class VUtente
         $this->smarty->display("homepagedef.tpl");
 
     }
-    public function  showHomelog($serie,$cop,$seguiti,$genere,$filtro,$watch,$Cwatch,$type,$id,$watchlist,$username){
+    public function  showHomelog($serie,$cop,$seguiti,$genere,$filtro,$watch,$Cwatch,$type,$id,$watchlist,$utente){
         $this->smarty->assign("serie",$serie);
         $this->smarty->assign("cop",$cop);
         $this->smarty->assign("seguiti",$seguiti);
@@ -51,7 +51,7 @@ class VUtente
         $this->smarty->assign("type",$type);
         $this->smarty->assign("id",$id);
         $this->smarty->assign("watchlist",$watchlist);
-        $this->smarty->assign("username",$username);
+        $this->smarty->assign("utente",$utente);
         $this->smarty->display("homelog.tpl");
     }
 

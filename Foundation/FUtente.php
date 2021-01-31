@@ -234,6 +234,80 @@ class FUtente  {
     {
         return self::$campiParametriciTabella;
     }
+
+    public static function loadAll(){
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->loadAll( FUtente::$nomeTabella);
+        $utenti = array();
+
+        if($righe == NULL)
+        {
+            $utenti = NULL;
+        }
+        else
+        {
+            $numeroRighe = count($righe);
+            for($i = 0; $i < $numeroRighe; $i++)
+            {
+                $utenti[$i] = new EUtente(
+                    $righe[$i]["username"],
+                    $righe[$i]["email"],$righe[$i]["password"],$righe[$i]["ruolo"]);
+
+                $seguaci=FPersistentManager::loadFollower($utenti[$i]->getUsername());
+                if($seguaci){
+                    $se=array();
+                    $n=count($seguaci);
+                    for($b=0;$b<$n;$b++){
+
+                        array_push($se,$seguaci[$b]["id_seguace"]);
+                    }
+
+                    $utenti[$i]->setSeguaci($se);}
+                $seguiti=FPersistentManager::loadFollowed($utenti[$i]->getUsername());
+                if($seguiti){
+                    $n=count($seguiti);
+                    // echo ("questo è l n".$n);
+                    $se=array();
+                    for($b=0;$b<$n;$b++){
+
+                        // echo("\n"."ora pusho".$seguiti[$b]["id_seguito"]);
+                        array_push($se,$seguiti[$b]["id_seguito"]);
+                    }
+
+                    $utenti[$i]->setSeguiti($se);
+                    //foreach ($utenti[$i]->getSeguiti() as $value) echo ("\n"."qui ce ".$value);
+                }
+                $visti=FPersistentManager::loadvisto($utenti[$i]->getUsername());
+                if($visti){
+                    $n=count($visti);
+                    // echo ("questo è l n".$n);
+                    $se=array();
+                    for($b=0;$b<$n;$b++){
+
+                        // echo("\n"."ora pusho".$seguiti[$b]["id_seguito"]);
+                        array_push($se,$visti[$b]["id_episodio"]);
+                    }
+
+                    $utenti[$i]->setvisti($se);
+                    //foreach ($utenti[$i]->getSeguiti() as $value) echo ("\n"."qui ce ".$value);
+                }
+
+
+                $watchlist=FPersistentManager::load("proprietario",$utenti[$i]->getUsername(),FWatchlist::getNomeCLasse());
+                $utenti[$i]->setWatchlist($watchlist);
+            }
+        }
+
+        return $utenti;
+
+    }
+
+    public static function delete($id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->delete(static::getNomeTabella(),$id,'username');
+        return $ris;
+    }
 }
 
 /**
