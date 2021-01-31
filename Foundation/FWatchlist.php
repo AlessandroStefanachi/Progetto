@@ -152,5 +152,49 @@ class FWatchlist
         $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
+
+    public static function loadAll(){
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->loadAll(FWatchlist::$nomeTabella);
+        $watchlist = array();
+
+        if($righe == NULL)
+        {
+            $watchlist = NULL;
+        }
+        else
+        {
+            $numeroRighe = count($righe);
+            for($i = 0; $i < $numeroRighe; $i++)
+            {
+
+                $watchlist[$i] = new EWatchlist(
+                    $righe[$i]["nome"],
+                    $righe[$i]["descrizione"],
+                    $righe[$i]["pubblico"],
+                    $righe[$i]["proprietario"]
+
+                );
+                $watchlist[$i]->setId($righe[$i]["id"]);//non nel costruttore perchè non puoi fornire un id alla prima generazione in quanto l'id è dato dal primo salvataggio nel DB
+                $corrispondenze= FPersistentManager::loadCorrispondenze($righe[$i]['id']);
+                ///////////////////
+                if($corrispondenze!=null){
+                    $serie=array();
+                    $nr=count($corrispondenze);
+
+                    for($b=0;$b < $nr;$b++){
+                        $a=FPersistentManager::load('id',$corrispondenze[$b]['id_stv'],FSerieTv::getNomeClasse());
+                        array_push($serie,clone( $a[0]));//inserisci la serie tv
+                    }
+                    if($serie)
+                        $watchlist[$i]->setSerie($serie);
+                }
+
+            }
+        }
+
+        return $watchlist;
+
+    }
 }
 

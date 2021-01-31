@@ -150,9 +150,9 @@ static function cancella($id){
         session_start();
         if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
         else{
-            if(stripos($_SESSION['location'],'user')!==false ){
+            if(stripos($_SESSION['location'],'user')!==false ||$_SESSION['utente']->getRuolo()=='admin'){
                 $w=FPersistentManager::load('id',$id,'FWatchlist');
-                if($w[0]->getProprietario()==$_SESSION['utente']->getUsername()){
+                if($w[0]->getProprietario()==$_SESSION['utente']->getUsername()||$_SESSION['utente']->getRuolo()=='admin'){
                     FPersistentManager::delete('FWatchlist',$id);
                     $pos=array_search($w[0],$_SESSION['watchlist']);
                     unset($_SESSION['watchlist'][$pos]);

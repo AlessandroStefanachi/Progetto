@@ -198,7 +198,7 @@ public static function AllGenere(){
 
     }
 
-    public static function existval($id_u, $id_s)
+    public static function existVal($id_u, $id_s)
     {
         $ris=FValutazione::existval($id_u,$id_s);
         return $ris;
@@ -211,7 +211,9 @@ public static function AllGenere(){
         return $ris;
 
     }
-    //metodo per estrarre 9 serie casuali da far comparire in homelog
+
+
+    //metodo per estrarre 9 serie casuali da far comparire in homepagedef
     public static function homepagedef(){
         $id=FSerieTv::getId();
        // echo($id[0]["id"]);
@@ -373,7 +375,9 @@ public static function AllGenere(){
     public static function deleteCorrispondenze($watch,$serie){
         FCorrispondenze::delete($watch,$serie);
     }
-
+    public static function deleteValutazione($autore,$id_e){
+        FValutazione::delete($autore,$id_e);
+    }
     public static function loadAll($nomeClasse){
         $ris=$nomeClasse::loadAll();
         return $ris;

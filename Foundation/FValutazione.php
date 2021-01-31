@@ -103,4 +103,37 @@ class FValutazione
         $ris = $con->existvote($id_w,$id_s);
         return $ris;
     }
+
+    public static function loadAll(){
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->loadAll( static::$nomeTabella);
+        $valutazioni = array();
+        $utenti = array();
+
+        if($righe == NULL)
+        {
+            $valutazioni = NULL;
+        }
+        else
+        {
+            $numeroRighe = count($righe);
+            for($i = 0; $i < $numeroRighe; $i++)
+            {
+                // $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
+                $valutazioni[$i] = new EValutazione($righe[$i]["voto"], $righe[$i]["autore"], $righe[$i]["id_episodio"]);
+            }
+        }
+
+        return $valutazioni;
+    }
+
+    public static function delete($autore,$id_e)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->deleteValutazione($autore,$id_e);
+        return $ris;
+    }
+
+
+
 }

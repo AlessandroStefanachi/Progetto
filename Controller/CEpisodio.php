@@ -110,9 +110,9 @@ class CEpisodio
             session_start();
             if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
             else{
-                if(stripos($_SESSION['location'],'Episodio')!==false ){
+                if(stripos($_SESSION['location'],'Episodio')!==false||$_SESSION['utente']->getRuolo()=='admin' ){
                    $commento=FPersistentManager::load('id',$id,'FCommento');
-                   if($commento[0]->getAutore()==$_SESSION['utente']->getUsername()){
+                   if($commento[0]->getAutore()==$_SESSION['utente']->getUsername()||$_SESSION['utente']->getRuolo()=='admin'){
                        FPersistentManager::delete('FCommento',$id);
 
                    }

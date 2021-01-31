@@ -33,4 +33,45 @@ class Vadmin
         $this->smarty->assign('generi',$generi);
         $this->smarty->display('generi.tpl');
     }
+
+    public function voti($utente,$voti){
+        $this->smarty->assign('utente',$utente);
+        $this->smarty->assign('voti',$voti);
+        $this->smarty->display('voti.tpl');
+    }
+
+    public function watchlist($utente,$watchlist){
+        $this->smarty->assign('utente',$utente);
+        $this->smarty->assign('watchlist',$watchlist);
+        $this->smarty->display('gwatchlist.tpl');
+    }
+
+    public function commenti($utente,$commenti){
+        $this->smarty->assign('utente',$utente);
+        $this->smarty->assign('commenti',$commenti);
+        $this->smarty->display('commenti.tpl');
+    }
+
+    public function aggiungiSerie($utente,$gif,$generi){
+        $this->smarty->assign('utente',$utente);
+        $this->smarty->assign('gif',$gif);
+        $this->smarty->assign('generi',$generi);
+
+        $this->smarty->display('aggiungiSerie.tpl');
+    }
+
+    public function serie($utente,$serie){
+        $this->smarty->assign('utente',$utente);
+        $this->smarty->assign('serie',$serie);
+
+
+        $this->smarty->display('serie.tpl');
+    }
+    public function modificaserie($utente,$serie){
+        $this->smarty->assign('utente',$utente);
+        $this->smarty->assign('serie',$serie);
+
+
+        $this->smarty->display('modificaSerie.tpl');
+    }
 }

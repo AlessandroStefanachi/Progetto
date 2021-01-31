@@ -183,6 +183,12 @@ class ESerieTv
         $stagione->setNumero(count($this->stagioni)+1);
         array_push($this->stagioni, $stagione);
     }
+
+    public function aggiungiGenere( $genere)
+    {
+        //$stagione->setNumero(count($this->stagioni)+1);
+        array_push($this->genere, $genere);
+    }
 ///////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE//////////////////////////////////////////////////////////////////////////////////////////////
 
     private function calcolaValutazione():void

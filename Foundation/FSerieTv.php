@@ -34,7 +34,7 @@ class FSerieTv
     {
         $con = FConnectionDB::getIstanza();
         if($serie->getCopertina()!=null){
-            $id_copertina=$con->store($serie->getCopertina());
+            $id_copertina=$con->store($serie->getCopertina(),FCopertina::getNomeClasse());
             $serie->setId_copertina($id_copertina);
         }
 
@@ -204,6 +204,13 @@ public static function getId(){
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
+        return $ris;
+    }
+
+    public static function delete($id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
 

@@ -111,4 +111,25 @@ public static function update($campo, $nuovoValore, $chiave, $id){
         return $ris;
     }
 
+    public static function loadAll(){
+        $con = FConnectionDB::getIstanza();
+        $righe =  $con->loadAll(static::$nomeTabella);
+        $commenti = array();
+        $utenti = array();
+
+        if($righe == NULL) {
+            $commenti = NULL;
+        }else {
+            $numeroRighe = count($righe);
+            for($i = 0; $i < $numeroRighe; $i++) {
+                // $utenti = FPersistentManager::load("username", $righe[$i]["autore"], FUtente::getNomeClasse());
+                $commenti[$i] = new ECommento($righe[$i]["testo"], $righe[$i]["data"], $righe[$i]["ora"], $righe[$i]["autore"], $righe[$i]["id_episodio"]);
+                $commenti[$i]->setId($righe[$i]["id"]);
+
+            }
+        }
+
+        return $commenti;
+    }
+
 }

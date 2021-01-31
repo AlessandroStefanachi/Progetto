@@ -10,7 +10,7 @@ class FCopertina
     /*Campi della tabella del db*/
     private static $campiTabella = "(id,nome,size,type,immagine)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
-    private static $campiParametriciTabella = "(:id, :nome, :size, :type, :immagine, )";
+    private static $campiParametriciTabella = "(:id, :nome, :size, :type, :immagine )";
 
     /**
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi

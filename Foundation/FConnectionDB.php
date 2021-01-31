@@ -44,6 +44,7 @@ class FConnectionDB {
         {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO ". $nomeClasse::getNomeTabella() . $nomeClasse::getCampiTabella() . " VALUES " . $nomeClasse::getCampiParametriciTabella();
+            echo $sql;
             $stmt = $this->pdo->prepare($sql);
             $nomeClasse::bind($stmt, $oggetto);
             $stmt->execute();
@@ -301,6 +302,8 @@ class FConnectionDB {
     }
 
 
+
+
     public function loadVerificaAccessoPWHash ($username, $pass) {
 
         try
@@ -362,6 +365,27 @@ class FConnectionDB {
             $this->pdo->beginTransaction();
 
             $sql = "DELETE FROM follow WHERE id_seguito ='" . $followed . "' AND id_seguace ='" . $follower . "';";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $this->pdo->commit();
+            $this->closeDbConnection();
+            $verifica = true;
+
+        } catch (PDOException $e)
+        {
+            echo "Attenzione errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            //return false;
+        }
+        return $verifica;
+    }
+
+    public function deleteValutazione($autore,$id_e) {
+        try {
+            $verifica = null;
+            $this->pdo->beginTransaction();
+
+            $sql = "DELETE FROM valutazione WHERE autore ='" . $autore . "' AND id_episodio ='" . $id_e . "';";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $this->pdo->commit();

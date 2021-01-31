@@ -10,6 +10,8 @@ class CFrontController {
 
         array_shift($resource);
 
+        if($resource[0]=='Progetto'&&$arrayDim==3)header('Location:/Progetto/Utente/Homepagedef');
+
         if($arrayDim <= 5) { //(1) verifico se ci sono troppi parametri nel link
             array_shift($resource);
             $controller = "C" .  array_shift($resource); ///COSTRUISCO IL NOME DELLA CLASSE NELLA DIRECTORY CONTROLL
@@ -49,7 +51,9 @@ class CFrontController {
                 }else static::errore();//(3) se la classe non esiste errore
             }//(2) la classe non esiste setta l'header
             else {
-                //header('Location: /Progetto/Utente/homepagedef');
+                //
+
+
                 static::errore();
               // $smarty=SetupSmarty::configura();
                 //$smarty->display("errore.tpl");
