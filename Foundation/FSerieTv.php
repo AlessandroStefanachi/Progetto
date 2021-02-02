@@ -214,4 +214,11 @@ public static function getId(){
         return $ris;
     }
 
+    public static function update($campo, $nuovoValore, $chiave, $id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $verifica = $con->update($campo, $nuovoValore, $chiave, $id, static::$nomeClasse);
+        return $verifica;
+    }
+
 }

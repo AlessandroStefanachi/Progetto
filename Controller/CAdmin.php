@@ -294,7 +294,8 @@ static function ban($id){
         }
         $s->setCopertina($c);
         FPersistentManager::store($s);}
-        header('Location: /Progetto'.$_SESSION['location']);}
+       header('Location: /Progetto'.$_SESSION['location']);
+            }
 
     }
 
@@ -314,35 +315,227 @@ static function ban($id){
 
     }
 
-    static function eliminaSerie($id){
-        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
-        else {
-            if ($_SESSION['utente']->getRuolo() == 'admin') {
 
-                session_start();
-
-
-                if(FPersistentManager::exist('id',$id,'FSerieTv')){
-
-                    FPersistentManager::delete('FSerieTv',$id);
-                }
-                header('Location: /Progetto'.$_SESSION['location']);
-            }
-            else header('Location: /Progetto/Utente/homepagedef');
-        }}
 
     static function modificaserie($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
             if ($_SESSION['utente']->getRuolo() == 'admin'&&FPersistentManager::exist('id',$id,'FSerieTv')) {
                 session_start();
-                $_SESSION['location']='/Admin/serie';
+                $_SESSION['location']='/Admin/modificaserie?id='.$id;
                 $v = new Vadmin();
                 $u = FPersistentManager::load('id',$id,'FSerieTv');
-                $v->modificaserie($_SESSION['utente'], $u[0]);
+                $copertina=base64_encode($u[0]->getCopertina()->getImmagine());
+                $g = FPersistentManager::loadAll('FGenere');
+                $l = FPersistentManager::loadAll('FLingua');
+                $v->modificaserie($_SESSION['utente'], $u[0],$copertina,$g,$l);
 
             }
             else header('Location: /Progetto/Utente/homepagedef');
+        }
+
+    }
+
+    static function modifica($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else {
+            if ($_SESSION['utente']->getRuolo() == 'admin'&& $_SERVER['REQUEST_METHOD'] == "POST") {
+                session_start();
+                if(isset($_POST['titolo'])&&FPersistentManager::exist('id',$id,'FSerieTv')){
+                    FPersistentManager::update('titolo',$_POST['titolo'],'id',$id,'FSerieTv');
+                }
+                if(isset($_POST['regista'])&&FPersistentManager::exist('id',$id,'FSerieTv')){
+                    FPersistentManager::update('regista',$_POST['regista'],'id',$id,'FSerieTv');
+                }
+                if(isset($_POST['trama'])&&FPersistentManager::exist('id',$id,'FSerieTv')){
+                    FPersistentManager::update('trama',$_POST['trama'],'id',$id,'FSerieTv');
+                }
+                if(isset($_POST['rimuoviGenere'])&&FPersistentManager::exist('id',$id,'FSerieTv')){
+                    if(!empty($_POST['rimuoviGenere'])){
+                        foreach ($_POST['rimuoviGenere'] as $genere){
+                            FPersistentManager::deleteTvGenere($genere,$id);
+                        }
+
+                    }
+                }
+
+                if(isset($_POST['aggiungiGenere'])&&FPersistentManager::exist('id',$id,'FSerieTv')){
+                    if(!empty($_POST['aggiungiGenere'])){
+                        foreach ($_POST['aggiungiGenere'] as $genere){
+                            FPersistentManager::storeTVgenere($genere,$id);
+                        }
+                    }
+                }
+
+                if(isset($_FILES['file']['tmp_name'])){
+                    $type = $_FILES['file']['type'];
+                    $nome = $_FILES['file']['name'];
+                    $immagine = file_get_contents($_FILES['file']['tmp_name']);
+                    //$immagine=imagescale($immagine,150,150);
+                    if($type=='image/gif'){
+                        $_SESSION['gif']=true;
+                        header('Location: /Progetto'.$_SESSION['location']);
+                    }
+                     $immagine = addslashes ($immagine);
+                    $size=$_FILES['file']['size'];
+                    $s=FPersistentManager::load('id',$id,'FSerieTv');
+                    $idc=$s[0]->getId_copertina();
+                    FPersistentManager::update('nome',$nome,'id',$idc,'FCopertina');
+                    FPersistentManager::update('size',$size,'id',$idc,'FCopertina');
+
+                    FPersistentManager::update('type',$type,'id',$idc,'FCopertina');
+                    FPersistentManager::update('immagine',$immagine,'id',$idc,'FCopertina');
+
+                }
+               header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            else header('Location: /Progetto/Utente/homepagedef');
+        }
+
+    }
+
+    static function modificaStagione($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+
+        else {
+            session_start();
+            if ($_SESSION['utente']->getRuolo() == 'admin'&& $_SERVER['REQUEST_METHOD'] == "POST") {
+                if(isset($_POST['rimuoviLingua'])&&FPersistentManager::exist('id',$id,'FStagione')){
+                    if(!empty($_POST['rimuoviLingua'])){
+
+                        foreach ($_POST['rimuoviLingua'] as $lingua){
+                            FPersistentManager::deleteSTGlingua($lingua,$id);
+                        }
+
+                    }
+                }
+
+                if(isset($_POST['aggiungiLingua'])&&FPersistentManager::exist('id',$id,'FStagione')){
+                    if(!empty($_POST['aggiungiLingua'])){
+                        foreach ($_POST['aggiungiLingua'] as $lingua){
+                            FPersistentManager::storeSTGlingua($lingua,$id);
+                        }
+                    }
+
+
+
+                }
+                if(isset($_POST['data'])&&FPersistentManager::exist('id',$id,'FStagione')){
+                    //echo $_POST['data'];
+                    // echo'a';
+                    FPersistentManager::update('data',$_POST['data'],'id',$id,'FStagione');
+                    //echo $_POST['data'];
+
+                }
+
+                header('Location: /Progetto'.$_SESSION['location']);
+            } else header('Location: /Progetto/Utente/homepagedef');
+
+    }}
+
+    static function modificaEpisodio($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+
+        else {
+            session_start();
+            if ($_SESSION['utente']->getRuolo() == 'admin'&& $_SERVER['REQUEST_METHOD'] == "POST") {
+                if(isset($_POST['titolo'])&&FPersistentManager::exist('id',$id,'FEpisodio')){
+                    FPersistentManager::update('titolo',$_POST['titolo'],'id',$id,'FEpisodio');
+                }
+
+                if(isset($_POST['durata'])&&FPersistentManager::exist('id',$id,'FEpisodio')){
+                    //echo $_POST['data'];
+                    // echo'a';
+                    FPersistentManager::update('durata',$_POST['durata'],'id',$id,'FEpisodio');
+                    //echo $_POST['data'];
+
+                }
+                header('Location: /Progetto'.$_SESSION['location']);
+            }
+            else header('Location: /Progetto/Utente/homepagedef');
+        }
+    }
+    static function aggiungiStagione($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else {
+            session_start();
+            if ($_SESSION['utente']->getRuolo() == 'admin'&& $_SERVER['REQUEST_METHOD'] == "POST") {
+                $data=$_POST['createdata'];
+                $numero=$_POST['numero'];
+                $stagione=new EStagione($data,$numero,$id);
+                if(isset($_POST['aggiungiLingua'])){
+                    if(!empty($_POST['aggiungiLingua'])){
+                        foreach ($_POST['aggiungiLingua'] as $lingua){
+                            $stagione->aggiungiLingua($lingua);
+                        }
+                    }}
+                    FPersistentManager::store($stagione);
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            else header('Location: /Progetto/Utente/homepagedef');
+        }
+    }
+
+    static function inserisciEpisodio($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else {
+            session_start();
+            if ($_SESSION['utente']->getRuolo() == 'admin'&& $_SERVER['REQUEST_METHOD'] == "POST") {
+                $titolo=$_POST['titolo'];
+                $durata=$_POST['durata'];
+                $episodio=new EEpisodio($titolo,$durata,1,$id);
+
+                FPersistentManager::store($episodio);
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            else header('Location: /Progetto/Utente/homepagedef');
+        }
+    }
+
+static function eliminaEpisodio($id){
+    if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+    else {
+        session_start();
+        if ($_SESSION['utente']->getRuolo() == 'admin') {
+            FPersistentManager::delete('FEpisodio',$id);
+            header('Location: /Progetto'.$_SESSION['location']);
+        }
+        else header('Location: /Progetto/Utente/homepagedef');
+
+    }
+
+}
+
+    static function eliminaStagione($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else {
+            session_start();
+            if ($_SESSION['utente']->getRuolo() == 'admin') {
+                FPersistentManager::delete('FStagione',$id);
+                header('Location: /Progetto'.$_SESSION['location']);
+            }
+            else header('Location: /Progetto/Utente/homepagedef');
+
+        }
+
+    }
+
+    static function eliminaSerie($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else {
+            session_start();
+            if ($_SESSION['utente']->getRuolo() == 'admin') {
+                $s=FPersistentManager::load('id',$id,'FSerieTv');
+
+                FPersistentManager::delete('FSerieTv',$id);
+                FPersistentManager::delete('FCopertina',$s[0]->getId_copertina());
+                header('Location: /Progetto'.$_SESSION['location']);
+            }
+            else header('Location: /Progetto/Utente/homepagedef');
+
         }
 
     }

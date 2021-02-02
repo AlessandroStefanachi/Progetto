@@ -67,9 +67,13 @@ class Vadmin
 
         $this->smarty->display('serie.tpl');
     }
-    public function modificaserie($utente,$serie){
+    public function modificaserie($utente,$serie,$copertina,$generi,$lingue){
         $this->smarty->assign('utente',$utente);
         $this->smarty->assign('serie',$serie);
+        $this->smarty->assign('copertina',$copertina);
+        $this->smarty->assign('generi',$generi);
+
+        $this->smarty->assign('lingue',$lingue);
 
 
         $this->smarty->display('modificaSerie.tpl');

@@ -27,4 +27,10 @@ class FTVgenere
         $con->storeTVgenere($id_genere, $id_serie);
     }
 
+    public static function delete($id_genere,$id_serie)
+    {
+        $con = FConnectionDB::getIstanza();
+        $con->deleteTvGenere($id_genere, $id_serie);
+    }
+
 }

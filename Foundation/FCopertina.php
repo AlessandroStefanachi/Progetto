@@ -98,4 +98,18 @@ class FCopertina
         return self::$campiParametriciTabella;
     }
 
+    public static function update($campo, $nuovoValore, $chiave, $id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $verifica = $con->update($campo, $nuovoValore, $chiave, $id, static::$nomeClasse);
+        return $verifica;
+    }
+
+    public static function delete($id)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->delete(static::getNomeTabella(),$id,'id');
+        return $ris;
+    }
+
 }

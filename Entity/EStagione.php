@@ -162,6 +162,13 @@ class EStagione
 
 
     }
+
+    public function aggiungiLingua( $lingua)
+    {
+        array_push($this->lingue, $lingua);
+
+
+    }
 //////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE///////////////////
 
     private function calcolaValutazione():void

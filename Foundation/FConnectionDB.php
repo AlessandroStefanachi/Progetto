@@ -44,7 +44,7 @@ class FConnectionDB {
         {
             $this->pdo->beginTransaction();
             $sql = "INSERT INTO ". $nomeClasse::getNomeTabella() . $nomeClasse::getCampiTabella() . " VALUES " . $nomeClasse::getCampiParametriciTabella();
-            echo $sql;
+            //echo $sql;
             $stmt = $this->pdo->prepare($sql);
             $nomeClasse::bind($stmt, $oggetto);
             $stmt->execute();
@@ -171,6 +171,7 @@ class FConnectionDB {
         {
             $this->pdo->beginTransaction();
             $sql = "UPDATE " . $nomeClasse::getNomeTabella() . " SET " . $campo . "='" . $nuovoValore . "' WHERE " . $chiave . "='" . $id . "';";
+            //echo $sql;
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $this->pdo->commit();
@@ -668,6 +669,48 @@ class FConnectionDB {
             }
     }
 
+    public function deleteTvGenere($genere,$serie) {
+        try {
+            $verifica = null;
+            $this->pdo->beginTransaction();
+
+            $sql = "DELETE FROM TVgenere WHERE id_genere ='" . $genere . "' AND id_serie ='" . $serie . "';";
+            echo $sql;
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $this->pdo->commit();
+            $this->closeDbConnection();
+            $verifica = true;
+
+        } catch (PDOException $e)
+        {
+            echo "Attenzione errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            //return false;
+        }
+        return $verifica;
+    }
+    public function deleteSTGlingua($lingua,$stg) {
+        try {
+            $verifica = null;
+            $this->pdo->beginTransaction();
+
+            $sql = "DELETE FROM STGLingua WHERE id_lingua ='" . $lingua . "' AND id_stagione ='" . $stg . "';";
+            echo $sql;
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $this->pdo->commit();
+            $this->closeDbConnection();
+            $verifica = true;
+
+        } catch (PDOException $e)
+        {
+            echo "Attenzione errore: " . $e->getMessage();
+            $this->pdo->rollBack();
+            //return false;
+        }
+        return $verifica;
+    }
 }
 
 /*

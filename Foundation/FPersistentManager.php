@@ -49,7 +49,7 @@ class FPersistentManager
 
         ////////////////////////////DA MODIFICARE CON LE CLASSI DI TVTRACKER///////////////////////////////////////////////
         if ($nomeClasse == "FWatchlist" || $nomeClasse == "FUtente" || $nomeClasse == "FEpisodio"
-            || $nomeClasse == "FStagione" || $nomeClasse == "FSerieTv"||$nomeClasse="FCommento") {
+            || $nomeClasse == "FStagione" || $nomeClasse == "FSerieTv"||$nomeClasse=="FCommento"||$nomeClasse=='FCopertina') {
             $verifica = $nomeClasse::update($campo, $nuovoValore, $chiave, $id);
             return $verifica;
         } else return false;
@@ -166,11 +166,24 @@ public static function AllGenere(){
 
     }
 
+    public static function deleteSTGlingua($id_lingua, $id_stg)
+    {
+        FSTGlingua::delete($id_lingua, $id_stg);
+
+    }
+
     public static function loadTVgenere($id_tv)
     {
         $TVgenere = FTVgenere::load($id_tv);
         return $TVgenere;
     }
+
+    public static function deleteTvGenere($genere,$id_tv)
+    {
+        FTVgenere::delete($genere,$id_tv);
+        //return $TVgenere;
+    }
+
 
     public static function loadGenereTv($genere)
     {

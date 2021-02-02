@@ -18,5 +18,9 @@ class FSTGlingua
         $con = FConnectionDB::getIstanza();
         $con->storeSTGlingua($id_lingua, $id_stagione);
     }
-
+    public static function delete($id_lingua,$id_stagione)
+    {
+        $con = FConnectionDB::getIstanza();
+        $con->deleteSTGlingua($id_lingua, $id_stagione);
+    }
 }
