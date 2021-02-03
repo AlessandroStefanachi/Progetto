@@ -3,14 +3,13 @@
 
 class EUtente
 {
-    private String $userName;
-    private String $email;
-    private String $password;
+    private  $userName;
+    private  $email;
+    private  $password;
     private $seguiti=array();
     private $seguaci=array();
     private $watchlist=array();
-    private $attese=array();
-    private String $ruolo;
+    private  $ruolo;
     private $visti=array();
     /**
      * EUtente constructor.
@@ -19,7 +18,7 @@ class EUtente
      * @param String $password
      * @param String $ruolo
      */
-    public function __construct(String $userName, String $email, String $password, String $ruolo)
+    public function __construct( $userName,  $email,  $password,  $ruolo)
     {
         $this->userName = $userName;
         $this->email = $email;
@@ -61,18 +60,12 @@ class EUtente
         return $this->watchlist;
     }
 
-    /**
-     * @return array
-     */
-    public function getAttese()
-    {
-        return $this->attese;
-    }
+
 
     /**
      * @return array
      */
-    public function getSeguiti(): array
+    public function getSeguiti()
     {
         return $this->seguiti;
     }
@@ -80,7 +73,7 @@ class EUtente
     /**
      * @return array
      */
-    public function getSeguaci(): array
+    public function getSeguaci()
     {
         return $this->seguaci;
     }
@@ -88,7 +81,7 @@ class EUtente
     /**
      * @return String
      */
-    public function getRuolo(): String
+    public function getRuolo()
     {
         return $this->ruolo;
     }
@@ -133,18 +126,12 @@ class EUtente
         $this->watchlist = $watchlist;
     }
 
-    /**
-     * @param array $attese
-     */
-    public function setAttese($attese)
-    {
-        $this->attese = $attese;
-    }
+
 
     /**
      * @param array $seguiti
      */
-    public function setSeguiti(array $seguiti): void
+    public function setSeguiti( $seguiti)
     {
         $this->seguiti = $seguiti;
     }
@@ -152,7 +139,7 @@ class EUtente
     /**
      * @param array $seguaci
      */
-    public function setSeguaci(array $seguaci): void
+    public function setSeguaci( $seguaci)
     {
         $this->seguaci = $seguaci;
     }
@@ -160,7 +147,7 @@ class EUtente
     /**
      * @param String $ruolo
      */
-    public function setRuolo(String $ruolo): void
+    public function setRuolo( $ruolo)
     {
         $this->ruolo = $ruolo;
     }
@@ -168,45 +155,22 @@ class EUtente
     /**
      * @param String $ruolo
      */
-    public function setvisti( $visti): void
+    public function setvisti( $visti)
     {
         $this->visti = $visti;
     }
 //////////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERA UNA WATCHLIST AL PROFILO////////////////////////////////////////////////////////
-    public function AggiungiWatchlist(EWatchlist $watchlist): void
+    public function AggiungiWatchlist( $watchlist)
     {
         array_push($this->watchlist, $watchlist) ;
     }
 /////////////////////////////////////////////////////////////////////////////METODO PER RIMUOVERE UNA WATCHLIST AL PROFILO///////////////////////////////////////////////////////////
-    public function RimuoviWatchlist(EWatchlist $watchlist): void
+    public function RimuoviWatchlist( $watchlist)
     {
         unset($this->watchlist[array_search($watchlist,$this->watchlist)]);
     }
-/////////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE UNA SERIE TV ALLA SERIE IN PROSSIMA USCITA////////////////////////////////////////
-    public function AggiungiAttese(ESerieTv $serie): void
-    {
-        array_push($this->attese, $serie) ;
-    }
-////////////////////////////////////////////////////////////////////////////METODO PER RIMUOVERE UNA SERIE TV ALLA SERIE IN PROSSIMA USCITA//////////////////////////////////////////
-    public function RimuoviAttese(ESerieTv $serie): void
-    {
-        unset($this->attese[array_search($serie,$this->attese)]);
-    }
-///////////////////////////////////////////////////////////////////////////METODO PER SPOSTARE UNA SERIE TV DALLA LISTA ATTESA ALLA WATCHLIST SELEZIONATA//////////////////////////////
-    public function Sposta(ESerieTv $serie, EWatchlist $watchlist): void
-    {
-        $key=array_search($watchlist,$this->watchlist);
-        echo"\n"."chiave ".$key."\n";
-        $arr=$this->watchlist[$key]->getserie();
-        if(in_array($serie,$this->attese))
-        {
-            echo "\n"."ci sono"."\n";
-            unset($this->attese[array_search($serie,$this->attese)]);
-            array_push($arr,$serie);
-            $this->watchlist[$key]->setserie($arr);
-                echo $this->watchlist[$key]->__toString();
-        }
-    }
+
+
 /////////////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE SEGUITI AL PROFILO////////////////////////////////////////////////////////////////////
     public function AggiungiSeguiti(EUtente $utente)
     {
@@ -248,7 +212,7 @@ class EUtente
         return $str;
     }
 
-    public function __toString():String
+    public function __toString()
     {
         // TODO: Implement __toString() method.
         $str="username: ".$this->getUserName()."\n"."Email: ".$this->getEmail()."\n"."Password: ".$this->getPassword()."\n"."Watchlist: ".$this->ArrayToString($this->getWatchlist())

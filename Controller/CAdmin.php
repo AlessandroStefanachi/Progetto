@@ -328,7 +328,10 @@ static function ban($id){
                 $copertina=base64_encode($u[0]->getCopertina()->getImmagine());
                 $g = FPersistentManager::loadAll('FGenere');
                 $l = FPersistentManager::loadAll('FLingua');
-                $v->modificaserie($_SESSION['utente'], $u[0],$copertina,$g,$l);
+                if(isset($_SESSION['gif'])){$gif=true;unset($_SESSION['gif']);}
+                else $gif=false;
+                $v->modificaserie($_SESSION['utente'], $u[0],$copertina,$g,$l,$gif);
+
 
             }
             else header('Location: /Progetto/Utente/homepagedef');

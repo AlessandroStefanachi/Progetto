@@ -3,15 +3,15 @@
 
 class EValutazione
 {
-    private int $voto;
-    private String $autore;
-    private int $id_episodio;
+    private  $voto;
+    private  $autore;
+    private  $id_episodio;
     /**
      * EValutazione constructor.
      * @param int $voto
      * @param EUtente $autore
      */
-    public function __construct(int $voto, String $autore, int $id_episodio)
+    public function __construct( $voto,  $autore,  $id_episodio)
     {
         $this->voto = $voto;
         $this->autore = $autore;
@@ -22,7 +22,7 @@ class EValutazione
     /**
      * @return int
      */
-    public function getVoto(): int
+    public function getVoto()
     {
         return $this->voto;
     }
@@ -38,7 +38,7 @@ class EValutazione
     /**
      * @return EUtente
      */
-    public function getAutore(): String
+    public function getAutore()
     {
         return $this->autore;
     }
@@ -47,7 +47,7 @@ class EValutazione
     /**
      * @param int $voto
      */
-    public function setVoto(int $voto): void
+    public function setVoto( $voto)
     {
         $this->voto = $voto;
     }
@@ -63,11 +63,11 @@ class EValutazione
     /**
      * @param EUtente $autore
      */
-    public function setAutore(EUtente $autore): void
+    public function setAutore( $autore)
     {
         $this->autore = $autore;
     }
-    public function __toString(): String
+    public function __toString()
     {
         $str="Voto: ".$this->getVoto()."\n"."Autore: ".$this->getAutore()."\n";
         return $str;

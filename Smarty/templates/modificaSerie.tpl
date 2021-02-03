@@ -115,7 +115,14 @@
                     </div>
                     <input class="btn btn-sm"type="submit" id="filebutton" value="modifica copertina" disabled>
                 </form>
+
             </div>
+            <div class="alert alert-danger" role="alert" style="display: none" id="size alert">
+                La dimensione del file non può superare 350kb
+            </div>
+            {if $gif}<div class="alert alert-danger" role="alert">
+                l'estensione 'gif' non è ammessa
+            </div>{/if}
             <div class="d-flex flex-row pt-5" style="width: 100% ">
                 <form method="post" action="/Progetto/Admin/modifica?id={$serie->getId()}">
                     <div class="form-group"  >

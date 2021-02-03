@@ -66,4 +66,9 @@ class VUtente
         $this->smarty->assign("watchlist",$watchlist);
         $this->smarty->display("ownprofile.tpl");
     }
+
+    public function banned($utente){
+        $this->smarty->assign("utente",$utente);
+        $this->smarty->display('banned.tpl');
+    }
 }

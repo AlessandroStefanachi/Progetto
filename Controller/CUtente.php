@@ -10,6 +10,9 @@ static function homepagedef(){
     if(static::verificalogin())header('Location: /Progetto/Utente/homelog');
     else{
     session_start();
+    if(isset($_SESSION['utente'])){
+        if($_SESSION['utente']->getRuolo()=='banned')header('Location: /Progetto/Utente/banned');
+    }
     $view = new VUtente();
     $res=FPersistentManager::homepagedef();
 
@@ -32,7 +35,8 @@ static function homepagedef(){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
             session_start();
-            if(isset($_SESSION['location']))unset($_SESSION['location']);
+            if(isset($_SESSION['location'])&&$_SESSION['location']!='banned')unset($_SESSION['location']);
+            else{if(isset($_SESSION['location']))header('Location: /Progetto/Utente/banned');}
             if(isset($_SESSION['order']))$order=$_SESSION['order'];
             else $order=null;
             $generi=FPersistentManager::AllGenere();
@@ -113,9 +117,10 @@ static function homepagedef(){
                     $_SESSION["followed"]=$utente->getSeguiti();
                     $_SESSION["visti"]=$utente->getVisti();
                     $_SESSION["watchlist"]=$utente->getWatchlist();
-
-                    if($utente->getRuolo() == "a") {
-                        header('Location: /WeBetting/Admin/homepage');
+                   // $_SESSION['voti']=FPersistentManager::load('autore',$utente->getUsername(),'FValutazione');
+                    if($utente->getRuolo() == "banned") {
+                        $_SESSION['location']='banned';
+                        header('Location: /Progetto/Utente/banned');
                     }
                     else header('Location: /Progetto/Utente/homelog');
                 }else {
@@ -136,6 +141,12 @@ static function homepagedef(){
         }
     }
 
+    static function banned(){
+    session_start();
+    $v=new VUtente();
+    $v->banned($_SESSION['utente']);
+    }
+
     static function verificalogin(){
     
        session_start();
@@ -144,7 +155,14 @@ static function homepagedef(){
         //session_destroy();
 
 
-        if (isset($_SESSION['utente'])){session_abort();return true;}
+        if (isset($_SESSION['utente'])){
+            if($_SESSION['utente']->getRuolo()=='banned'){
+                $_SESSION['location']='banned';
+                session_abort();
+                return false;
+            }
+            else{
+            session_abort();return true;}}
         else {session_abort();return false;}
     }
 
@@ -333,10 +351,11 @@ static function homepagedef(){
             if($_SERVER['REQUEST_METHOD'] == "GET")header('Location: /Progetto/Utente/homepagedef');
             else{
                 $utenteDB = FPersistentManager::loadLoginPWHash($_SESSION['utente']->getUsername(), $_POST["password"]);
-                $check=FPersistentManager::exist("username",$_POST["username"],"FUtente");
-                if($utenteDB != null&&$check==null) {
+                //FPersistentManager::exist("username",$_POST["username"],"FUtente");
+                if($utenteDB != null&&!FPersistentManager::exist("username",$_POST["username"],"FUtente")) {
 
-                    FPersistentManager::update("username", $_POST["username"], "username", $_SESSION['utente']->getUsername(), "FUtente");
+                   // FPersistentManager::update("username", $_POST["username"], "username", $_SESSION['utente']->getUsername(), "FUtente");
+                    FPersistentManager::update('username',$_POST['username'],'username',$_SESSION['utente']->getUsername(),'FUtente');
                     $_SESSION['utente']->setUsername($_POST["username"]);
                     $_SESSION['usernameedit']=true;
 

@@ -21,10 +21,12 @@ static function info($id){
             $_SESSION['location']='/Watchlist/info?id='.$id;
             $watchlist=FPersistentManager::load('id',$id,'FWatchlist');
             $watchlist=clone($watchlist[0]);
+            if($watchlist->getProprietario()==$_SESSION['utente']->getUsername()||$watchlist->isPubblico()){
             if(isset($_SESSION['visti']))$visti=$_SESSION['visti'];
             else $visti=null;
             $view = new VWatchlist();
-            $view->info($watchlist,$_SESSION['utente'],$watchlist->Base64(),$visti);
+            $view->info($watchlist,$_SESSION['utente'],$watchlist->Base64(),$visti);}
+            else header('Location: /Progetto/Utente/homelog');
             //modifica
         }
         else{

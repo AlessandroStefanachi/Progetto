@@ -3,12 +3,12 @@
 
 class EWatchlist
 {
-    private String $nome;
-    private String $descrizione;
-    private Bool $pubblico;
+    private  $nome;
+    private  $descrizione;
+    private  $pubblico;
     private  $serie=array();
-    private int $id;
-    private String $proprietario;
+    private  $id;
+    private  $proprietario;
 
     /**
      * EWatchlist constructor.
@@ -17,7 +17,7 @@ class EWatchlist
      * @param bool $pubblico
      * @param array $serie
      */
-    public function __construct(String $_nome, String $_descrizione, bool $_pubblico, String $proprietario)
+    public function __construct( $_nome,  $_descrizione,  $_pubblico,  $proprietario)
     {
         $this->nome = $_nome;
         $this->descrizione = $_descrizione;
@@ -121,12 +121,12 @@ class EWatchlist
         $this->serie = $serie;
     }
 //////////////////////////////////////////////////////////////////METODO PER AGGIUNGERE UNA SERIE TV ALLA WATCHLIST/////////////////////////////////////////////////////////////////////////////
-    public function AggiungiSerie(ESerieTv $serie): void
+    public function AggiungiSerie(ESerieTv $serie)
     {
         array_push($this->serie,$serie) ;
     }
 //////////////////////////////////////////////////////////////////METODO PER RIMUOVERE UNA SERIE TV ALLA WATCHLIST/////////////////////////////////////////////////////////////////////////////
-    public function  RimuoviSerie(ESerieTv $serie): void
+    public function  RimuoviSerie(ESerieTv $serie)
     {
         unset($this->serie[array_search($serie,$this->serie)]);
     }
@@ -157,7 +157,7 @@ class EWatchlist
      foreach ($this->serie  as $a) array_push($cop,base64_encode($a->getCopertina()->getImmagine()));
         return $cop;
  }
-    public function __toString():String
+    public function __toString()
     {
         // TODO: Implement __toString() method.
         $str="Nome: ".$this->getNome()."\n"."Descrizione: ".$this->getDescrizione()."\n"."pubblico: ".$this->isPubblico()."\n"."Serie TV: ".$this->ArrayToString($this->getSerie())."\n"."proprietario: ".$this->getProprietario()."\n";

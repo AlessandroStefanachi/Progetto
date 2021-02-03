@@ -1,0 +1,98 @@
+#bg2{
+    height:100vh;
+    min-width:100%;
+    background-color:#555B5F;
+    position:fixed;
+    z-index:-1;
+}
+
+.icon:hover{color:#FFCF17;}
+
+#poplg:hover #lg-appear{color: #f9f9f9;display: block;}
+
+#lg-appear {display: none;color: #9B410E;}
+
+.utenti{
+    overflow-wrap: break-word;
+    word-wrap:break-word;
+    background-color: #919598;
+    min-width: 30vw;
+    max-width: 30vw;
+    display: block;
+    overflow: auto;
+    border-radius: 5px;
+!important;
+}
+
+hr{
+    background-color:#FFCF17;
+
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+!important;
+}
+
+#sgbox{display: none}
+
+#sg-appear:hover #sgbox{display: block;}
+
+#sebox{display: none}
+
+#se-appear:hover #sebox{display: block;}
+
+#wcbox{display: none}
+
+#watch-appear:hover #wcbox{display: block;}
+
+.jumbotron{border-radius: 5px}
+
+.jumbotron a{
+    color: #555B5F;
+}
+#pr-appear {display: none;color: #9B410E;}
+#poppr:hover #pr-appear{color: #f9f9f9;display: block;}
+
+.checked {
+    color: orange;
+}
+
+.fa{ font-size: 30px;}
+
+#genere-box{display: none}
+
+#genere-appear:hover #genere-box{display: block;}
+
+#lingue-box{display: none}
+
+#lingue-appear:hover #lingue-box{display: block;}
+
+
+
+.season{display: none}
+
+.down{display: inline-block}
+.up{display: none;}
+
+
+
+.btn{background-color: #FFCF17; !important}
+
+.text{font-size: large}
+
+#check1,#check2,#check3,#check4,#check5{display: none; !important;}
+
+#uncheck1,#uncheck2,#uncheck3,#uncheck4,#uncheck5{display: inline-block; !important;}
+
+#btn1,#btn2,#btn3,#btn4,#btn5{display: none; !important;}
+
+.boxStagioni{display: none;}
+.boxEpisodi{display: none;}
+#editform{display:none;}
+
+#error{
+    font-size:50px;
+    color:#555B5F;
+}

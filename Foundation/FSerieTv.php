@@ -8,9 +8,9 @@ class FSerieTv
     /*Nome della tabella del db*/
     private static $nomeTabella = "SerieTV";
     /*Campi della tabella del db*/
-    private static $campiTabella = "(titolo, trama, regista, tipo, id, id_copertina)";
+    private static $campiTabella = "(titolo, trama, regista, id, id_copertina)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
-    private static $campiParametriciTabella = "(:titolo, :trama, :regista, :tipo, :id, :id_copertina)";
+    private static $campiParametriciTabella = "(:titolo, :trama, :regista, :id, :id_copertina)";
 
     /**
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
@@ -23,7 +23,7 @@ class FSerieTv
         $stmt->bindValue(':titolo', $serie->getTitolo(), PDO::PARAM_STR);
         $stmt->bindValue(':trama', $serie->getTrama(), PDO::PARAM_STR);
         $stmt->bindValue(':regista', $serie->getRegista(), PDO::PARAM_STR);
-        $stmt->bindValue(':tipo', $serie->getTipo(), PDO::PARAM_STR);
+        //$stmt->bindValue(':tipo', $serie->getTipo(), PDO::PARAM_STR);
         $stmt->bindValue(':id', NULL, PDO::PARAM_INT);// AGGIUNGERE METODO GET E PARAMETRO ID
         $stmt->bindValue(':id_copertina', $serie->getId_copertina(), PDO::PARAM_INT);// AGGIUNGERE METODO GET E PARAMETRO ID
 
@@ -83,7 +83,7 @@ class FSerieTv
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                $serie[$i] = new ESerieTv($righe[$i]["titolo"], $righe[$i]["trama"], $righe[$i]["regista"], $righe[$i]["tipo"]);
+                $serie[$i] = new ESerieTv($righe[$i]["titolo"], $righe[$i]["trama"], $righe[$i]["regista"]);
 
                 $serie[$i]->setId($righe[$i]["id"]);
                 if($righe[$i]['id_copertina']!=null)$serie[$i]->setId_copertina($righe[$i]["id_copertina"]);
@@ -105,6 +105,7 @@ class FSerieTv
                     }
                     if($generi)
                         $serie[$i]->setGenere($generi);
+                    $serie[$i]->ordinaStagioni();
                 }
             }
         }
@@ -129,7 +130,7 @@ class FSerieTv
             $numeroRighe = count($righe);
             for($i = 0; $i < $numeroRighe; $i++)
             {
-                $serie[$i] = new ESerieTv($righe[$i]["titolo"], $righe[$i]["trama"], $righe[$i]["regista"], $righe[$i]["tipo"]);
+                $serie[$i] = new ESerieTv($righe[$i]["titolo"], $righe[$i]["trama"], $righe[$i]["regista"]);
 
                 $serie[$i]->setId($righe[$i]["id"]);
                 if($righe[$i]['id_copertina']!=null)$serie[$i]->setId_copertina($righe[$i]["id_copertina"]);
@@ -152,6 +153,7 @@ class FSerieTv
                     }
                     if($generi)
                         $serie[$i]->setGenere($generi);
+                    $serie[$i]->ordinaStagioni();
                 }
             }
         }

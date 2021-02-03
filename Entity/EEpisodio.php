@@ -3,14 +3,14 @@
 
 class EEpisodio
 {
-    private int $id;
-    private String $titolo;
-    private DateTime $durata;
-    private bool $visto;
+    private  $id;
+    private  $titolo;
+    private  $durata;
+    private  $visto;
     private $commenti= array() ;
     private $valutazioni=array();
-    private int $valutazione=0;
-    private int $id_stagione;
+    private  $valutazione=0;
+    private  $id_stagione;
 
     /**
      * EEpisodio constructor.
@@ -46,7 +46,7 @@ class EEpisodio
     /**
      * @return String
      */
-    public function getTitolo(): String
+    public function getTitolo()
     {
         return $this->titolo;
     }
@@ -54,7 +54,7 @@ class EEpisodio
     /**
      * @return float
      */
-    public function getDurata(): String
+    public function getDurata()
     {
         return $this->durata->format('H:i:s');;
     }
@@ -62,7 +62,7 @@ class EEpisodio
     /**
      * @return String
      */
-    public function isVisto(): String
+    public function isVisto()
     {
         if($this->visto)
             return "true";
@@ -73,7 +73,7 @@ class EEpisodio
     /**
      * @return array
      */
-    public function getCommenti(): array
+    public function getCommenti()
     {
         return $this->commenti;
     }
@@ -81,7 +81,7 @@ class EEpisodio
     /**
      * @return array
      */
-    public function getValutazioni(): array
+    public function getValutazioni()
     {
         return $this->valutazioni;
     }
@@ -89,7 +89,7 @@ class EEpisodio
     /**
      * @return int
      */
-    public function getValutazione(): int
+    public function getValutazione()
     {
         return $this->valutazione;
     }
@@ -115,7 +115,7 @@ class EEpisodio
     /**
      * @param String $titolo
      */
-    public function setTitolo(String $titolo): void
+    public function setTitolo( $titolo)
     {
         $this->titolo = $titolo;
     }
@@ -123,7 +123,7 @@ class EEpisodio
     /**
      * @param float $durata
      */
-    public function setDurata(float $durata): void
+    public function setDurata( $durata)
     {
         $this->durata = $durata;
     }
@@ -131,7 +131,7 @@ class EEpisodio
     /**
      * @param bool $visto
      */
-    public function setVisto(bool $visto): void
+    public function setVisto( $visto)
     {
         $this->visto = $visto;
     }
@@ -139,7 +139,7 @@ class EEpisodio
     /**
      * @param array $commenti
      */
-    public function setCommenti(array $commenti): void
+    public function setCommenti( $commenti)
     {
         $this->commenti = $commenti;
     }
@@ -147,7 +147,7 @@ class EEpisodio
     /**
      * @param array $valutazioni
      */
-    public function setValutazioni(array $valutazioni): void
+    public function setValutazioni(array $valutazioni)
     {
         $this->valutazioni = $valutazioni;
         $this->calcolaValutazione();
@@ -156,32 +156,32 @@ class EEpisodio
     /**
      * @param int $valutazione
      */
-    public function setValutazione(int $valutazione): void
+    public function setValutazione( $valutazione)
     {
         $this->valutazione = $valutazione;
     }
 /////////////////////////////////////////////////////////////METODO CHECK//////////////////////////////////////////////////////////////////////////////////
 
-    public function check():void
+    public function check()
     {
         $this->visto=true;
     }
 ////////////////////////////////////////////////////////////METODO PER AGGIUNGERE VALUTAZIONI///////////////////////////////////////////////////////////////
 
-    public function aggiungiValutazione(EValutazione $valutazione):void
+    public function aggiungiValutazione(EValutazione $valutazione)
     {
         array_push($this->valutazioni, $valutazione);
         $this->calcolaValutazione();
     }
 ////////////////////////////////////////////////////////////METODO PER AGGIUNGERE COMMENTI////////////////////////////////////////////////////////////////
 
-    public function aggiungiCommento(ECommento $commento):void
+    public function aggiungiCommento(ECommento $commento)
     {
         array_push($this->commenti, $commento);
     }
 ///////////////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE MEDIA/////////////////////////////////////////////////
 
-    private function calcolaValutazione():void
+    private function calcolaValutazione()
     {
     ///////////////non va int $media /////////////////////////////////
         $media=0;
@@ -191,6 +191,15 @@ class EEpisodio
         $i++;}
         $this->valutazione=$media/$i;
 
+    }
+
+    public function individuaVoto($utente){
+        $voto=null;
+        foreach ($this->valutazioni as $v){
+            if($v->getAutore()==$utente->getUsername())
+                $voto=$v->getVoto();
+        }
+        return $voto;
     }
 
 ////////////////////////////////////////////////////////////METODI TO STRING//////////////////////////////////////////////////////////////////////////
@@ -212,7 +221,7 @@ class EEpisodio
         return $str;
     }
 
-    public function __toString(): String
+    public function __toString()
     {
         $str="Titolo: ".$this->getTitolo()."\n"."Durata Episodio: ".$this->getDurata()."\n"."Visto: ".$this->isVisto()."\n"."Commenti: ".$this->ArrayToString($this->getCommenti())."\n"."Valutazioni: ".$this->ArrayToString($this->getValutazioni())."\n"."Valutazione: ".$this->getValutazione()."\n";
         return $str;

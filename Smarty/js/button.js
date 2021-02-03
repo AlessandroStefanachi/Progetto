@@ -19,3 +19,11 @@ function activeadd(){
 
 
 }
+
+function searchbutton() {
+    var ricerca=document.getElementById('scbar');
+    var button=document.getElementById('barButton');
+    if(ricerca.value.length==0||ricerca.value[0]==' ')button.disabled=true;
+    else button.disabled=false;
+
+}

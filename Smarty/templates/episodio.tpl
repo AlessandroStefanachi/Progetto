@@ -80,29 +80,33 @@
         <span>
             Durata:
         </span><span> {$episodio->getDurata()}</span><br>
+{if isset($voto)||!in_array($episodio->getId(),$visti)}{$block=true}{else}{$block=false}{/if}
 
         <hr class="my-4">
         <div class="vote">
-            <span class="fa fa-star" id="uncheck1" {if in_array($episodio->getId(),$visti)}onclick="checked(1)"{/if}></span>
+            <span class="fa fa-star{if isset($voto)&&$voto>0} checked{$voto=$voto-1}{/if}" id="uncheck1" {if !$block}onclick="checked(1)"{/if}></span>
             <span class="fa fa-star checked" id="check1" {if in_array($episodio->getId(),$visti)}onclick="unchecked(1)"{/if}></span>
-            <span class="fa fa-star" id="uncheck2" {if in_array($episodio->getId(),$visti)}onclick="checked(2)"{/if}></span>
+            <span class="fa fa-star{if isset($voto)&&$voto>0} checked{$voto=$voto-1}{/if}" id="uncheck2" {if !$block}onclick="checked(2)"{/if}></span>
             <span class="fa fa-star checked" id="check2" {if in_array($episodio->getId(),$visti)}onclick="unchecked(2)"{/if}></span>
-            <span class="fa fa-star" id="uncheck3" {if in_array($episodio->getId(),$visti)}onclick="checked(3)"{/if}></span>
+            <span class="fa fa-star{if isset($voto)&&$voto>0} checked{$voto=$voto-1}{/if}" id="uncheck3" {if !$block}onclick="checked(3)"{/if}></span>
             <span class="fa fa-star checked" id="check3" {if in_array($episodio->getId(),$visti)}onclick="unchecked(3)"{/if}></span>
-            <span class="fa fa-star" id="uncheck4" {if in_array($episodio->getId(),$visti)}onclick="checked(4)"{/if}></span>
+            <span class="fa fa-star{if isset($voto)&&$voto>0} checked{$voto=$voto-1}{/if}" id="uncheck4" {if !$block}onclick="checked(4)"{/if}></span>
             <span class="fa fa-star checked" id="check4" {if in_array($episodio->getId(),$visti)}onclick="unchecked(4)"{/if}></span>
-            <span class="fa fa-star" id="uncheck5" {if in_array($episodio->getId(),$visti)}onclick="checked(5)"{/if}></span>
+            <span class="fa fa-star{if isset($voto)&&$voto>0} checked{$voto=$voto-1}{/if}" id="uncheck5" {if !$block}onclick="checked(5)"{/if}></span>
             <span class="fa fa-star checked" id="check5" {if in_array($episodio->getId(),$visti)}onclick="unchecked(5)"{/if}></span>
 
 
         </div>
         <br>
         <button href="/Progetto/Episodio/vote?voto=" class="btn btn-sm votebt" id="btn0" disabled>valuta</button>
+
         <a href="/Progetto/Episodio/vote?voto=1" class="btn btn-sm votebt" id="btn1">valuta</a>
         <a href="/Progetto/Episodio/vote?voto=2" class="btn btn-sm votebt" id="btn2">valuta</a>
         <a href="/Progetto/Episodio/vote?voto=3" class="btn btn-sm votebt" id="btn3">valuta</a>
         <a href="/Progetto/Episodio/vote?voto=4" class="btn btn-sm votebt" id="btn4">valuta</a>
         <a href="/Progetto/Episodio/vote?voto=5" class="btn btn-sm votebt" id="btn5">valuta</a>
+       {if isset($voto)} <a href="/Progetto/Episodio/cancellaVoto?id={$episodio->getId()}" class="btn btn-sm ">Cancella voto</a>
+       {else}<button  class="btn btn-sm " disabled>Cancella voto</button>{/if}
         <hr class="my-4">
         <span>Commenti </span>
 

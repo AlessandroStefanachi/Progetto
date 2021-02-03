@@ -53,8 +53,9 @@ function modtrama() {
 function modfile() {
     var value=document.getElementById('file');
     var button=document.getElementById('filebutton');
-    if(value.files[0].size>300000000)button.disabled=true;
-    else button.disabled=false;
+    var alert=document.getElementById('size alert')
+    if(value.files[0].size>350000){button.disabled=true; alert.style.display='inline-block';}
+    else {button.disabled=false;alert.style.display='none';}
 
 }
 

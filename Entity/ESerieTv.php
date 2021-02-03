@@ -3,13 +3,13 @@
 
 class ESerieTv
 {
-    private String $titolo;
-    private String $trama;
+    private  $titolo;
+    private  $trama;
     private $genere=array();
-    private int $valutazione=0;
-    private String $regista;
+    private  $valutazione=0;
+    private  $regista;
     private $stagioni=array();
-    private String $tipo;//solo disponibile o in uscita
+
     private $id;
     private $copertina;
     private $id_copertina;
@@ -23,19 +23,19 @@ class ESerieTv
      * @param array $stagioni
      * @param String $tipo
      */
-    public function __construct(String $_titolo, String $_trama, String $_regista, String $_tipo)
+    public function __construct( $_titolo,  $_trama,  $_regista)
     {
         $this->titolo = $_titolo;
         $this->trama = $_trama;
         $this->regista = $_regista;
-        $this->tipo = $_tipo;
+
     }
 ///////////////////////////////////////////////////////////////////////GETTERS/////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * @return String
      */
-    public function getTitolo(): String
+    public function getTitolo()
     {
         return $this->titolo;
     }
@@ -51,7 +51,7 @@ class ESerieTv
     /**
      * @return String
      */
-    public function getTrama(): String
+    public function getTrama()
     {
         return $this->trama;
     }
@@ -59,7 +59,7 @@ class ESerieTv
     /**
      * @return array
      */
-    public function getGenere(): array
+    public function getGenere()
     {
         return $this->genere;
     }
@@ -67,7 +67,7 @@ class ESerieTv
     /**
      * @return int
      */
-    public function getValutazione(): int
+    public function getValutazione()
     {   $this->calcolaValutazione();
         return $this->valutazione;
     }
@@ -82,7 +82,7 @@ class ESerieTv
     /**
      * @return String
      */
-    public function getRegista(): String
+    public function getRegista()
     {
         return $this->regista;
     }
@@ -90,7 +90,7 @@ class ESerieTv
     /**
      * @return array
      */
-    public function getStagioni(): array
+    public function getStagioni()
     {
         return $this->stagioni;
     }
@@ -98,7 +98,7 @@ class ESerieTv
     /**
      * @return String
      */
-    public function getTipo(): String
+    public function getTipo()
     {
         return $this->tipo;
     }
@@ -107,7 +107,7 @@ class ESerieTv
     /**
      * @param String $titolo
      */
-    public function setTitolo(String $titolo): void
+    public function setTitolo( $titolo)
     {
         $this->titolo = $titolo;
     }
@@ -123,7 +123,7 @@ class ESerieTv
     /**
      * @param String $trama
      */
-    public function setTrama(String $trama): void
+    public function setTrama( $trama)
     {
         $this->trama = $trama;
     }
@@ -131,7 +131,7 @@ class ESerieTv
     /**
      * @param array $genere
      */
-    public function setGenere(array $genere): void
+    public function setGenere(array $genere)
     {
         $this->genere = $genere;
     }
@@ -139,7 +139,7 @@ class ESerieTv
     /**
      * @param int $valutazione
      */
-    public function setValutazione(int $valutazione): void
+    public function setValutazione( $valutazione)
     {
         $this->valutazione = $valutazione;
     }
@@ -147,7 +147,7 @@ class ESerieTv
     /**
      * @param String $regista
      */
-    public function setRegista(String $regista): void
+    public function setRegista( $regista)
     {
         $this->regista = $regista;
     }
@@ -155,7 +155,7 @@ class ESerieTv
     /**
      * @param array $stagioni
      */
-    public function setStagioni(array $stagioni): void
+    public function setStagioni(array $stagioni)
     {
         $this->stagioni = $stagioni;
     }
@@ -163,12 +163,12 @@ class ESerieTv
     /**
      * @param String $tipo
      */
-    public function setTipo(String $tipo): void
+    public function setTipo( $tipo)
     {
         $this->tipo = $tipo;
     }
 
-    public function setCopertina( $copertina): void
+    public function setCopertina( $copertina)
     {
         $this->copertina = $copertina;
         //$this->setId_copertina($copertina->getid());
@@ -178,7 +178,7 @@ class ESerieTv
     }
 //////////////////////////////////////METODO PER AGGIUNGERE UNA STAGIONE////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function aggiungiStagione(EStagione $stagione):void
+    public function aggiungiStagione( $stagione)
     {
         $stagione->setNumero(count($this->stagioni)+1);
         array_push($this->stagioni, $stagione);
@@ -191,7 +191,7 @@ class ESerieTv
     }
 ///////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE//////////////////////////////////////////////////////////////////////////////////////////////
 
-    private function calcolaValutazione():void
+    private function calcolaValutazione()
     {
         $media=0;
         ///////////////non va int $media /////////////////////////////////
@@ -202,6 +202,19 @@ class ESerieTv
 
         }
         $this->valutazione=$media/count($this->stagioni);}
+    }
+
+    function order($a, $b)
+    {
+        if ($a->getNumero() == $b->getNumero()) {
+            return 0;
+        }
+        return ($a->getNumero() < $b->getNumero()) ? -1 : 1;
+
+    }
+    public function ordinaStagioni(){
+
+        usort($this->stagioni, "ESerietv::order");
     }
 ///////////////////////////////////////////////////////////////METODI TO STRING///////////////////////////////////////////////////////////////////////
     /**
@@ -224,7 +237,7 @@ class ESerieTv
         return $str;
     }
 
-    public function __toString(): String
+    public function __toString()
     {
         $str="Titolo: ".$this->getTitolo()."\n"."Trama: ".$this->getTrama()."\n"."Genere: ".$this->ArrayToString($this->getGenere())."\n"."Valutazione: ".$this->getValutazione()."\n"."Regista: ".$this->getRegista()."\n"."Stagioni: ".$this->ArrayToString($this->getStagioni())."\n";
         return $str;

@@ -167,15 +167,15 @@
             </div>
             <hr class="my-2">
             {/if}
-            {if $self[0]==true}
+            {if $self[0]==true}<div class="d-flex flex-row" style="width: 100%">
             <span>
  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
   <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 </svg>
                 Password</span>
-            <br>
-            <div class="d-flex flex-row" style="width: 100%">
-                <span class="pr-5">nome</span> <a class=" pl-5 ml-auto" href="" data-toggle="modal" data-target="#pw">modifica</a>
+                <a class=" pl-5 ml-auto" href="" data-toggle="modal" data-target="#pw">modifica</a>
+
+
             </div>
             <hr class="my-2">
             {/if}
@@ -227,9 +227,9 @@
             </span>
             <br>
             <div id="sebox">
-                <ul>
+                <ul>{foreach from=$utente->getSeguaci() item=$a }
                     <li>
-                        {foreach from=$utente->getSeguaci() item=$a }
+
                         <a href="/Progetto/Utente/user?id={$a}"> {$a}</a>
                     </li>
                     {/foreach}
@@ -262,7 +262,7 @@
                     <a href="/Progetto/Watchlist/cancella?id={$a->getId()}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                         </svg></a>{/if}
-                    <a href="/Progetto/Watchlist/info?id={$a->getId()}"> {$a->getNome()}</a>
+                   {if $self[0]||$a->isPubblico()} <a href="/Progetto/Watchlist/info?id={$a->getId()}"> {$a->getNome()}</a>{/if}
                     </br>
                 </li>
 

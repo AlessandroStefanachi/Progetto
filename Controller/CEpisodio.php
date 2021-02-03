@@ -19,8 +19,9 @@ class CEpisodio
                 $commenti=FPersistentManager::load('id_episodio',$id,'FCommento');
                 if(isset($_SESSION['visti']))$visti=$_SESSION['visti'];
                 else $visti=null;
+                $voto=$episodio->individuaVoto($_SESSION['utente']);
                 $view = new VEpisodio();
-                $view->info($episodio,$_SESSION["utente"],$serie,$pos,$stagione,$commenti,$visti);
+                $view->info($episodio,$_SESSION["utente"],$serie,$pos,$stagione,$commenti,$visti,$voto);
                 //modifica
             }
             else{
@@ -183,5 +184,30 @@ class CEpisodio
 
         }
 
+    }
+
+    static function cancellaVoto($id){
+        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
+        else{
+            session_start();
+            if(!isset($_SESSION['location'])) header('Location: /Progetto/Utente/homepagedef');
+            else{
+                if(stripos($_SESSION['location'],'Episodio')!==false ){
+                    //$commento=FPersistentManager::loa('id',$id,'FCommento');
+                    if(FPersistentManager::existval($_SESSION['utente']->getUsername(),$id)){
+                        FPersistentManager::deleteValutazione($_SESSION['utente']->getUsername(),$id);
+
+
+                    }
+
+
+                }
+
+                header('Location: /Progetto'.$_SESSION['location']);
+
+            }
+            //header('Location: /Progetto/Utente/homepagedef');
+
+        }
     }
 }

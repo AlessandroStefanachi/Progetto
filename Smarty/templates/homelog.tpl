@@ -144,9 +144,9 @@
 </svg></span>
                 </div>
                 </div>
-            <input class="form-control mr-sm-2" type="search" placeholder="Cerca Utente" aria-label="Nome serie tv" id="scbar" style="width: 40vw" name="id">
+            <input class="form-control mr-sm-2" type="search" placeholder="Cerca Utente" aria-label="Nome serie tv" id="scbar" style="width: 40vw" name="id" oninput="searchbutton()">
     </div>
-            <button  class="btn btn-sm" id="b" type="submit" form="ricerca">
+            <button  class="btn btn-sm" id="barButton" type="submit" form="ricerca" disabled>
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="CurrentColor" class="bi bi-search" viewBox="0 0 16 16" d>
                     <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
