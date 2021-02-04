@@ -216,7 +216,7 @@ class EUtente
     {
         // TODO: Implement __toString() method.
         $str="username: ".$this->getUserName()."\n"."Email: ".$this->getEmail()."\n"."Password: ".$this->getPassword()."\n"."Watchlist: ".$this->ArrayToString($this->getWatchlist())
-            ."\n"."Serie tv Attese: ".$this->ArrayToString($this->getAttese())."\n"."Seguaci: ".$this->ArrayToString($this->getSeguaci())."\n"."Seguiti: ".$this->ArrayToString($this->getSeguiti());
+            ."\n"."Seguaci: ".$this->ArrayToString($this->getSeguaci())."\n"."Seguiti: ".$this->ArrayToString($this->getSeguiti());
         return $str;
 
     }
