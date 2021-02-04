@@ -36,7 +36,7 @@ static function verificaCookie(){
     setcookie("cookie_test", "cookie_value", time()+3600);
     if (isset($_COOKIE["cookie_test"]))
     {
-
+        setcookie("cookie_test", "cookie_value", -(time()+3600));
         return true;
     }
     else
@@ -57,6 +57,14 @@ static function verificaCookie(){
         try
         {
 
+
+
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'DROP DATABASE IF EXISTS ' .$_POST['db']. '; CREATE DATABASE ' . $_POST['db'] . ' ; USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('TVtracker.sql');
+            $db->exec($query);
+            $db->commit();
             $file = fopen('Utility/config.inc.php', 'c+');
             $script = '<?php global $config; 
             $config[\'mysql\'][\'typedb\']= \'' ."mysql:host=127.0.0.1;dbname=" . $_POST['db'] . '\';
@@ -66,20 +74,12 @@ static function verificaCookie(){
 
             fwrite($file, $script);
             fclose($file);
-
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'DROP DATABASE IF EXISTS ' .$_POST['db']. '; CREATE DATABASE ' . $_POST['db'] . ' ; USE ' . $_POST['db'] . ';' . 'SET GLOBAL max_allowed_packet=16777216;';
-            $query = $query . file_get_contents('TVtracker.sql');
-            $db->exec($query);
-            $db->commit();
-
-            $db=null;
+            //$db=null;
         }
         catch (PDOException $e)
         {
             echo "Errore : " . $e->getMessage();
-            $db->rollBack();
+            //$db->rollBack();
             die;
         }
     }

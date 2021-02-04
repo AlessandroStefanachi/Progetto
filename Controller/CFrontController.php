@@ -10,7 +10,7 @@ class CFrontController {
 
         array_shift($resource);
 
-        if($resource[0]=='Progetto'&&$arrayDim==3)header('Location:/Progetto/Utente/Homepagedef');
+        if($resource[0]=='Progetto'&&$arrayDim==3)header('Location:/Progetto/Utente/homepagedef');
 
         if($arrayDim <= 5) { //(1) verifico se ci sono troppi parametri nel link
             array_shift($resource);

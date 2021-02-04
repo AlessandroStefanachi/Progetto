@@ -6,7 +6,6 @@ class EEpisodio
     private  $id;
     private  $titolo;
     private  $durata;
-    private  $visto;
     private $commenti= array() ;
     private $valutazioni=array();
     private  $valutazione=0;
@@ -18,11 +17,10 @@ class EEpisodio
      * @param DateTime $durata
      * @param bool $visto
      */
-    public function __construct($titolo, $durata, $visto,$id_stagione)
+    public function __construct($titolo, $durata, $id_stagione)
     {
         $this->titolo = $titolo;
         $this->durata = DateTime::createFromFormat('H:i:s', $durata);;
-        $this->visto = $visto;
         $this->id_stagione = $id_stagione;
     }
 /////////////////////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,13 +60,7 @@ class EEpisodio
     /**
      * @return String
      */
-    public function isVisto()
-    {
-        if($this->visto)
-            return "true";
-        else
-            return"false";
-    }
+
 
     /**
      * @return array
@@ -131,10 +123,7 @@ class EEpisodio
     /**
      * @param bool $visto
      */
-    public function setVisto( $visto)
-    {
-        $this->visto = $visto;
-    }
+
 
     /**
      * @param array $commenti
@@ -223,7 +212,7 @@ class EEpisodio
 
     public function __toString()
     {
-        $str="Titolo: ".$this->getTitolo()."\n"."Durata Episodio: ".$this->getDurata()."\n"."Visto: ".$this->isVisto()."\n"."Commenti: ".$this->ArrayToString($this->getCommenti())."\n"."Valutazioni: ".$this->ArrayToString($this->getValutazioni())."\n"."Valutazione: ".$this->getValutazione()."\n";
+        $str="Titolo: ".$this->getTitolo()."\n"."Durata Episodio: ".$this->getDurata()."\n"."Commenti: ".$this->ArrayToString($this->getCommenti())."\n"."Valutazioni: ".$this->ArrayToString($this->getValutazioni())."\n"."Valutazione: ".$this->getValutazione()."\n";
         return $str;
     }
 

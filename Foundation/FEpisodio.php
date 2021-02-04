@@ -8,9 +8,9 @@ class FEpisodio
     /*Nome della tabella del db*/
     private static $nomeTabella = "episodio";
     /*Campi della tabella del db*/
-    private static $campiTabella = "(titolo, durata, visto, id_stagione, id)";
+    private static $campiTabella = "(titolo, durata, id_stagione, id)";
     /*Campi parametrici della tabella usati dalla query per il bind*/
-    private static $campiParametriciTabella = "(:titolo, :durata, :visto, :id_stagione, :id)";
+    private static $campiParametriciTabella = "(:titolo, :durata, :id_stagione, :id)";
 
     /**
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
@@ -22,7 +22,7 @@ class FEpisodio
     {
         $stmt->bindValue(':titolo', $episodio->getTitolo(), PDO::PARAM_STR);
         $stmt->bindValue(':durata', $episodio->getDurata(), PDO::PARAM_STR);
-        $stmt->bindValue(':visto', $episodio->isVisto(), PDO::PARAM_BOOL);
+       // $stmt->bindValue(':visto', $episodio->isVisto(), PDO::PARAM_BOOL);
         $stmt->bindValue(':id_stagione', $episodio->getIdStagione(), PDO::PARAM_INT);
         $stmt->bindValue(':id', NULL, PDO::PARAM_INT);
     }
@@ -88,7 +88,7 @@ class FEpisodio
                 $episodio[$i] = new EEpisodio(
                         $righe[$i]["titolo"],
                         $righe[$i]["durata"],
-                        $righe[$i]["visto"],
+                        //$righe[$i]["visto"],
                         $righe[$i]["id_stagione"]
 
                     );
