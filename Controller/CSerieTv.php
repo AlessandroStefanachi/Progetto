@@ -18,7 +18,9 @@ static function info($id){
             else{$watchlist=null;}
             $serie=FPersistentManager::load('id',$id,'FSerieTv');
             $serie=clone($serie[0]);
+            if($serie->getCopertina()!=null)
             $copertina=base64_encode($serie->getCopertina()->getImmagine());
+            else $copertina=null;
             $view = new VSerieTv();
             $view->info($serie,$copertina,$_SESSION['utente'],$watchlist);
         }

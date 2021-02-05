@@ -154,7 +154,7 @@ class EWatchlist
  public function Base64(){
         $cop=array();
        // foreach ($this->serie as $s)array_push($cop,base64_encode($s->getCopertina()->getImmagine()));
-     foreach ($this->serie  as $a) array_push($cop,base64_encode($a->getCopertina()->getImmagine()));
+     foreach ($this->serie  as $a) {if($a->getCopertina()!=null)array_push($cop,base64_encode($a->getCopertina()->getImmagine()));else array_push($cop,null);}
         return $cop;
  }
     public function __toString()

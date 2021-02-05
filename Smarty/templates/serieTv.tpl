@@ -95,7 +95,7 @@
 
 
         <div class="d-flex flex-row" style="width: 100% ">
-        <img class="card-img-top mx-auto " style="width:25vw;height: 20vw; !important" {if isset($serie) }src="data:{$serie->getCopertina()->getType()};base64,{$copertina}"{/if} alt="Card image cap">
+        <img class="card-img-top mx-auto " style="width:25vw;height: 20vw; !important" {if isset($serie) }{if $serie->getCopertina()!=null}src="data:{$serie->getCopertina()->getType()};base64,{$copertina}"{/if}{/if} alt="Spiacente copertina al momento non disponibile">
 
         </div>
 

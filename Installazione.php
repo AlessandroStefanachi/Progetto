@@ -20,7 +20,7 @@ static function inizia(){
            }
            else{//qui installazione
                static::install();
-               header ('Location: /Progetto');
+              header ('Location: /Progetto');
 
            }
        }
@@ -59,12 +59,190 @@ static function verificaCookie(){
 
 
 
+
+
             $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
             $db->beginTransaction();
             $query = 'DROP DATABASE IF EXISTS ' .$_POST['db']. '; CREATE DATABASE ' . $_POST['db'] . ' ; USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('TVtracker.sql');
+            $query = $query . file_get_contents('BACKUP.sql');
+            $db->exec($query);
+            //$db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Utente.sql');
             $db->exec($query);
             $db->commit();
+
+           /* $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('copertina.sql');
+            $db->exec($query);
+            $db->commit();*/
+          // for( $i=1;$i<12;$i++){
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c1.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c2.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c3.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c4.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c5.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c6.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c7.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c8.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c9.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c10.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c11.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('Copertine/c12.sql');
+            $db->exec($query);
+            $db->commit();
+
+
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('commento.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('corrispondenze.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('episodio.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('follow.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('genere.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('lingua.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('stagione.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('STGLingua.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('TVgenere.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('valutazione.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('visto.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('watchlist.sql');
+            $db->exec($query);
+            $db->commit();
+
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('SerieTV.sql');
+            $db->exec($query);
+            $db->commit();
+            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'USE ' . $_POST['db'] . ';';
+            $query = $query . file_get_contents('vincoli.sql');
+            $db->exec($query);
+            $db->commit();
+
+
+
             $file = fopen('Utility/config.inc.php', 'c+');
             $script = '<?php global $config; 
             $config[\'mysql\'][\'typedb\']= \'' ."mysql:host=127.0.0.1;dbname=" . $_POST['db'] . '\';
@@ -74,12 +252,12 @@ static function verificaCookie(){
 
             fwrite($file, $script);
             fclose($file);
-            //$db=null;
+           $db=null;
         }
         catch (PDOException $e)
         {
             echo "Errore : " . $e->getMessage();
-            //$db->rollBack();
+            $db->rollBack();
             die;
         }
     }

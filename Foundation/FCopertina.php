@@ -112,4 +112,11 @@ class FCopertina
         return $ris;
     }
 
+    public static function exist($campo, $valoreCampo)
+    {
+        $con = FConnectionDB::getIstanza();
+        $ris = $con->exist($campo, $valoreCampo, static::$nomeTabella);
+        return $ris;
+    }
+
 }

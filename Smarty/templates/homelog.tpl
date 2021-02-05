@@ -213,6 +213,7 @@
                 <!--First slide-->
                 {$se=0}
                 {if !isset($serie)||count($serie)/6<=1}
+                   {if !isset($serie)} {$serie=[]}{/if}
                     {$cicli=1}
                     {else }{$cicli=count($serie)/6}
                 {/if}
@@ -237,7 +238,7 @@
                                  <div class="col-4">
                                      <div class="card mb-2 h-100 mr-2" style=" display:block;overflow:auto; min-width: 20vw; max-width: 20vw!important;">
                                          <div class="imgdiv"style="display: block;">
-                                             <img class="card-img-top " style="width:20vw;height: 15vw;object-fit: fill; !important" {if isset($serie[$se]) }src="data:{$serie[$se]->getCopertina()->getType()};base64,{$cop[$se]}"{/if} alt="Card image cap"></div>
+                                             <img class="card-img-top " style="width:20vw;height: 15vw;object-fit: fill; !important" {if isset($serie[$se])&&$serie[$se]->getCopertina()!= null }src="data:{$serie[$se]->getCopertina()->getType()};base64,{$cop[$se]}"{/if} alt="Copertina al momento non disponibile"></div>
                                          <div class="card-body ">
                                              {if isset($serie[$se])}<h4 class="card-title"> {$serie[$se]->getTitolo()} </h4>{/if}
                                             {if isset($serie[$se]) }

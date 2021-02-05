@@ -131,8 +131,9 @@ class FPersistentManager
     }
 public static function AllGenere(){
         $genere1=FGenere::loadAll();
+
         $genere=array();
-        foreach ($genere1 as $value)array_push($genere,$value['genere']);
+    if (isset($genere1))   foreach ($genere1 as $value)array_push($genere,$value['genere']);
         return $genere;
 
 }
@@ -231,7 +232,9 @@ public static function AllGenere(){
         $id=FSerieTv::getId();
        // echo($id[0]["id"]);
         $valor=array();
+        if(isset($id))
       $i=count($id);
+        else {$i=0;$id=[0];}
        for($a=0;$a<$i;$a++)array_push($valor,$id[$a]['id']);
         $i=0;
         $serie=array();
@@ -248,7 +251,7 @@ public static function AllGenere(){
 
         }}
         $s=array();
-        foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
+        foreach ($serie as $a){if($a->getCopertina()!=null)array_push($s,base64_encode($a->getCopertina()->getImmagine()));else array_push($s,null);}
         return array($serie,$s);
 
     }
@@ -265,7 +268,7 @@ public static function AllGenere(){
                     return ($a->getValutazione() < $b->getValutazione()) ? 1 : -1;
 
                 }
-                usort($serie, "cmp");
+                if(isset($serie))usort($serie, "cmp");
 
             }
 
@@ -278,11 +281,11 @@ public static function AllGenere(){
                     return ($a->getValutazione() < $b->getValutazione()) ? -1 : 1;
 
                 }
-                usort($serie, "cmp");
+                if(isset($serie))usort($serie, "cmp");
             }
         }
         $s=array();
-        foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
+       if(isset($serie)) foreach ($serie as $a){if($a->getCopertina()!=null)array_push($s,base64_encode($a->getCopertina()->getImmagine()));else array_push($s,null);}
         return array($serie,$s);
     }
 
@@ -344,11 +347,14 @@ public static function AllGenere(){
         $id=FWatchlist::getIDfrom('pubblico',true);
         // echo($id[0]["id"]);
         $valor=array();
+        if(!isset($id))$i=0;
+        else
         $i=count($id);
         for($a=0;$a<$i;$a++)array_push($valor,$id[$a]['id']);
         $i=0;
         $watch=array();
         $usato=array();
+        if(isset($id)){
         if(count($id)>=0){
             if(count($id)>=6)$it=6;
             else $it=count($id);
@@ -362,15 +368,15 @@ public static function AllGenere(){
                     $i++;
                 }
 
-            }}
+            }}}
         $series=array();
         foreach ($watch as $a) array_push($series,$a->getSerie());
         $s=array();
-        foreach ($series as $a){if(isset($a[0]) )array_push($s,base64_encode($a[0]->getCopertina()->getImmagine()));
+        foreach ($series as $a){if(isset($a[0])&& $a[0]->getCopertina()!=null )array_push($s,base64_encode($a[0]->getCopertina()->getImmagine()));
         else array_push($s,null);
         }
         $type=array();
-        foreach ($series as $a){ if(isset($a[0]) ) array_push($type,$a[0]->getCopertina()->getType());
+        foreach ($series as $a){ if(isset($a[0])&&$a[0]->getCopertina()!=null) array_push($type,$a[0]->getCopertina()->getType());
         else array_push($type,null);}
 
         return array($watch,$s,$type);

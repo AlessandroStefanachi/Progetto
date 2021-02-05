@@ -325,7 +325,9 @@ static function ban($id){
                 $_SESSION['location']='/Admin/modificaserie?id='.$id;
                 $v = new Vadmin();
                 $u = FPersistentManager::load('id',$id,'FSerieTv');
+                if($u[0]->getCopertina()!=null)
                 $copertina=base64_encode($u[0]->getCopertina()->getImmagine());
+                else $copertina=null;
                 $g = FPersistentManager::loadAll('FGenere');
                 $l = FPersistentManager::loadAll('FLingua');
                 if(isset($_SESSION['gif'])){$gif=true;unset($_SESSION['gif']);}
@@ -379,18 +381,27 @@ static function ban($id){
                         $_SESSION['gif']=true;
                         header('Location: /Progetto'.$_SESSION['location']);
                     }
-                     $immagine = addslashes ($immagine);
+
                     $size=$_FILES['file']['size'];
                     $s=FPersistentManager::load('id',$id,'FSerieTv');
                     $idc=$s[0]->getId_copertina();
+                    if(FPersistentManager::exist('id',$idc,'FCopertina')){$immagine = addslashes ($immagine);
                     FPersistentManager::update('nome',$nome,'id',$idc,'FCopertina');
                     FPersistentManager::update('size',$size,'id',$idc,'FCopertina');
 
                     FPersistentManager::update('type',$type,'id',$idc,'FCopertina');
-                    FPersistentManager::update('immagine',$immagine,'id',$idc,'FCopertina');
-
+                    FPersistentManager::update('immagine',$immagine,'id',$idc,'FCopertina');}
+                    else{
+                        $s=FPersistentManager::load('id',$id,'FSerieTV');
+                        $s=clone($s[0]);
+                        $c=new ECopertina($nome,$type,$size,$immagine);
+                        $s->setCopertina($c);
+                        FPersistentManager::delete('FSerieTv',$id);
+                        FPersistentManager::store($s);
+                    }
+                    header('Location: /Progetto'.$_SESSION['location']);
                 }
-               header('Location: /Progetto'.$_SESSION['location']);
+
 
             }
             else header('Location: /Progetto/Utente/homepagedef');
