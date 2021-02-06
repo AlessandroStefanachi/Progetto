@@ -224,7 +224,7 @@ class FConnectionDB {
     }
 
 /*
- * metodo che verifica l'esistenza di una specifica occorrenza 
+ * metodo che verifica l'esistenza di una specifica occorrenza della tabella Follow
  */
     public function existFollow($followed, $follower)
     {
@@ -247,6 +247,9 @@ class FConnectionDB {
             $this->pdo->rollBack();
         }
     }
+    /*
+     * metodo che verifica l'esistenza di una specifica occorrenza della tabella Corrispondenza
+     */
     public function existCorr($id_w, $id_s)
     {
         try
@@ -269,7 +272,9 @@ class FConnectionDB {
         }
     }
 
-
+    /*
+     * metodo che verifica l'esistenza di una specifica occorrenza della tabella Voto
+     */
     public function existvote($id_u, $id_s)
     {
         try
@@ -291,7 +296,9 @@ class FConnectionDB {
             $this->pdo->rollBack();
         }
     }
-
+    /*
+     * metodo che verifica l'esistenza di una specifica occorrenza della tabella Visto
+     */
     public function existvisto($username, $id_ep)
     {
         try
@@ -315,7 +322,9 @@ class FConnectionDB {
     }
 
 
-
+    /*
+     * metodo utlizzato per verificare che la password inserita in fase di logni corrisponda con la password hashata presente nel DB
+     */
 
     public function loadVerificaAccessoPWHash ($username, $pass) {
 
@@ -347,8 +356,9 @@ class FConnectionDB {
     }
 
     /*
-     * Metodo che permette di eliminare un commento nel db
-     * @param id id usato per la cancellazione
+     * Metodo che permette di eliminare un occorrenza nel db
+     * @param $id valore che si vule eliminare
+     * @param $chiave specifica il nome del campo utilizzato nella tabella come chiave
      * @return $verifica bool se la cancellazione è andata a buon fine
      */
     public function delete($nometabella,$id,$chiave) {
@@ -371,7 +381,9 @@ class FConnectionDB {
             }
         return $verifica;
     }
-
+    /*
+     * Metodo che permette di eliminare un occorrenza della tabella Follow nel db
+     */
     public function deletefollow($followed,$follower) {
         try {
             $verifica = null;
@@ -393,6 +405,9 @@ class FConnectionDB {
         return $verifica;
     }
 
+    /*
+     * Metodo che permette di eliminare un occorrenza della tabella Valutazione nel db
+     */
     public function deleteValutazione($autore,$id_e) {
         try {
             $verifica = null;
@@ -414,7 +429,9 @@ class FConnectionDB {
         return $verifica;
     }
 
-
+    /*
+     * Metodo che permette di eliminare un occorrenza della tabella Visto nel db
+     */
     public function deletevisto($username,$id_ep) {
         try {
             $verifica = null;
@@ -435,6 +452,10 @@ class FConnectionDB {
         }
         return $verifica;
     }
+
+    /*
+     * Metodo che permette di eliminare un occorrenza della tabella Corrispondenze nel db
+     */
     public function deleteCorrispondenze($watch,$serie) {
         try {
             $verifica = null;
@@ -462,6 +483,9 @@ class FConnectionDB {
         self::$istanza = null;
     }
 
+    /*
+     * metodo che estrae tutti i follower dell'utente passato come parametro
+     */
     public function loadFollower($idA) {
      //   echo("SELECT id_seguace from follow where id_seguito="." ".$idA.";");
         $stmt = $this->pdo->query("SELECT id_seguace from follow where id_seguito='".$idA."';");
@@ -470,6 +494,10 @@ class FConnectionDB {
         if($numeroRighe == 0) $righe = null;
         return $righe;
     }
+
+    /*
+     * metodo che estrae tutti gli utenti seguiti dall'utente passato come parametro
+     */
     public function loadFollowed($idA) {
         $stmt = $this->pdo->query("SELECT id_seguito from follow where id_seguace='".$idA."';");
         $righe = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -477,6 +505,10 @@ class FConnectionDB {
         if($numeroRighe == 0) $righe = null;
         return $righe;
     }
+
+    /*
+     * metodo che inserisce un occorrenza nella tabella Follow del DB
+     */
     public function storeFollow($id_seguito,$id_seguace)
     {
 
@@ -498,6 +530,9 @@ class FConnectionDB {
              }
     }
 
+    /*
+     * metodo che estrae tutti gli id delle serie presenti nella watchlist passata come parametro
+     */
     public function loadCorr($id_Watchlist)
     {
         $stmt = $this->pdo->query("SELECT * from corrispondenze where id_watchlist= '". $id_Watchlist."';");
@@ -507,6 +542,9 @@ class FConnectionDB {
         return $righe;
     }
 
+    /*
+     * metodo che crea un'occorrenza nella tabella Corrispondenza del DB
+     */
     public function storeCorr($id_watchlist,$id_stv)
     {
         try
@@ -527,6 +565,9 @@ class FConnectionDB {
             }
     }
 
+    /*
+     * metodo che crea un'occorrenza nella tabella Visto del DB
+     */
     public function storeVisto($utente,$id_episodio)
     {
         try
@@ -547,6 +588,9 @@ class FConnectionDB {
         }
     }
 
+    /*
+     * metodo che estrae tutti gli id degli episodi dell utente  passato come parametro
+     */
     public function loadvisto($username)
     {
         $stmt = $this->pdo->query("SELECT * from visto where utente= '". $username."';");
@@ -556,7 +600,9 @@ class FConnectionDB {
         return $righe;
     }
 
-
+    /*
+     * metodo che estrae il genere passato come parametro
+     */
     public function loadGenere($genere)
     {
         $stmt = $this->pdo->query("SELECT * from genere where genere = '". $genere."';");
@@ -566,6 +612,9 @@ class FConnectionDB {
         return $righe;
     }
 
+    /*
+     * metodo che crea un'occorrenza nella tabella Genere del DB
+     */
     public function storeGenere($genere)
     {
         try
@@ -585,6 +634,10 @@ class FConnectionDB {
                 return null;
             }
     }
+
+    /*
+     * metodo che estrae la lingua passata come parametro
+     */
     public function loadLingua($lingua)
     {
         $stmt = $this->pdo->query("SELECT * from lingua where lingua = '". $lingua."';");
@@ -594,6 +647,9 @@ class FConnectionDB {
         return $righe;
     }
 
+    /*
+     * metodo che crea un'occorrenza nella tabella Lingua del DB
+     */
     public function storeLingua($lingua)
     {
         try
@@ -613,7 +669,9 @@ class FConnectionDB {
             }
     }
 
-
+    /*
+     * metodo che estrae tutte le lingue della stagione passata come parametro
+     */
     public function loadSTGlingua($id_stg)
     {
         $stmt = $this->pdo->query("SELECT * from STGLingua where id_stagione= '". $id_stg."';");
@@ -623,6 +681,9 @@ class FConnectionDB {
         return $righe;
     }
 
+    /*
+     * metodo che crea un'occorrenza nella tabella STGLingua del DB
+     */
     public function storeSTGlingua($id_lingua,$id_stg)
     {
         try
@@ -643,6 +704,9 @@ class FConnectionDB {
             }
     }
 
+    /*
+     * metodo che estrae tutti generi della serieTV passata come parametro
+     */
     public function loadTVgenere($id_tv)
     {
         $stmt = $this->pdo->query("SELECT * from TVgenere where id_serie= '". $id_tv."';");
@@ -652,6 +716,9 @@ class FConnectionDB {
         return $righe;
     }
 
+    /*
+     * metodo che estrae tutte le serieTv del genere passato come parametro
+     */
     public function loadGenereTv($genere)
     {
         $stmt = $this->pdo->query("SELECT id_serie from TVgenere where id_genere= '". $genere."';");
@@ -661,6 +728,9 @@ class FConnectionDB {
         return $righe;
     }
 
+    /*
+     * metodo che crea un'occorrenza nella tabella TVgenere del DB
+     */
     public function storeTVgenere($id_genere,$id_serie)
     {
         try
@@ -681,6 +751,9 @@ class FConnectionDB {
             }
     }
 
+    /*
+     * metodo che cancella un'occorrenza nella tabella TVgenere del DB
+     */
     public function deleteTvGenere($genere,$serie) {
         try {
             $verifica = null;
@@ -702,6 +775,10 @@ class FConnectionDB {
         }
         return $verifica;
     }
+
+    /*
+     * metodo che cancella un'occorrenza nella tabella STGlingua del DB
+     */
     public function deleteSTGlingua($lingua,$stg) {
         try {
             $verifica = null;
@@ -724,40 +801,3 @@ class FConnectionDB {
         return $verifica;
     }
 }
-
-/*
-NB: $stmt->fetch() ritorna un array di elementi e bisogna usare un indice per accedere ad un elemento dell'array
-    $stmt->fetchAll() ritorna un array di array e bisogna usare due indici
-*/
-
-/*
- * Metodo che permette di verificare se l'utente è nel db e restituisce la riga (array) contenente l'utente
- * inoltre verifica l'accesso con prevenzione dall'sql injection
- * @param $username
- * @param $pass
- */
-/*
-public function loadVerificaAccesso ($username, $pass) {
-
-    try {
-        $sql = null;
-        $class = "FUtenteRegistrato";
-        $sql = "SELECT * FROM " . $class::getNomeTabella() . " WHERE username = :us AND password = :pw";
-        //print($sql);
-        $stmt = $this->pdo->prepare($sql);
-       // $stmt->execute();
-        $stmt->execute(array(':us' => $username,':pw' => $pass));
-        $numeroRighe = $stmt->rowCount();
-        if ($numeroRighe == 0) {
-            $risultato = null;
-        } else {
-            $risultato = $stmt->fetch(PDO::FETCH_ASSOC);   //ritorna una sola riga
-        }
-        return $risultato;
-    } catch (PDOException $e) {
-        echo "Errore: " . $e->getMessage();
-        $this->db->rollBack();
-        return null;
-    }
-}
-*/
