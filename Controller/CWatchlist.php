@@ -156,14 +156,22 @@ static function cancella($id){
                 $w=FPersistentManager::load('id',$id,'FWatchlist');
                 if($w[0]->getProprietario()==$_SESSION['utente']->getUsername()||$_SESSION['utente']->getRuolo()=='admin'){
                     FPersistentManager::delete('FWatchlist',$id);
-                    $pos=array_search($w[0],$_SESSION['watchlist']);
+                    $pos=null;
+                    $i=0;
+                    foreach ($_SESSION['watchlist'] as $w){
+                       if($w->getId()==$id){//echo 'ho che '.$w->getId().'  e uguale a '.$id.' quindi pos è uguale a '.$i;
+                       $pos=$i;}
+                       else $i=$i+1;
+                    }
+                   // echo '\n voglio eliminare'.$id;
+                    //if(isset( $pos)) echo $pos; else echo 'no';
                     unset($_SESSION['watchlist'][$pos]);
 
                 }
 
             }
-
-            header('Location: /Progetto'.$_SESSION['location']);
+//if(isset( $pos)) echo $pos; else echo 'no';
+           header('Location: /Progetto'.$_SESSION['location']);
 
         }
         //header('Location: /Progetto/Utente/homepagedef');

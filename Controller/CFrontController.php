@@ -29,9 +29,7 @@ class CFrontController {
                             else{
                             $controller::$function();}//SE NON CI SONO ALTRI ELEMENTI NELL'ARRAY ALLORA NON C'È NESSUN ID O PAROLA CHIAVE LANCIO LA FUNZIONE
                         }//(5)
-                        elseif($function == "partita" || $function == "inserisciCommento" || $function == "modificaPartita" || $function == "HomeSport") {//(6) // SE CI SONO ALTRI ELEMENTI ALLORA LA FUNZIONE DEVE
-                            $controller::$function($resource[0]); //resource[0] è l'id della partita o una parola chiave                                   // DEVE ESSERE UNA DI QUESTE CHE NECESSITÀ DI ID
-                        }else static::errore();//(6) se l'array non è vuoto ma la funzione non è una  fra quelle allora errore
+                        //(6) se l'array non è vuoto ma la funzione non è una  fra quelle allora errore
                     }else {
                         if(substr_count($function,"?")==1 && substr_count($function,"=")==1){
                             $options=explode('?',$function);
