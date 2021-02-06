@@ -3,6 +3,15 @@
 
 class EUtente
 {
+    /*La classe  EUtente contiene tutti quanti gli attributi e i metodi relativi ad un utente
+    -username: username associato all'utente chiave primaria nel db
+    -email:email associata all'utente
+    -password: password associata all'utente salvata nel db dopo essere stata sottoposta ad hashing
+    -seguiti: array contente gli username dei follower dell'utente
+    -seguaci: array contente gli username degli utenti seguiti
+    -ruolo: identifica un utente normale da un admin o da un utente bannato
+    -visti: array contente gli episodi visti dall'utente
+     */
     private  $userName;
     private  $email;
     private  $password;
@@ -11,13 +20,7 @@ class EUtente
     private $watchlist=array();
     private  $ruolo;
     private $visti=array();
-    /**
-     * EUtente constructor.
-     * @param String $userName
-     * @param String $email
-     * @param String $password
-     * @param String $ruolo
-     */
+
     public function __construct( $userName,  $email,  $password,  $ruolo)
     {
         $this->userName = $userName;

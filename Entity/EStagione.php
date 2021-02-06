@@ -2,6 +2,18 @@
 
 
 class EStagione
+/*
+ * classi contenenti metodi ed attributi associati alle stagione
+ * -lingue: array contenente le lingue associate
+ * -episodi: array contenente gli episodi appartenti alla stagione
+ * -valutazione: valutazione associata alla stagione
+ * -numero:numero della stagione
+ * -id: identificativo univoco chiave primaria nel db
+ * -id_serieTv: id della serie tv associata alla chiave primaria
+ *
+ *
+ *
+ */
 {
 
     private $lingue=array();
@@ -164,11 +176,14 @@ class EStagione
 
     }
 //////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE///////////////////
-
+///
+/*
+ * calcola la valutazione associata alla stagione che sarà poi impiegata nel calcolo del voto della serie, è data dalla media aritmetica dei voti degli episodi
+ */
     private function calcolaValutazione()
     {
         $media=0;
-        ///////////////non va int $media /////////////////////////////////
+
         if(count($this->episodi)>0){
         foreach ($this->getEpisodi() as $value)
         {

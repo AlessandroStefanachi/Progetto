@@ -2,6 +2,17 @@
 
 
 class EWatchlist
+/*
+ * classe contenente metodi ed attributi relativi alle watchlist
+ * -nome: nome associato alla watchlist
+ * -descrizione: descrizione associata alla watchlist
+ * -pubblico: espirme se la watchlist è pubblica o privata
+ * -serie: array contente le serie
+ * -id: identificatore univoco chiave primaria nel db
+ * proprietario:utente a cui appartiene la watchlist
+ *
+ *
+ */
 {
     private  $nome;
     private  $descrizione;
@@ -10,12 +21,8 @@ class EWatchlist
     private  $id;
     private  $proprietario;
 
-    /**
-     * EWatchlist constructor.
-     * @param String $nome
-     * @param String $descrizione
-     * @param bool $pubblico
-     * @param array $serie
+    /*
+     *
      */
     public function __construct( $_nome,  $_descrizione,  $_pubblico,  $proprietario)
     {
@@ -151,6 +158,10 @@ class EWatchlist
             $str = $array;
         return $str;
     }
+
+    /*
+     * restituisce un array contente le codifiche delle copertine delle serie contenute nella watchlist
+     */
  public function Base64(){
         $cop=array();
        // foreach ($this->serie as $s)array_push($cop,base64_encode($s->getCopertina()->getImmagine()));

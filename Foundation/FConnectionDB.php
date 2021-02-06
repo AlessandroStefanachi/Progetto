@@ -89,6 +89,10 @@ class FConnectionDB {
                 $this->pdo->rollBack();
             }
     }
+
+    /*
+     * funzione che permette di prelevare tutti gli elementi presenti nella tabella passata come parametro
+     */
     public function loadAll($nomeTabella){
         try
         {
@@ -111,6 +115,9 @@ class FConnectionDB {
         }
 
     }
+    /*
+     * metodo che restituisce tutti gli id della tabella specificata come parametro
+     */
     public function getID( $nomeTabella)
     {
         try
@@ -133,6 +140,9 @@ class FConnectionDB {
             $this->pdo->rollBack();
         }
     }
+    /*
+     * metodo che permette di estrarre l'id da una tabella specificata in base al valore di un campo specificato
+     */
 
     public function getIDfrom( $nomeTabella,$campo,$valoreCampo)
     {
@@ -213,7 +223,9 @@ class FConnectionDB {
             }
     }
 
-
+/*
+ * metodo che verifica l'esistenza di una specifica occorrenza 
+ */
     public function existFollow($followed, $follower)
     {
         try

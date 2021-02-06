@@ -3,6 +3,18 @@
 
 class ESerieTv
 {
+    /*
+     * classe contenente metodi ed attributi relativi alle copertine delle serie tv
+     * -titolo: titolo associato alla serie tv
+     * -trama: trama associata alla serie tv
+     * - genere: array contenente i generi ai quali la serie tv è associata
+     * -valutazione: valutazione associata alla serie tv
+     * -regista: regista associato alla serie tv
+     * -stagioni: stagioni appartenenti alla serie tv
+     * -id: identificativo univoco
+     * -copertina:copertina associata alla serie tv
+     * -id_copertina:chiave esterna associata alla copertina
+     */
     private  $titolo;
     private  $trama;
     private $genere=array();
@@ -14,15 +26,8 @@ class ESerieTv
     private $copertina;
     private $id_copertina;
 
-    /**
-     * ESerieTv constructor.
-     * @param String $titolo
-     * @param String $trama
-     * @param array $genere
-     * @param String $regista
-     * @param array $stagioni
-     * @param String $tipo
-     */
+
+
     public function __construct( $_titolo,  $_trama,  $_regista)
     {
         $this->titolo = $_titolo;
@@ -95,13 +100,7 @@ class ESerieTv
         return $this->stagioni;
     }
 
-    /**
-     * @return String
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
+
 
 /////////////////////////////////////////////////////////////////////////SETTERS///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
@@ -160,13 +159,6 @@ class ESerieTv
         $this->stagioni = $stagioni;
     }
 
-    /**
-     * @param String $tipo
-     */
-    public function setTipo( $tipo)
-    {
-        $this->tipo = $tipo;
-    }
 
     public function setCopertina( $copertina)
     {
@@ -190,6 +182,10 @@ class ESerieTv
         array_push($this->genere, $genere);
     }
 ///////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE//////////////////////////////////////////////////////////////////////////////////////////////
+///
+/*
+ * calcola la valutazione della serie tv facendo la media aritmetica delle valutazioni delle stagioni associate alle serie tv
+ */
 
     private function calcolaValutazione()
     {
@@ -212,6 +208,9 @@ class ESerieTv
         return ($a->getNumero() < $b->getNumero()) ? -1 : 1;
 
     }
+    /*
+     * funzione che ordina l'array stagioni in base all'attributo numero associato alle stagioni
+     */
     public function ordinaStagioni(){
 
         usort($this->stagioni, "ESerietv::order");

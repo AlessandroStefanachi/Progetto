@@ -3,6 +3,16 @@
 
 class EEpisodio
 {
+    /*
+     * classi contenenti metodi ed attributi associati agli episodi
+     * -id:id univoco chiave primaria nel db
+     * -titolo: titolo associato all'episodio
+     * -durata: durata associata all'episodio
+     * -commenti: array contenente i commenti associati all episodio
+     * -valutazione: array contenente le valutazioni associate all'episodio
+     * -valutazione: valutazione totale dell'episodio
+     * -id_stagione: id della stagione alla quale appartiene l'episodio
+     */
     private  $id;
     private  $titolo;
     private  $durata;
@@ -11,12 +21,7 @@ class EEpisodio
     private  $valutazione=0;
     private  $id_stagione;
 
-    /**
-     * EEpisodio constructor.
-     * @param String $titolo
-     * @param DateTime $durata
-     * @param bool $visto
-     */
+
     public function __construct($titolo, $durata, $id_stagione)
     {
         $this->titolo = $titolo;
@@ -54,7 +59,7 @@ class EEpisodio
      */
     public function getDurata()
     {
-        return $this->durata->format('H:i:s');;
+        return $this->durata->format('H:i:s');
     }
 
     /**
@@ -149,12 +154,7 @@ class EEpisodio
     {
         $this->valutazione = $valutazione;
     }
-/////////////////////////////////////////////////////////////METODO CHECK//////////////////////////////////////////////////////////////////////////////////
 
-    public function check()
-    {
-        $this->visto=true;
-    }
 ////////////////////////////////////////////////////////////METODO PER AGGIUNGERE VALUTAZIONI///////////////////////////////////////////////////////////////
 
     public function aggiungiValutazione(EValutazione $valutazione)
@@ -169,10 +169,13 @@ class EEpisodio
         array_push($this->commenti, $commento);
     }
 ///////////////////////////////////////////////////////////METODO PER IL CALCOLO DELLA VALUTAZIONE MEDIA/////////////////////////////////////////////////
-
+///
+/*
+ * calcola la media aritmetica dei voti associati all episodio
+ */
     private function calcolaValutazione()
     {
-    ///////////////non va int $media /////////////////////////////////
+
         $media=0;
         $i=0;
         foreach ($this->valutazioni as &$value){
@@ -181,7 +184,9 @@ class EEpisodio
         $this->valutazione=$media/$i;
 
     }
-
+/*
+ * metodo che dato in ingresso un utente restituisce, se questo ha votato, il voto che ha dato all'episodio
+ */
     public function individuaVoto($utente){
         $voto=null;
         foreach ($this->valutazioni as $v){

@@ -2,7 +2,16 @@
 
 class ECommento
 {
-///commento
+/*
+ * Classe contenente metodi ed attributi relativi ad i commenti che gli utenti possono lasciare sugli episodi visti
+ * -id:chiave primaria nel db
+ * -testo: contenuto del commento
+ * -data: data in cui viene effettuato il commento
+ * -ora:ora in cui viene effettuato il commento
+ * -autore: utente che a realizzato il commenti
+ * -id_episodio: id del episodio a cui appartiene il commento
+ *
+ */
     private  $id;
     private  $testo;
     private  $data;
@@ -10,14 +19,7 @@ class ECommento
     private  $autore;
     private  $id_episodio;
 
-    /**
-     * ECommento constructor.
-     * @param String $testo
-     * @param DateTime $data
-     * @param DateTime $ora
-     * @param EUtente $autore
-     * @param Int $id_episodio
-     */
+
     public function __construct( $testo,  $_date,  $_ora,  $autore,  $id_episodio)
     {
         $this->testo = $testo;

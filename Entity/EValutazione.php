@@ -3,14 +3,15 @@
 
 class EValutazione
 {
+    /* classe contenente metodi ed attributi relativi alle valutazioni degli episodi
+     * -voto: voto associato all'utente
+     * -autore: utente che lascia il voto
+     * -id_episodio: id dell'episodio a cui è associato il voto
+     */
     private  $voto;
     private  $autore;
     private  $id_episodio;
-    /**
-     * EValutazione constructor.
-     * @param int $voto
-     * @param EUtente $autore
-     */
+
     public function __construct( $voto,  $autore,  $id_episodio)
     {
         $this->voto = $voto;

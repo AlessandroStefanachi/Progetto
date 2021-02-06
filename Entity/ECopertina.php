@@ -3,6 +3,15 @@
 
 class ECopertina
 {
+    /*
+     * classe contenente metodi ed attributi relativi alle copertine delle serie tv
+     * -id:id univoco della copertina chiave primaria nel db
+     * -nome: nome della copertina
+     * -type: mime type associato all'immagine
+     * -size: dimensione della copertina
+     * -immagine: contiene la stringa di bit associata all'immagine
+     *
+     */
 private $id;
 private $nome;
 private $type;
