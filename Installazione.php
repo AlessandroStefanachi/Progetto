@@ -2,9 +2,11 @@
 
 
 class Installazione
+
 {
 static function inizia(){
-   $cookie=  self::verificaCookie();$smarty = SetupSmarty::configura();
+    $cookie=self::verificaCookie();
+   $smarty = SetupSmarty::configura();
    if($cookie){
        $smarty->assign('cookie', $cookie);
 
@@ -29,11 +31,13 @@ static function inizia(){
        $smarty->assign('phpv', $PHP);
        $smarty->assign('cookie', $cookie);
        $smarty->display('installazione.tpl');
+
    }
 }
 static function verificaCookie(){
-    session_start();
-    setcookie("cookie_test", "cookie_value", time()+3600);
+
+ setcookie("cookie_test", "cookie_value", time()+3600);
+
     if (isset($_COOKIE["cookie_test"]))
     {
         setcookie("cookie_test", "cookie_value", -(time()+3600));
@@ -80,79 +84,15 @@ static function verificaCookie(){
             $query = $query . file_get_contents('copertina.sql');
             $db->exec($query);
             $db->commit();*/
-          // for( $i=1;$i<12;$i++){
+           $f=scandir('Copertine');
+           foreach($f as $c){
+               if($c!='.'&&$c!='..')
             $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
             $db->beginTransaction();
             $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c1.sql');
+            $query = $query . file_get_contents('Copertine/'.$c);
             $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c2.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c3.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c4.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c5.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c6.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c7.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c8.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c9.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c10.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c11.sql');
-            $db->exec($query);
-            $db->commit();
-            $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);
-            $db->beginTransaction();
-            $query = 'USE ' . $_POST['db'] . ';';
-            $query = $query . file_get_contents('Copertine/c12.sql');
-            $db->exec($query);
-            $db->commit();
+            $db->commit();}
 
 
             $db = new PDO("mysql:host=127.0.0.1;", $_POST['nome'], $_POST['password']);

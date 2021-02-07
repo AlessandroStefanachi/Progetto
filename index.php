@@ -8,5 +8,16 @@ if (Installazione::verifica()){
     $front_controller->run($_SERVER['REQUEST_URI']);
 }
 else {
+
+
+
+
+
+
+
+if($_SERVER['REQUEST_URI']=='/Progetto/installazione')
     Installazione::inizia();
+else{
+    setcookie("cookie_test", "cookie_value", time()+3600);
+    header('Location: /Progetto/installazione');}
 }
