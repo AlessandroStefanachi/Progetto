@@ -1,8 +1,13 @@
 <?php
-
+/*
+ * Questa classe implementa le funzioni che permottono all'admin di gestire i dati dell'applicazione
+ */
 
 class CAdmin
 {
+    /*
+     * funzione utilizzata per visualizzare il menù dell'admin dal quale può scegliere poi quale categoria di dati gestire
+     */
 static function menu(){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else{
@@ -14,6 +19,9 @@ static function menu(){
     else header('Location: /Progetto/Utente/homepagedef');
     }
 }
+/*
+ * funzione utilizzata per visualizzare il menù di gestione utenti
+ */
 static function utenti(){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else {
@@ -27,7 +35,9 @@ $_SESSION['location']='/Admin/utenti';
         }
         else header('Location: /Progetto/Utente/homepagedef');
     }
-
+/*
+ * funzione utilizzata per bannare un utente
+ */
 }
 static function ban($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
@@ -45,7 +55,9 @@ static function ban($id){
     }
 
 }
-
+/*
+ * funzione utilizzata per ripristinare lo stato di un utente bannato
+ */
     static function unban($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -62,7 +74,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione utilizzata per eliminare del tutto il profilo di un utente
+ */
     static function eliminaUtente($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -79,7 +93,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione utilizzata per visualizzare il menù di gestione delle lingue
+ */
     static function lingue(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -95,7 +111,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione utilizzata per rimuovere una lingua
+ */
    static function cancellaLingua($id){
        if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
        else {
@@ -111,7 +129,9 @@ static function ban($id){
            else header('Location: /Progetto/Utente/homepagedef');
        }
    }
-
+/*
+ * funzione utilizzata per aggiungere una lingua
+ */
     static function aggiungiLingua(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -129,7 +149,9 @@ static function ban($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
-
+/*
+ * funzione utilizzata per visualizzare il menù di gestione dei generi
+ */
     static function generi(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -145,7 +167,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione utilizzata per rimuovere un genere
+ */
     static function cancellaGenere($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -161,7 +185,9 @@ static function ban($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
-
+/*
+ * funzione utilizzata per aggiungere un genere
+ */
     static function aggiungiGenere(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -179,7 +205,9 @@ static function ban($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
-
+/*
+ * funzione utilizzata per visualizzare il menù di gestione dei voti
+ */
     static function voti(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -195,7 +223,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione utilizzata per rimuovere un voto
+ */
     static function cancellaVoto(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -213,7 +243,9 @@ static function ban($id){
             }
             else header('Location: /Progetto/Utente/homepagedef');
         }}
-
+/*
+ * funzione utilizzata per visualizzare il menù di gestione watchlist
+ */
     static function watchlist(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -229,7 +261,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione utilizzata per visualizzare il menù di gestione commenti
+ */
     static function commenti(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -245,7 +279,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione utilizzata per visualizzare la schermata che permette di aggiungere una serie
+ */
     static function aggiungiSerie(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -268,7 +304,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione che permette di aggiungere una serie
+ */
     static function creaSerie(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -286,7 +324,7 @@ static function ban($id){
    // $immagine = addslashes ($immagine);
         $size=$_FILES['file']['size'];
         $c=new ECopertina($nome,$type,$size,$immagine);
-        $s=new ESerieTv($_POST['nome'],$_POST['trama'],$_POST['regista'],'a');
+        $s=new ESerieTv($_POST['nome'],$_POST['trama'],$_POST['regista']);
         if(!empty($_POST['generi']))
         {
             foreach ($_POST['generi'] as $g)
@@ -298,7 +336,9 @@ static function ban($id){
             }
 
     }
-
+/*
+ * funzione che permette di visualizzare il menù per la gestione delle serie inserite
+ */
     static function serie(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -315,7 +355,9 @@ static function ban($id){
 
     }
 
-
+/*
+ * funzione che permette di visualizzare il menù per la modifica di una serie esistente
+ */
 
     static function modificaserie($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
@@ -340,7 +382,9 @@ static function ban($id){
         }
 
     }
-
+/*
+ * funzione che effettua le modifiche su una serie
+ */
     static function modifica($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -399,16 +443,18 @@ static function ban($id){
                         FPersistentManager::delete('FSerieTv',$id);
                         FPersistentManager::store($s);
                     }
-                    header('Location: /Progetto'.$_SESSION['location']);
-                }
 
+                }
+                header('Location: /Progetto'.$_SESSION['location']);
 
             }
             else header('Location: /Progetto/Utente/homepagedef');
         }
 
     }
-
+/*
+ * funzione che effettua la modifica su una stagione
+ */
     static function modificaStagione($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
 
@@ -447,7 +493,9 @@ static function ban($id){
             } else header('Location: /Progetto/Utente/homepagedef');
 
     }}
-
+/*
+ * funzione che effettua le modifiche su un episodio
+ */
     static function modificaEpisodio($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
 
@@ -470,6 +518,9 @@ static function ban($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
+    /*
+     * funzione che permette di aggiungere una stagione ad una serie tv
+     */
     static function aggiungiStagione($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -491,7 +542,9 @@ static function ban($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
-
+/*
+ * funzione che permette di inserire un episodio in una specifica stagione
+ */
     static function inserisciEpisodio($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -508,7 +561,9 @@ static function ban($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
-
+/*
+ * funzione che permette di eliminare uno specifico episodio
+ */
 static function eliminaEpisodio($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else {
@@ -522,7 +577,9 @@ static function eliminaEpisodio($id){
     }
 
 }
-
+/*
+ * funzione che permette di eliminare una specifica stagione
+ */
     static function eliminaStagione($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {
@@ -536,7 +593,9 @@ static function eliminaEpisodio($id){
         }
 
     }
-
+/*
+ * funzione che permette di eliminare una specifica serie
+ */
     static function eliminaSerie($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else {

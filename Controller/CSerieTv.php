@@ -1,8 +1,13 @@
 <?php
-
+/*
+ * questa classe contiene funzioni relative alle serie tv
+ */
 
 class CSerieTv
 {
+    /*
+     * funzione che permette la visualizzazione di una specifica serie tv
+     */
 static function info($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else{
@@ -29,6 +34,9 @@ static function info($id){
         }
     }
 }
+/*
+ * funzione che permette la ricerca di una serie tv dal nome e poi la visualizzazione
+ */
 static function byname($nome){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else{

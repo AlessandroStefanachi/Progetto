@@ -1,9 +1,13 @@
 <?php
-
+/*
+ * questa classe implementa le funzioni che permettono all'utente di utilizzare l applicativo
+ */
 
 class CUtente
 {
-
+/*
+ * funzione che permette di visualizzare la pagina di login ed eventuali errori in fase di login o in fase di registrazione
+ */
 
 static function homepagedef(){
 
@@ -28,7 +32,9 @@ static function homepagedef(){
 
         }
 
-
+/*
+ * funzione che permette di visualizzare l homepage dopo essersi loggati/registrati con eventuali opzioni di filtro in base al genere
+ */
 
 
     static function homelog($genere){
@@ -64,7 +70,9 @@ static function homepagedef(){
         $view->showHomelog($res[0],$res[1],$_SESSION["followed"],$generi,$genere,$watch[0],$watch[1],$watch[2],$id,$watchlist,$_SESSION['utente']);}
 
     }
-
+/*
+ * funzione che verifica che il metodo di registrazione sia post e richiama poi la funzione che effettua la registrazione
+ */
     static function registrazione() {
 
         if($_SERVER['REQUEST_METHOD'] == "GET")
@@ -77,7 +85,9 @@ static function homepagedef(){
         }
     }
 
-
+/*
+ * funzioche che verifica la correttezza dei dati in fase di registrazione ed in caso di non riuscita visualizza la pagina di login con errore di registrazione
+ */
     static function verificaRegistrazione() {
           session_start();
         if(FPersistentManager::exist("username",$_POST["username"],"FUtente") == null
@@ -105,7 +115,9 @@ static function homepagedef(){
             header('Location: /Progetto/Utente/homepagedef');
         }
     }
-
+/*
+ * funzione che verifica che i dati inseriti in fase di login siano corretti ed effettua il login o ritorna alla pagina di login con relativo errore
+ */
     static function login(){  session_start();
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             if(isset($_POST["username"]) && isset($_POST["password"])) {
@@ -140,13 +152,17 @@ static function homepagedef(){
             else{header('Location: /Progetto/Utente/homepagedef');}
         }
     }
-
+/*
+ * funzione che mostra agli utenti bannati la relativa pagina con messaggio di ban
+ */
     static function banned(){
     session_start();
     $v=new VUtente();
     $v->banned($_SESSION['utente']);
     }
-
+/*
+ * funzione che verifica che un utente sia loggato o bannato
+ */
     static function verificalogin(){
     
        session_start();
@@ -165,7 +181,9 @@ static function homepagedef(){
             session_abort();return true;}}
         else {session_abort();return false;}
     }
-
+/*
+ * funzione che effettua il logout e quindi distrugge la sessione corrente
+ */
     static function logout(){
         session_start(); // recupera i parametri di sessione
         setcookie("PHPSESSID", "", time() - 3600, "/"); //Elimino il cookie di sessione
@@ -173,7 +191,9 @@ static function homepagedef(){
         session_destroy(); // distrugge la sessione
         header('Location: /Progetto/Utente/homepagedef');
     }
-
+/*
+ * funzione che permette di visualizzare le serie da quella con la valutazione più alta a quella più bassa
+ */
     static function crs(){
     session_start();
     if(isset($_SESSION['order'])){
@@ -186,7 +206,9 @@ static function homepagedef(){
         else
             header('Location: /Progetto/Utente/homelog');
     }
-
+    /*
+     * funzione che permette di visualizzare le serie da quella con la valutazione più bassa a quella più alta
+     */
     static function decr(){
         session_start();
         if(isset($_SESSION['order'])){
@@ -198,7 +220,9 @@ static function homepagedef(){
         else
         header('Location: /Progetto/Utente/homelog');
     }
-
+/*
+ * funzione che permette di unfolloware un utente
+ */
     static function unfollow($followed){
 
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
@@ -214,14 +238,16 @@ static function homepagedef(){
             else{
             header('Location: /Progetto/Utente/homelog');}
         }
-
+/*
+ * funzione che permette di seguire un utente
+ */
     }
     static function follow($followed){
 
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
             session_start();
-            if(!FPersistentManager::existFollow($followed,$_SESSION['utente']->getUserName())&&FPersistentManager::exist('username',$followed,'FUtente')){
+            if(!FPersistentManager::existFollow($followed,$_SESSION['utente']->getUserName())&&FPersistentManager::exist('username',$followed,'FUtente')&&$_SESSION['utente']->getUsername()!=$followed){
             FPersistentManager::storeFollower($followed,$_SESSION['utente']->getUserName());
             array_push($_SESSION['followed'],$followed);
             }
@@ -235,7 +261,9 @@ static function homepagedef(){
         }
 
     }
-
+/*
+ * funzione che permette l'inserimento rapido di una serie tv dalla home
+ */
     static function shortadding($id){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -247,7 +275,9 @@ static function homepagedef(){
         }
 
     }
-
+/*
+ * funzione che permette di visualizzare il proprio profilo o quello di un altro utente
+ */
     static function user($username){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -300,7 +330,9 @@ static function homepagedef(){
 
         }
     }
-
+/*
+ * funzione che permette di modificare la password
+ */
     static function modificaPassword(){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -321,7 +353,9 @@ static function homepagedef(){
             }
         }
     }
-
+/*
+ * funzione che permette di modificare l'email
+ */
     static function modificaEmail(){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -343,7 +377,9 @@ static function homepagedef(){
             }
         }
     }
-
+/*
+ * funzione che permette di modificare lo username
+ */
     static function modificaUsername(){
         if(!static::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{

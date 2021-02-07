@@ -1,8 +1,13 @@
 <?php
-
+/*
+ * classe contente funzioni relativi agli episodi
+ */
 
 class CEpisodio
 {
+    /*
+     * funzione che permette di visualizzare una pagina relativa ad un episodio
+     */
     static function info($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -29,7 +34,9 @@ class CEpisodio
             }
         }
     }
-
+/*
+ * funzione che permette di votare un episodio
+ */
     static function vote($voto){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -39,7 +46,7 @@ class CEpisodio
                 if(stripos($_SESSION['location'],'Episodio')!==false){
                     $idarr=$resource = explode('=', $_SESSION['location']);
                     $id=$idarr[1];
-                    if(!FPersistentManager::existval($_SESSION['utente'],$id))
+                    if(!FPersistentManager::existval($_SESSION['utente'],$id)&&$voto>0&&$voto<6)
                     {
                         $voto= new EValutazione($voto,$_SESSION['utente']->getUsername(),$id);
                         FPersistentManager::store($voto);
@@ -56,7 +63,9 @@ class CEpisodio
         }
 
     }
-
+/*
+ * funzione che permette di commentare un episodio
+ */
     static function commento($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -81,7 +90,9 @@ class CEpisodio
         }
     }
 
-
+/*
+ * funzione che permette di modificare un commento in un episodio
+ */
 
     static function modificaCommento($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
@@ -103,7 +114,9 @@ class CEpisodio
 
         }
     }
-
+/*
+ * funzione che permette di cancellare un commento relativo ad un episodio
+ */
     static function eliminaCommento($id){
 
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
@@ -128,7 +141,9 @@ class CEpisodio
         }
 
     }
-
+/*
+ * funzione che permette di impostare un episodio come visto
+ */
     static function visto($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -157,7 +172,9 @@ class CEpisodio
         }
 
     }
-
+/*
+ * funzione che permette di eliminare lo stato di visto da un episodio
+ */
     static function rimuovivisto($id){
 
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
@@ -183,7 +200,9 @@ class CEpisodio
             //header('Location: /Progetto/Utente/homepagedef');
 
         }
-
+/*
+ * funzione che permette di eliminare il proprio voto da un episodio
+ */
     }
 
     static function cancellaVoto($id){

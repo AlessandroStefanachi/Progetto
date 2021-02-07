@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * elabora l'url e richiama le funzione della classe controller
+ */
 
 class CFrontController {
 
@@ -59,7 +61,9 @@ class CFrontController {
             }
         }else static::errore();
     }
-
+/*
+ * funzione per la visualizzazione della pagina di errore
+ */
     static function errore() {
         $view = new VErrore();
         $view->errore();

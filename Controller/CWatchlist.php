@@ -1,18 +1,26 @@
 <?php
-
+/*
+ * classe contente i metodi relativi alle watchlist
+ */
 
 class CWatchlist
 {
+    /*
+     * metodo per aggiungere una serie ad una watchlist
+     */
 static function aggiungiserie ($watch){
     session_start();
-if (!FPersistentManager::existCorr($watch,$_SESSION['adding']));{
+if(!FPersistentManager::existCorr($watch,$_SESSION['adding'])){
 FPersistentManager::storeCorrispondenze($watch,$_SESSION['adding']);
-unset($_SESSION['adding']);}//dovrebbe essere un array
+unset($_SESSION['adding']);}
     if(isset($_SESSION['location']))
 header('Location: /Progetto'.$_SESSION['location']);
 else header('Location: /Progetto/Utente/homelog');
 
 }
+/*
+ * metodo per visualizzare una watchlist
+ */
 static function info($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else{
@@ -34,7 +42,9 @@ static function info($id){
         }
     }
 }
-
+/*
+ * metodo  per rendere privata una watchlist
+ */
 static function setPrivato($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else{
@@ -57,7 +67,9 @@ static function setPrivato($id){
     }
 
 }
-
+/*
+ * metodo per rendere pubblica una watchlist
+ */
 
 static function setPubblico($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
@@ -79,7 +91,9 @@ static function setPubblico($id){
 
     }
 }
-
+/*
+ * metodo per rimuovere una serie dalla watchlist
+ */
     static function rimuoviserie(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -101,7 +115,9 @@ static function setPubblico($id){
 
         }
     }
-
+/*
+ * metodo per visualizzare la pagina di creazione watchlist
+ */
     static function crea(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -112,7 +128,9 @@ static function setPubblico($id){
             $view->crea($_SESSION['utente'],$serie);
         }
     }
-
+/*
+ * funzione per salvare una nuova watchlist
+ */
     static function salva(){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
@@ -146,6 +164,10 @@ static function setPubblico($id){
             else header('Location: /Progetto/Utente/homepagedef');
         }
     }
+
+    /*
+     * funzione per cancellare una watchlist
+     */
 static function cancella($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else{
@@ -178,6 +200,10 @@ static function cancella($id){
 
     }
 }
+
+/*
+ * funzione per modificare il nome della watchlist
+ */
 static function modificanome($id){
     if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
     else{
@@ -201,7 +227,9 @@ static function modificanome($id){
         }
     }
 }
-
+/*
+ * funzione per modificare la descrizione di una watchlist
+ */
     static function modificadescrizione($id){
         if(!CUtente::verificalogin())header('Location: /Progetto/Utente/homepagedef');
         else{
