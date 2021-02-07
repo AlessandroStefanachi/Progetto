@@ -80,7 +80,7 @@ class FUtente  {
      * Metodo che permette di fare la load dell'utente/i dal database
      * @param $campo campo da confrontare per trovare la riga
      * @param $valoreCampo valore del campo
-     * @return $utenti array di oggetti EUtenteRegistrato
+     * @return $utenti array di oggetti EUtente
      */
     public static function load($campo, $valoreCampo)
     {
@@ -151,7 +151,7 @@ class FUtente  {
     }
 
     /**
-     * Questo metodo restituisce l'oggetto utente (EUtenteRegistrato) che ha il portafoglio EPortafoglio quando effettua il login se la query è andata a buon fine, altrimenti restituisce null
+     * Questo metodo verifica il login di un utente utilizzando la password hashata
      * @param string $username
      */
     public static function loadLoginPWHash($username, $pass)
@@ -234,7 +234,9 @@ class FUtente  {
     {
         return self::$campiParametriciTabella;
     }
-
+/*
+ * metodo che permette di estrarre tutte le istanze dalla tabella utente
+ */
     public static function loadAll(){
         $con = FConnectionDB::getIstanza();
         $righe =  $con->loadAll( FUtente::$nomeTabella);
@@ -301,7 +303,9 @@ class FUtente  {
         return $utenti;
 
     }
-
+/*
+ * metodo per cancellare un'istanza dalla tabella utente
+ */
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();
@@ -310,25 +314,3 @@ class FUtente  {
     }
 }
 
-/**
- * Questo metodo restituisce l'oggetto utente (EUtenteRegistrato) che ha il portafoglio EPortafoglio quando effettua il login se la query è andata a buon fine, altrimenti restituisce null
- * @param string $username
- */
-/*
-   public static function loadLogin($username, $pass) {
-
-       $con = FConnectionDB::getIstanza();
-       $riga = $con->loadVerificaAccesso($username, $pass);
-       $utente = null;
-
-       if(isset($riga)) {
-           $portafoglio = FPersistentManager::load("id", $riga["idPortafoglio"], FPortafoglio::getNomeClasse());
-           $utente = new EUtenteRegistrato(
-               $riga["username"],$riga["nome"],$riga["cognome"],
-               $riga["email"],$riga["password"],$riga["dataNascita"]);
-           $utente->setPortafoglio($portafoglio[0]);
-           $utente->setStato($riga["stato"]);
-           //var_dump($utente->getStato());
-       }
-       return $utente;
-   }*/

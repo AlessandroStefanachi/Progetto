@@ -145,14 +145,23 @@ class FEpisodio
         $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
         return $ris;
     }
-
+    /**
+     * Metodo che permette di aggiornare un campo di una tabella nel database
+     * @param $campo campo da considerare/aggiornare
+     * @param $nuovoValore nuovo valore da inserire
+     * @param $chiave nome del campo chiave primaria della classe interessata
+     * @param $id valore della chiave primaria
+     * @return bool $verifica per vedere se l'update è andato a buon fine o no
+     */
     public static function update($campo, $nuovoValore, $chiave, $id)
     {
         $con = FConnectionDB::getIstanza();
         $verifica = $con->update($campo, $nuovoValore, $chiave, $id, static::$nomeClasse);
         return $verifica;
     }
-
+/*
+ * metodo che viene utilizzato per rimuovere un occorrenza dalla tabella episodio
+ */
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();

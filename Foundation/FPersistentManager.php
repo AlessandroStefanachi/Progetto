@@ -502,24 +502,12 @@ class FPersistentManager
     {
         FValutazione::delete($autore,$id_e);
     }
-    
+/*
+ * metodo generico che permette di comunicare con una generica classe di foundation per estrarne tutte le occorrenze nel db
+ */
     public static function loadAll($nomeClasse){
         $ris=$nomeClasse::loadAll();
         return $ris;
     }
 }
 
-/*
-Metodo che permette di prelevare un utente registrato dal db
-richiamando però il metodo che verifica la corrispondenza della password inserita(in chiaro)
-tramite post e la password in chiaro nel db
-@param $username
-@param $pass è la password
- */
-/*
-public static function loadLogin($username, $pass) {
-    $risultato = null;
-    $risultato = FUtenteRegistrato::loadLogin($username, $pass);
-    return $risultato;
-}
-*/

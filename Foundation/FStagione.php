@@ -26,7 +26,10 @@ class FStagione
         $stmt->bindValue(':id_serieTV', $stagione->getIdSerieTv(), PDO::PARAM_INT);//da aggiungere attributo e metodo
 
     }
-
+    /**
+     * Metodo che permette di fare la store della serie
+     * @param EStagione $stagione
+     */
     public static function store(EStagione $stagione)
     {
         $con = FConnectionDB::getIstanza();
@@ -55,6 +58,13 @@ class FStagione
         }
 
     }
+
+    /**
+     * Metodo che permette di fare la load delle stagiono dal database
+     * @param $campo campo da confrontare per trovare la riga
+     * @param $valoreCampo valore del campo
+     * @return $stagioni array di oggetti EStagioni
+     */
 
     public static function load($campo, $valoreCampo)
     {
@@ -133,19 +143,30 @@ class FStagione
     {
         return self::$campiParametriciTabella;
     }
+
+
+    /*
+     * metodo utilizzato per verificare l esistenza di un'occorrenza all interno della tabella Stagioni
+     */
     public static function exist($campo, $valoreCampo)
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
         return $ris;
     }
-
+/*
+ * metodo utilizzato per aggiornare un'istanza della tabella Stagioni
+ */
     public static function update($campo, $nuovoValore, $chiave, $id)
     {
         $con = FConnectionDB::getIstanza();
         $verifica = $con->update($campo, $nuovoValore, $chiave, $id, static::$nomeClasse);
         return $verifica;
     }
+
+    /*
+     * metodo utilizzato per eliminare un'occorrenza dalla tabella stagione
+     */
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();

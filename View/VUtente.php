@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * classe per la visualizzazione delle pagine relative all'utente
+ */
 
 class VUtente
 {
@@ -10,6 +12,9 @@ class VUtente
     public function __construct() {
         $this->smarty = SetupSmarty::configura();
     }
+    /*
+     * funzione per viusalizzare la pagina di login ed eventuali errori di registrazione di login o registrazione
+     */
     public function  showHome($serie,$s,$errlog,$errreg){
        // $s=array();
         //foreach ($serie as $a)array_push($s,base64_encode($a->getCopertina()->getImmagine()));
@@ -40,6 +45,10 @@ class VUtente
         $this->smarty->display("homepagedef.tpl");
 
     }
+
+    /*
+     * funzione che permetta la visualizzazione della homepage per un utente loggato
+     */
     public function  showHomelog($serie,$cop,$seguiti,$genere,$filtro,$watch,$Cwatch,$type,$id,$watchlist,$utente){
         $this->smarty->assign("serie",$serie);
         $this->smarty->assign("cop",$cop);
@@ -54,7 +63,9 @@ class VUtente
         $this->smarty->assign("utente",$utente);
         $this->smarty->display("homelog.tpl");
     }
-
+/*
+ * funzione per la visualizzazione del profilo di un utente
+ */
     public function ownProfile($utente,$self,$seguiti,$pwedit,$emailedit,$usernameedit,$watchlist){
         $this->smarty->assign("utente",$utente);
         $this->smarty->assign("self",$self);
@@ -66,7 +77,9 @@ class VUtente
         $this->smarty->assign("watchlist",$watchlist);
         $this->smarty->display("ownprofile.tpl");
     }
-
+/*
+ * funzione che visualizza la pagina di bann
+ */
     public function banned($utente){
         $this->smarty->assign("utente",$utente);
         $this->smarty->display('banned.tpl');

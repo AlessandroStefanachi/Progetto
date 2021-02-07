@@ -26,7 +26,10 @@ class FWatchlist
         $stmt->bindValue(':proprietario', $watchlist->getProprietario(), PDO::PARAM_STR);//DA METTERE IN ENTITY
         $stmt->bindValue(':id', NULL, PDO::PARAM_INT);//DA METTERE IN ENTITY
     }
-
+    /**
+     * Metodo che permette di fare la store del commento
+     * @param EWatchlist $watchlist
+     */
     public static function store(EWatchlist $watchlist)
     {
         $con = FConnectionDB::getIstanza();
@@ -44,7 +47,12 @@ class FWatchlist
 
     }
 
-
+    /**
+     * Metodo che permette di fare la load dell'utente/i dal database
+     * @param $campo campo da confrontare per trovare la riga
+     * @param $valoreCampo valore del campo
+     * @return $utenti array di oggetti EWatchlist
+     */
     public static function load($campo, $valoreCampo)
     {
 
@@ -124,20 +132,27 @@ class FWatchlist
     {
         return self::$campiParametriciTabella;
     }
-
+/*
+ * metodo utilizzato per verficare l esistenza di un'occorrenza nella tabella Watchlist
+ */
     public static function exist($campo, $valoreCampo)
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
         return $ris;
     }
-
+/*
+ * metodo utilizzato per estrarre tutti gli id dalla tabella watchlist
+ */
     public static function getIDfrom($campo,$valoreCampo){
         $con = FConnectionDB::getIstanza();
         $ris = $con->getIDfrom(static::getNomeTabella(),$campo, $valoreCampo);
         return $ris;
     }
-
+/*
+ * metodo utilizzato per verificare l'esistenza di un'occorrenza nella tabella watchlist
+ *
+ */
     public static function update($campo, $nuovoValore, $chiave, $id){
 
         $con = FConnectionDB::getIstanza();
@@ -145,6 +160,9 @@ class FWatchlist
         return $righe;
 
     }
+    /*
+     * metodo utilizzato per eliminare un'occorrenza dalla tabella watchlist
+     */
 
     public static function delete($id)
     {
@@ -152,7 +170,9 @@ class FWatchlist
         $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
-
+/*
+ * metodo utilizzata per eliminare un occorrenza della tabella
+ */
     public static function loadAll(){
         $con = FConnectionDB::getIstanza();
         $righe =  $con->loadAll(FWatchlist::$nomeTabella);

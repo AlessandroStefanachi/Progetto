@@ -35,7 +35,12 @@ class FValutazione
         $con = FConnectionDB::getIstanza();
         $con->store($valutazione, static::$nomeClasse);
     }
-
+    /**
+     * Metodo che permette di fare la load dell'utente/i dal database
+     * @param $campo campo da confrontare per trovare la riga
+     * @param $valoreCampo valore del campo
+     * @return $utenti array di oggetti EValutazione
+     */
     public static function load($campo, $valoreCampo)
     {
 
@@ -97,13 +102,19 @@ class FValutazione
     {
         return self::$campiParametriciTabella;
     }
+
+    /*
+     * metodo utlizzato per verificare l'esistenza di un occorrenza all'interno della tabella valutazione
+     */
     public static function existval($id_w, $id_s)
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->existvote($id_w,$id_s);
         return $ris;
     }
-
+/*
+ * metodo utilizzato per estrarre tutte le occorrenze dalla tabella valutazione
+ */
     public static function loadAll(){
         $con = FConnectionDB::getIstanza();
         $righe =  $con->loadAll( static::$nomeTabella);
@@ -126,7 +137,9 @@ class FValutazione
 
         return $valutazioni;
     }
-
+/*
+ * metodo utilizzato per rimuovere un occorrenza dalla tabella Valutazioni
+ */
     public static function delete($autore,$id_e)
     {
         $con = FConnectionDB::getIstanza();

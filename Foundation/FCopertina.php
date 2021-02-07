@@ -16,7 +16,7 @@ class FCopertina
      * Metodo che associa ai campi parametrici precedentemente messi nella query i valori degli attributi
      * dell'EEpisodio corrispondenti
      * @param PDOStatement $stmt
-     * @param ECommento $commento che deve essere salvato sul db
+     * @param ECopertina $copertina che deve essere salvato sul db
      */
     public static function bind($stmt, ECopertina $copertina)
     {
@@ -30,14 +30,19 @@ class FCopertina
 
     /**
      * Metodo che permette di fare la store del commento
-     * @param ECommento $commento
+     * @param ECopertina $copertina
      */
     public static function store($copertina)
     {
         $con = FConnectionDB::getIstanza();
         $con->store($copertina, static::$nomeClasse);
     }
-
+    /**
+     * Metodo che permette di fare la load di commenti dal database
+     * @param $campo campo da confrontare per trovare la riga
+     * @param $valoreCampo valore del campo
+     * @return $partite array di oggetti ECopertina
+     */
     public static function load($campo, $valoreCampo)
     {
 
@@ -97,6 +102,14 @@ class FCopertina
     {
         return self::$campiParametriciTabella;
     }
+    /**
+     * Metodo che permette di aggiornare un campo di una tabella nel database
+     * @param $campo campo da considerare/aggiornare
+     * @param $nuovoValore nuovo valore da inserire
+     * @param $chiave nome del campo chiave primaria della classe interessata
+     * @param $id valore della chiave primaria
+     * @return bool $verifica per vedere se l'update è andato a buon fine o no
+     */
 
     public static function update($campo, $nuovoValore, $chiave, $id)
     {
@@ -104,14 +117,18 @@ class FCopertina
         $verifica = $con->update($campo, $nuovoValore, $chiave, $id, static::$nomeClasse);
         return $verifica;
     }
-
+    /*
+     * Metodo che viene utilizzato per cancellare un'occorrenza dalla tabella commento
+     */
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
-
+/*
+ * metodo per verificare l'esistenza di una specifica occorrenza nella tabella copertina
+ */
     public static function exist($campo, $valoreCampo)
     {
         $con = FConnectionDB::getIstanza();

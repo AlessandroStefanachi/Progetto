@@ -25,7 +25,7 @@ class FCommento
         $stmt->bindValue(':data', $commento->getData(), PDO::PARAM_STR);
         $stmt->bindValue(':ora', $commento->getOra(), PDO::PARAM_STR);
         $stmt->bindValue(':autore', $commento->getAutore(), PDO::PARAM_STR);
-        $stmt->bindValue(':id_episodio', $commento->getIdEpisodio(), PDO::PARAM_INT);//aggiungere getIdEpisodio e l'attributo id_episodio
+        $stmt->bindValue(':id_episodio', $commento->getIdEpisodio(), PDO::PARAM_INT);
     }
 
     /**
@@ -37,7 +37,12 @@ class FCommento
         $con = FConnectionDB::getIstanza();
         $con->store($commento, static::$nomeClasse);
     }
-
+    /**
+     * Metodo che permette di fare la load dei commenti dal database
+     * @param $campo campo da confrontare per trovare la riga
+     * @param $valoreCampo valore del campo
+     * @return $partite array di oggetti Ecommento
+     */
     public static function load($campo, $valoreCampo)
     {
 
@@ -60,6 +65,15 @@ class FCommento
 
         return $commenti;
     }
+
+    /**
+     * Metodo che permette di aggiornare un campo di una tabella nel database
+     * @param $campo campo da considerare/aggiornare
+     * @param $nuovoValore nuovo valore da inserire
+     * @param $chiave nome del campo chiave primaria della classe interessata
+     * @param $id valore della chiave primaria
+     * @return bool $verifica per vedere se l'update è andato a buon fine o no
+     */
 
 public static function update($campo, $nuovoValore, $chiave, $id){
 
@@ -103,13 +117,18 @@ public static function update($campo, $nuovoValore, $chiave, $id){
     {
         return self::$campiParametriciTabella;
     }
-
+/*
+ * Metodo che viene utilizzato per cancellare un'occorrenza dalla tabella commento
+ */
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
+    /*
+     * metodo che viene usato per estrarre tutti i commenti dalla tabella commento
+     */
 
     public static function loadAll(){
         $con = FConnectionDB::getIstanza();

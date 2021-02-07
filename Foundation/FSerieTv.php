@@ -29,7 +29,10 @@ class FSerieTv
 
     }
 
-
+    /**
+     * Metodo che permette di fare la store della serie
+     * @param ESerieTv $serie
+     */
     public static function store(ESerieTv $serie)
     {
         $con = FConnectionDB::getIstanza();
@@ -67,6 +70,12 @@ class FSerieTv
 
     }
 
+    /**
+     * Metodo che permette di fare la load delle serie tv dal database
+     * @param $campo campo da confrontare per trovare la riga
+     * @param $valoreCampo valore del campo
+     * @return $episodio array di oggetti EEpisodio
+     */
     public static function load($campo, $valoreCampo)
     {
 
@@ -113,7 +122,9 @@ class FSerieTv
         return $serie;
     }
 
-
+/*
+ * metodo che permette di estrarre tutte le istanze dalla tabella serieTv
+ */
     public static function loadAll()
     {
 
@@ -201,21 +212,28 @@ public static function getId(){
     return $id;
 }
 
-
+/*
+ * funzione che verifica l'esistenza di un'occorrenza all'interno del db
+ *
+ *  */
     public static function exist($campo, $valoreCampo)
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->exist($campo, $valoreCampo, static::getNomeTabella());
         return $ris;
     }
-
+/*
+ * funzione per eliminare un occorrenza dalla tabella SerieTv
+ */
     public static function delete($id)
     {
         $con = FConnectionDB::getIstanza();
         $ris = $con->delete(static::getNomeTabella(),$id,'id');
         return $ris;
     }
-
+/*
+ * funzione per aggiornare un'occorrenza della tabella SerieTv
+ */
     public static function update($campo, $nuovoValore, $chiave, $id)
     {
         $con = FConnectionDB::getIstanza();
